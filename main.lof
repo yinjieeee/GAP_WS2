@@ -1,0 +1,18 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1}{\ignorespaces $\ell = 0$ 至 $5$ 的 FOM 收斂歷程。藍色虛線為每次迭代的原始 FOM 值；紅色虛線為 best-so-far 追蹤值；紫色垂直線標示 $\beta $ 漸進策略切換點 ($\beta _\text {final} = 512$)。}}{41}{}%
+\contentsline {figure}{\numberline {2}{\ignorespaces $\ell = 0$ 至 $5$ 的模態純度收斂歷程。藍色虛線為各迭代瞬時值；紅色虛線為 best-so-far 追蹤值；紫色垂直線為 $\beta $ 切換點。右上角標示最終最佳 Purity 值。}}{42}{}%
+\contentsline {figure}{\numberline {3}{\ignorespaces $\ell = 0$ 至 $5$ 最終收斂的 GaP/空氣二元介質密度分佈圖 ($\beta = 512$，二值化結構)。黑色代表 GaP，折射率 $n = 3.31$；白色代表空氣，折射率 $n = 1$。各結構中央可見與目標拓樸荷對應的 $\ell $ 重螺旋對稱幾何。}}{43}{}%
+\contentsline {figure}{\numberline {4}{\ignorespaces $\ell = 0$ 至 $5$ 在設計層正上方近場監測面的電場分佈。各組四格子圖：左上 LCP 相位，右上 $|\text {LCP}|^2$ 歸一化強度，左下 RCP 相位，右下 $|\text {RCP}|^2$ 歸一化強度。}}{44}{}%
+\contentsline {figure}{\numberline {5}{\ignorespaces $\ell = 0$ 至 $5$ 的遠場 LG 模態分析 ($z = 10\,z_R$)。各組四格子圖：左上模擬 LG$_{\ell ,0}$ 相位，右上模擬 LG$_{\ell ,0}$ 強度，左下目標 LG$_{\ell ,0}$ 相位，右下目標 LG$_{\ell ,0}$ 強度。圖頂部標示對應的 Purity 與 $|\text {Overlap}|^2$ 值。}}{45}{}%
+\contentsline {figure}{\numberline {6}{\ignorespaces $\ell = 5$ 的光學手性傳播演化圖。上圖：$z = 0.0z_{R}$ 至 $0.9 z_{R}$；下圖：$z = 1.0z_{R}$ 至 $10.0 z_{R}$。}}{46}{}%
+\contentsline {figure}{\numberline {7}{\ignorespaces $\ell = 0$ 至 $5$ 的近場光學手性密度分佈。左欄：原始手性密度 $C$；右欄：歸一化手性密度 $C/|C|_\text {max}$。近場呈現 LCP 與 RCP 混合分佈，其中 LCP 佔據較多。}}{47}{}%
+\contentsline {figure}{\numberline {8}{\ignorespaces $\ell = 0$ 至 $5$ 的遠場光學手性密度分佈 ($z = 10\,z_R$)。左欄：原始手性密度 $C$；右欄：歸一化手性密度 $C/|C|_\text {max}$。遠場光斑範圍內呈現純粹且均勻的 RCP (紅色負值) 手性分佈。}}{48}{}%
+\contentsline {figure}{\numberline {9}{\ignorespaces $\ell = 0$ 至 $5$ 的遠場相位纏繞驗證。子圖左欄：在峰值半徑處沿角向取樣的包裹相位；子圖右欄：展開相位 (橙色)與理想 $\ell \times 2\pi $ 斜率 (黑色虛線)比較。所有數據展開相位總量與目標拓樸荷誤差 $< 1\%$。}}{49}{}%
+\contentsline {figure}{\numberline {10}{\ignorespaces 偏振交叉激發下之遠場 OAM 模態純度對比 ($\ell = 3$)。(a) 目標偏振 (LCP) 與 (b) 反向偏振 (RCP) 光源照射同一最佳化結構的遠場模態分佈。當使用 RCP 光源入射時，$\ell = 3$ 模態純度暴跌至僅 0.84\%，證實該結構具備極強的圓偏振篩選能力。}}{50}{}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {11}{\ignorespaces Three simple graphs}}{51}{}%
+\addvspace {10\p@ }
+\contentsfinish 
