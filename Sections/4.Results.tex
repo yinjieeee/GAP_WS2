@@ -92,16 +92,16 @@ $\ell = 0$ 至 $5$ 的最終量化結果彙整於表~\ref{tab:results_summary}�
 \centering
 \caption{$\ell = 0$ 至 $5$ 的效能評估彙整 ($z = 10\,z_R$ 遠場平面)。}
 \label{tab:results_summary}
-    \begin{tabular}{cccc}
+    \begin{tabular}{ccccc}
         \hline
-        $\ell$ & 目標模態 & Purity  (\%) & $|\text{Overlap}|^2$\\
+        $\ell$ & 目標模態 & Purity  (\%) & $|\text{Overlap}|^{2}$ & FOM\\
         \hline
-        0 & LG$_{0,0}$ & 96.81 & 60.92 \\
-        1 & LG$_{1,0}$ & 98.66 & 53.88 \\
-        2 & LG$_{2,0}$ & 97.96 & 7.99  \\
-        3 & LG$_{3,0}$ & 94.13 & 18.69 \\
-        4 & LG$_{4,0}$ & 81.94 & 4.00  \\
-        5 & LG$_{5,0}$ & 82.62 & 3.96  \\
+        0 & LG$_{0,0}$ & 96.81 & 60.92 & 0.38\\
+        1 & LG$_{1,0}$ & 98.66 & 53.88 &  0.39\\
+        2 & LG$_{2,0}$ & 97.96 & 7.99 & 0.19\\
+        3 & LG$_{3,0}$ & 94.13 & 18.69 & 0.23\\
+        4 & LG$_{4,0}$ & 81.94 & 4.00 & -0.06 \\
+        5 & LG$_{5,0}$ & 82.62 & 3.96 & -0.05\\
         \hline
     \end{tabular}
 \end{table}
@@ -327,9 +327,10 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 \begin{figure}[htb] 
 \centering
 	\includegraphics[width=0.7\textwidth]{img/020_ff_iter_282_beta_512.00.png}
-	\\ (a) 目標偏振 (LCP)
+	\\ (a) 目標偏振 (LCP)\\
 	\includegraphics[width=0.7\textwidth]{img/RCP_ff_iter_000_beta_0.00.png}
 	\\(b) 反向偏振 (RCP) 
  \caption{偏振交叉激發下之遠場 OAM 模態純度對比 ($\ell = 3$)。(a) 目標偏振 (LCP) 與 (b) 反向偏振 (RCP) 光源照射同一最佳化結構的遠場模態分佈。當使用 RCP 光源入射時，$\ell = 3$ 模態純度暴跌至僅 0.84\%，證實該結構具備極強的圓偏振篩選能力。} 
  \label{fig:ff_purity}
  \end{figure}
+ 

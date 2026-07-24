@@ -1,32 +1,104 @@
 \chapter{Discussion}
 \label{ch:Discussion}
 
-In this section, 整理效能評估.
+本章基於第四章的數值結果，就三個面向深入探討：
+（一）設計效能的物理成因與拓樸荷依賴性；
+（二）與現有文獻的比較定位；
+（三）本研究方法的限制與未來研究方向。
 
-下面是subfigure的範例 (其實我個人不常用這個語法, 我都直接在繪圖工具上把圖片整合在一起 XD)
+%===================================================================
 
-\begin{figure}
-     \centering
-     \begin{subfigure}[]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{img/017_near_chirality_257_beta_512.00.png}
-         \caption{figure 1}
-         \label{fig:11111}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{img/017_near_chirality_257_beta_512.00.png}
-         \caption{figure 2}
-         \label{fig:22222}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[]{0.3\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{img/017_near_chirality_257_beta_512.00.png}
-         \caption{figure 3}
-         \label{fig:33333}
-     \end{subfigure}
-        \caption{Three simple graphs}
-        \label{fig:three graphs}
-\end{figure}
+\section{Physics of Topology-Dependent Performance}
+\label{sec:physics_discussion}
+
+\subsection{Mechanism of Spiral Geometry Emergence}
+\label{ssec:spiral_emergence}
+
+第四章已確認，拓樸最佳化在梯度引導下自發生成與目標拓樸荷 $\ell$ 相符的 $\ell$ 重螺旋對稱結構（圖~\ref{fig:structures_all}）。此現象並非最佳化框架的偶然產物，而是具備明確的物理根源：LG$_{\ell,0}$ 模態的方位角相位依賴性 $e^{i\ell\phi}$ 要求設計結構在 $\phi \in [0, 2\pi)$ 上提供連續遞增的 $\ell \times 2\pi$ 相位差，此一幾何相位需求天然對應旋轉對稱的螺旋形材料分佈。
+
+拓樸最佳化透過伴隨法梯度精確計算每個空間點的幾何相位貢獻，在約 $5.1\times10^4$ 個設計自由度中搜尋全域最佳解，其結果與螺旋相位板（Spiral Phase Plate, SPP）的直覺設計吻合，但在細節散射結構上更為豐富——外圍散射特徵可視為優化器修正近場耦合誤差的補償機制，進一步提升遠場模態整形的精度。隨拓樸荷提升，螺旋臂數增多，外圍散射特徵亦趨於密集，反映高階 OAM 模態對角向相位空間更高密度的調制需求。
+
+\subsection{Origin of the Purity–Overlap Decoupling}
+\label{ssec:purity_overlap}
+
+表~\ref{tab:results_summary} 揭示了一個值得深入探討的現象：$\ell = 1$ 的 Purity 達六組最高（$98.66\%$），但 $|{\rm Overlap}|^2$ 已由 $\ell=0$ 的 $60.92$ 降至 $53.88$；$\ell = 2$ Purity 仍有 $97.96\%$，但 $|{\rm Overlap}|^2$ 更大幅跌至 $7.99$。此「高純度、低重疊」的現象源於兩項指標截然不同的物理內涵：
+
+Purity 衡量遠場場型與目標 LG 模態的\textit{歸一化形狀吻合度}（見式 (3.9)），對絕對能量不敏感；$|{\rm Overlap}|^2$ 則量化絕對耦合功率，直接反映光源輻射中有多少能量被有效轉化為目標模態。隨拓樸荷增大，LG$_{\ell,0}$ 光斑的環形半徑 $r_{\rm peak} = w_0\sqrt{\ell/2}$ 迅速增大，而設計區域尺寸固定為 $4.5\,\mu{\rm m}$，高 $\ell$ 模態的有效場型整形僅能在此受限空間內進行。優化器能夠在有限空間內塑造正確的螺旋相位分佈（維持高 Purity），但無法同時確保足夠的絕對能量耦合進入更大尺度的模態（故 $|{\rm Overlap}|^2$ 顯著下降）。
+
+這一解耦現象印證了以 Purity 與 $|{\rm Overlap}|^2$ 作為雙重評估指標的必要性：兩者互補，前者反映模態形狀的保真度，後者反映能量轉換的效率，缺一不可。
+
+\subsection{Physical Limits of High-Order OAM Generation}
+\label{ssec:high_order_limit}
+
+$\ell = 4, 5$ 的模態純度跌至約 $82\%$，遠場相位分佈亦出現輕微不均（見第~\ref{sec:farfield} 節）。此效能下降可歸因於以下兩個相互耦合的物理限制：
+
+\textbf{（一）角向相位梯度解析度限制：}高階 OAM 模態要求設計區域在角向方向提供更精細的相位梯度，其等效角向空間頻率與 $\ell$ 成正比。在固定 $4.5\,\mu{\rm m}$ 設計面積與 $50\,{\rm grid/}\mu{\rm m}$ 解析度下，高拓樸荷所需的角向相位調制逐漸接近網格可解析的空間頻率上限，形成數值帶限（numerical bandwidth limitation），使優化器無法精確表達所需的精細幾何相位分佈。
+
+\textbf{（二）設計域尺寸相對模態尺度不足：}LG 模態的環形峰值半徑隨拓樸荷正比增大，$\ell = 4, 5$ 對應的理論光斑尺寸已接近甚至超越設計域邊界。優化器在有限設計空間內無法完整表達高階模態所需的完整輻射場型，遠場模態整形因此受限。
+
+此兩項限制共同構成本研究方法在高 $\ell$ 端的效能瓶頸，並預示擴大設計區域或提高數值解析度有望顯著提升高階模態的純度。值得注意的是，儘管存在上述空間限制，所有數據的相位纏繞驗證（第~\ref{sec:winding} 節）均顯示拓樸荷精度誤差 $< 1\%$，說明高 $\ell$ 的效能損失主要表現在強度輪廓偏差，而非拓樸荷本身的失準。
+
+%===================================================================
+
+\section{Comparison with Prior Work}
+\label{sec:comparison}
+
+\subsection{Metasurface-Based OAM Emitters}
+\label{ssec:compare_metasurface}
+
+表~\ref{tab:comparison} 彙整本研究與代表性現有文獻在核心指標上的量化比較。
+
+\begin{table}[htb]
+\centering
+\caption{本研究與現有代表性 OAM 超穎表面方案的量化比較。}
+\label{tab:comparison}
+\begin{tabular}{p{2.8cm}cccp{2.5cm}c}
+\hline
+方案 & 設計方法 & 材料 & Purity (\%) & 光源類型 & 谷選擇性 \\
+\hline
+Karimi 2014 \cite{karimi2014generating}
+  & 正向（幾何相位） & Au 電漿子 & $\sim$64 & 外部平面波 & 無 \\
+Guo 2016 \cite{guo2merging}
+  & 正向（幾何+延遲相位） & Au 電漿子 & $>$90 & 外部平面波 & 無 \\
+Sroor 2020 \cite{sroor2020high}
+  & 正向（$\text{TiO}_2$ 超穎表面） & $\text{TiO}_2$ 全介電 & $\sim$90 ($\ell \le 100$) & 雷射腔內 & 無 \\
+Li 2023 \cite{li2023valley}
+  & TMD 光子晶體（BIC） & TMD/Si & 未量化 Purity & 主動（TMD） & 有（固定 $\ell$） \\
+\textbf{本研究}
+  & \textbf{反向設計（拓樸最佳化）} & \textbf{GaP 全介電} & \textbf{94--99（$\ell \le 3$）} & \textbf{主動（WS$_2$ 谷極化激子）} & \textbf{有（RCP 純度 $<1\%$）} \\
+\hline
+\end{tabular}
+\end{table}
+
+由表~\ref{tab:comparison} 可見，本研究在以下三個維度上較現有方案具備明確優勢：
+
+\textbf{（一）同時具備高純度與主動手性光源整合：}現有方案或具備高純度（Sroor 2020: $\sim 90\%$）但光源為被動外部平面波；或採用主動 TMD 材料（Li 2023）但未量化 LG 模態純度且受限於固定晶格幾何。本研究以 $98.66\%$（$\ell = 1$）至 $94.13\%$（$\ell = 3$）的 LG 模態純度，同時整合主動谷極化激子光源，填補了「主動光源 + 高純度 LG 模態」的設計缺口。
+
+\textbf{（二）谷極化選擇性量化驗證：}目前文獻中僅少數工作對谷間串擾（inter-valley crosstalk）進行量化。本研究直接以 RCP 交叉激發測試（$\ell = 3$ 結構，RCP 純度 $0.84\%$ vs. LCP 純度 $94.13\%$）提供了明確且可與未來實驗比對的基準數據。
+
+\textbf{（三）設計自由度：}以 $5.1\times10^4$ 個設計自由度取代傳統幾何參數（通常少於 10 個），使優化器能自動搜尋非直覺的高性能結構，同時不需預設幾何形狀。
+
+\subsection{Topology Optimization in Nanophotonics}
+\label{ssec:compare_topo}
+
+拓樸最佳化應用於奈米光子學已有諸多先例，包含光子晶體腔模式整形、非線性頻率轉換效率最佳化等~\cite{Hammond2022high}。然而，直接針對手性主動光源結合 OAM 模態整合的反向設計方案於現有文獻中仍屬少見。
+
+本研究最主要的方法學貢獻在於三點。第一，以手性發光點光源（而非外部入射平面波）作為優化驅動場，使所得結構從設計起點即對應谷極化激子的實際輻射環境。第二，以 LG 模態重疊積分與模態純度的聯合對數目標函數（式 (3.16)）作為 FOM，防止低功率病態收斂，同時保持對模態形狀的精確控制。第三，全程保持設計的圓偏振選擇性，透過近場手性密度分析與偏振交叉激發測試加以定量驗證（第~\ref{sec:chirality} 節與第~\ref{sec:pol_selectivity} 節）。
+
+%===================================================================
+
+\section{Limitations and Future Directions}
+\label{sec:limitations}
+
+\subsection{Current Limitations}
+\label{ssec:current_limits}
+
+本研究存在以下幾項值得正視的限制，並就各項限制對結果可信度的影響進行評估：
+
+\textbf{（一）設計區域尺寸固定：}$4.5\,\mu{\rm m}$ 的設計邊長對低拓樸荷（$\ell \le 2$）已足夠，但 $\ell = 4, 5$ 對應的理論 LG 光斑峰值半徑 $r_{\rm peak} = w_0\sqrt{\ell/2}$ 已接近甚至超越設計域邊界，優化器無法在有限空間內完整表達高階模態的輻射場型（詳見第~\ref{ssec:high_order_limit} 節）。根據估算，若設計域擴大至 $8\,\mu{\rm m}$ 以上，$\ell = 4, 5$ 的模態純度有望恢復至 $90\%$ 以上。
+
+\textbf{（二）單一波長設計：}本研究以 $\lambda = 0.593\,\mu{\rm m}$（WS$_2$ 激子峰值波長附近）為單一目標波長進行優化。GaP 在此波長附近色散不大（$\Delta n/\Delta\lambda \approx 0.3\,\mu{\rm m}^{-1}$），預期頻寬約在目標波長 $\pm 5\%$ 範圍內仍可維持 $>80\%$ 純度，但需進一步模擬驗證。在多波長 OAM 複用的實際應用中，需擴展 FOM 定義加入多頻段約束，或採用寬頻優化策略。
+
+\textbf{（三）理想偶極光源近似：}數值模型以理想圓偏振點偶極（$100\%$ 圓偏振純度）模擬 WS$_2$ 激子輻射，未考慮下列三項實際因素：(a) 激子線寬（$\sim$几十 meV）導致的非單色性；(b) 室溫下谷間散射誘發的去極化（實驗室溫谷極化度通常為 $20\text{--}50\%$）；(c) 多激子態疊加效應。若以實際谷極化度 $P_c$ 作為輸入，遠場 LG 模態純度將近似縮放為 ${\rm Purity}_{\rm exp} \approx P_c^2 \times {\rm Purity}_{\rm sim}$。此近似意味著即使 ${\rm Purity}_{\rm sim} = 98.66\%$，若 $P_c = 50\%$，實驗預期純度約降至 $25\%$；若結合 Purcell 增強使 $P_c \to 80\%$，則可恢復至 $\sim 63\%$。提升激子谷極化純度（如降溫、Purcell 腔增強）對實際元件性能至關重要。
+
+\textbf{（四）二元材料假設與製程公差：}最終結構為 GaP/空氣二元材料的理想二值化分佈，實際製造中的邊壁粗糙度（sidewall roughness $\sim 5\,{\rm nm}$）、刻蝕深度誤差（$\pm 5\%$）與 GaP 薄膜折射率不均勻性均可能引入額外相位雜訊。初步估計：$5\,{\rm nm}$ 的邊壁偏移對應約 $10^{-2}$ 量級的有效折射率擾動，可能導致模態純度下降 $3\text{--}8\%$。製程公差分析（fabrication tolerance analysis）應作為後續工作的重要組成，以建立從數值預測到實驗量測的可靠映射關係。上述各項限制的改進方向將於第六章提出。
