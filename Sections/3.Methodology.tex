@@ -19,20 +19,16 @@
 \subsection{Finite-Difference Time-Domain Method}
 
 電磁模擬以時域有限差分法 (Finite-Difference Time-Domain, FDTD) 求解 Maxwell 方程式：
-
 \begin{align}
 \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}, \qquad
 \nabla \times \mathbf{H} = \frac{\partial \mathbf{D}}{\partial t} + \mathbf{J}, \qquad
 \mathbf{B} = \mu \mathbf{H}, \qquad
 \mathbf{D} = \varepsilon \mathbf{E}
 \end{align}
-
 FDTD 方法由 Yee 於 1966 年提出，將電場與磁場分量交錯配置於空間網格節點  (Yee cell)，以蛙跳格式在時域數值迭代\cite{yee1966numerical}。數值穩定性受 Courant–Friedrichs–Lewy  (CFL) 條件約束：
-
 \begin{align}
 \Delta t \le \frac{1}{c\sqrt{(1/\Delta x)^2 + (1/\Delta y)^2 + (1/\Delta z)^2}}
 \end{align}
-
 其中 $\Delta t$ 為時間步長，$c$ 為光速，$\Delta x$、$\Delta y$、$\Delta z$ 為各方向的空間網格大小。計算域邊界採用完全匹配層  (Perfectly Matched Layer, PML) 吸收邊界條件，以模擬開放輻射邊界、抑制人工反射\cite{berenger1994aperfecctly}。
 
 \subsection{Simulation Environment}
@@ -64,11 +60,9 @@ GaP 於激發波長 $\lambda = 0.593\;\mu\text{m}$ 處位於其間接能隙 ($E_
 \subsection{$\text{WS}_2$ Dipole Source and Valley Selection Rule}
 
 $\text{WS}_2$ 單層中單一激子的自發輻射在物理上可視為一電偶極源。在模擬中，依據 K/K$'$ 谷選擇定則，採用下列正交電偶極組態模擬圓偏振自發輻射：
-
 \begin{align}
 \mathbf{p} (t) = p_0\!\left[\hat{x}\,e^{-i\omega_0 t} + i\,\hat{y}\,e^{-i\omega_0 t}\right] f (t)
 \end{align}
-
 其中 $f (t)$ 為時域包絡函數，$\hat{x}$ 與 $\hat{y}$ 分量振幅相等、相位相差 $90^{\circ}$，合成左旋圓偏振 (LCP，$\sigma^+$) 的點光源，對應 K 谷激子躍遷的手性。此為理想化的單一圓偏振等效點光源，未考慮 $\text{WS}_2$ 中實際激子的非均向性躍遷矩或多谷疊加效應 (相關限制見第~\ref{ssec:current_limits} 節)。
 
 \subsection{Optical Chirality Density}
@@ -76,23 +70,17 @@ $\text{WS}_2$ 單層中單一激子的自發輻射在物理上可視為一電偶
 \label{ssec:chirality_def}
 
 光學手性密度 (optical chirality density) 依 Tang and Cohen 於 2010 年提出的定義為\cite{tang2010optical}
-
 \begin{align}
 C = \frac{\varepsilon_0\,\omega}{2}\,\text{Im}\!\left (\mathbf{E}^{*}\cdot\mathbf{H}\right)
 \end{align}
-
 在 MEEP 的歸一化單位制中 ($\varepsilon_0=\mu_0=c=1$，$\omega = 2\pi f$)，此式化簡為
-
 \begin{align}
 C = \pi f\,\text{Im}\!\left (\mathbf{E}^{*}\cdot\mathbf{H}\right)
 \end{align}
-
 $C > 0$ 對應 RCP 主導，$C < 0$ 對應 LCP 主導。為量化局部場相對於理想圓偏振平面波的手性增強程度，進一步定義增強因子 ($g$-factor)：
-
 \begin{align}
 g = \frac{|C|}{C_{{\rm CPL,vac}}}
 \end{align}
-
 其中 $C_{{\rm CPL,vac}}$ 為單位振幅圓偏振平面波於真空中的手性密度參考值\cite{hendry2010ultrasensitive}。
 
 %===================================================================
@@ -110,29 +98,23 @@ g = \frac{|C|}{C_{{\rm CPL,vac}}}
 拓樸最佳化以設計區域內每一空間點的材料密度 $\rho (\mathbf{x})\in[0,1]$ 作為設計變數，透過迭代數值最佳化在連續密度空間中搜尋最佳材料分佈\cite{bendsøe1988generating, sigmund2013topology}。此框架的核心優勢在於不須預設結構拓撲，允許設計空間內的幾何形態自由增減與演變，相較於參數化設計方法具有更高的設計自由度。
 
 設計區域的有效介電函數透過線性材料內插決定：
-
 \begin{align}
 \varepsilon (\mathbf{x}) = \varepsilon_{A} + \bar{\rho} (\mathbf{x})\,\bigl (\varepsilon_{B} - \varepsilon_{A}\bigr)
 \end{align}
-
 其中 $\varepsilon_A$ (空氣，$n=1$)、$\varepsilon_B$ (GaP，$n=3.31$) 分別為兩種設計材料的介電函數，$\bar{\rho}$ 為經過密度過濾與投影處理後的物理密度 (見 3.3.2 節)。
 
 \subsection{Filtering and Projection}
 
 為避免棋盤格效應並考慮最小特徵尺寸的限制，原始設計變數 $\rho$ 先經錐形過濾器 (conic filter) 平滑化\cite{lazarov2011filters}：
-
 \begin{align}
 \tilde{\rho} (\mathbf{x}) = \frac{\displaystyle\sum_{i} w (|\mathbf{x}-\mathbf{x}_i|)\,\rho_i}{\displaystyle\sum_{i} w (|\mathbf{x}-\mathbf{x}_i|)}, \qquad w (r) = \max (0,\; R - r)
 \end{align}
-
 過濾半徑 $R$ 由目標最小特徵尺寸 $0.05\;\mu\text{m}$ 與侵蝕閾值 $\eta_e = 0.75$ 反推計算得到，以確保最終結構線寬可由電子束微影實現。
 
 過濾後的密度 $\tilde{\rho}$ 再經雙曲正切投影 (tanh projection) 逼近二值化\cite{wang2011projection}：
-
 \begin{align}
 \bar{\rho} (\mathbf{x}) = \frac{\tanh (\beta\eta) + \tanh\!\left (\beta\bigl (\tilde{\rho} (\mathbf{x})-\eta\bigr)\right)}{\tanh (\beta\eta) + \tanh\!\left (\beta (1-\eta)\right)}
 \end{align}
-
 其中 $\eta$ 為投影閾值，$\beta$ 為控制投影陡峭程度的參數：$\beta\to 0$ 時結構呈灰階分佈；$\beta\to\infty$ 時趨近二值化。
 
 \textbf{$\beta$ 排程：}直接以高 $\beta$ 值最佳化容易使梯度下降法陷入局部解，故採用 $\beta$ 值連續遞增策略。$\beta$ 初始為 $\beta_0 = 4$，先以 $\sqrt{2}$ 為公比等比遞增至 $128$，隨後以 $2$ 為公比倍增至 $\beta_{\rm max} = 512$。各階段迭代次數上限設定如下：低 $\beta$ 階段 ($\beta \le 32$)給予 $12$ 次迭代，梯度地形平滑收斂較快；中高 $\beta$ 階段 ($32 < \beta \le 512$)給予 $30$ 次迭代，確保二值化結構充分收斂。每一 $\beta$ 階段內記錄 FOM 最佳的迭代結果 (best-so-far snapshot) 作為下一階段的初始結構。
@@ -140,17 +122,13 @@ g = \frac{|C|}{C_{{\rm CPL,vac}}}
 \subsection{Near-to-Far Field Transformation}
 
 設計區域上方的近場監測面記錄完整的電磁場分量後，經近遠場轉換 (Near-to-Far Field Transformation, N2F)得到遠場的模態分佈。N2F 方法基於電磁等效原理\cite{taflove2005computational, balanis2016antenna}：將監測面上的 $\mathbf{E}$、$\mathbf{H}$ 場等效為面電流與面磁流源。
-
 \begin{align}
 \mathbf{J}_s = \hat{n}\times\mathbf{H}, \qquad \mathbf{M}_s = -\hat{n}\times\mathbf{E}
 \end{align}
-
 再以自由空間並矢格林函數將此等效源傳播至任一遠場觀察點：
-
 \begin{align}
 \mathbf{E}_{ff} (\mathbf{r}_{ff}) = \mathcal{G}\!\left[\mathbf{E}_{near},\, \mathbf{H}_{near}\right]
 \end{align}
-
 在最佳化迴圈中，引入可微分的 N2F 架構，使 FOM 的伴隨梯度得以映射回 $\mathcal{G}$，進而計算準確的梯度。最佳化完成後的後處理階段，N2F 同樣用於重建多個傳播距離 $z = k\cdot z_R$ ($k \in \{0, 0.1, \dots, 1.0, 2.0, \dots, 10.0\}$，共 20 組) 的遠場複振幅，藉此驗證螺旋光束的相位結構與手性是否隨傳播穩定維持。
 
 \subsection{Figure of Merit}
@@ -160,35 +138,27 @@ g = \frac{|C|}{C_{{\rm CPL,vac}}}
 最佳化的目標是在遠場監測平面 ($z = 10\,z_R$，其中 $z_R = \pi w_0^2/\lambda$ 為瑞利長度) 使光場逼近目標 LG 模態。§3.4 將說明重疊積分 (Overlap) 與模態純度 (Purity) 的定義；此處說明目標函數的設計動機。
 
 純度本質上是無因次比值，對電磁場的絕對強度不敏感：當模擬總功率 $P_{sim}\to 0$ 時，Purity 仍可維持高值，使最佳化器收斂至耦合效率極低的病態解。為同時兼顧模態形狀保真度與能量耦合效率，引入對絕對重疊強度的對數正則化目標函數：
-
 \begin{align}
 \text{FOM} = \log\!\left (\text{Purity}+\epsilon\right) \;+\; \alpha\,\log\!\left (|\text{Overlap}|^2+\epsilon\right)
 \end{align}
-
 其中 $\epsilon = 10^{-30}$ 為數值穩定項。代入 Purity 定義並利用 $P_{target}=1$，化簡為：
-
 \begin{align}
 \text{FOM} =  (1+\alpha)\,\log\!\left (|\text{Overlap}|^2\right) \;-\; \log\!\left (P_{sim}\right)
 \end{align}
-
 \textbf{權重係數 $\alpha$：}$\alpha$ 控制最佳化器在模態形狀匹配與絕對耦合效率間的相對重視程度。$\alpha$ 過小時，初期容易收斂於低耦合功率的局部解；$\alpha$ 過大時，則犧牲模態純度以換取絕對功率。本研究透過初步試驗選取 $\alpha = 0.1$ 作為兼顧兩者的平衡值。最佳化以最小化為方向，故程式回傳 $-\text{FOM}$。
 
 \subsection{Adjoint Method}
 
 設計變數梯度 $\partial \text{FOM}/\partial \rho_j$ 若以有限差分逐一擾動計算，其計算成本與設計變數數目 $N \approx 5.1\times10^4$ 成正比，不具實用性。伴隨變量法僅需兩次電磁模擬 (一次正向、一次伴隨)，即可取得對所有設計變數的梯度，計算成本與 $N$ 無關\cite{lalau2013adjoint}：
-
 \begin{align}
 \frac{\partial \text{FOM}}{\partial \rho_j} \;\propto\; \text{Re}\!\left[\int_{\Omega_j} \mathbf{E}_{adj} (\mathbf{r}) \cdot \frac{\partial \varepsilon (\mathbf{r})}{\partial \rho_j}\,\mathbf{E}_{fwd} (\mathbf{r})\; dV\right]
 \end{align}
-
 其中 $\mathbf{E}_{fwd}$ 為正向模擬的電磁場，$\mathbf{E}_{adj}$ 為以 FOM 對電磁場的偏微分作為虛擬光源反向注入所得的伴隨電磁場，$\partial\varepsilon/\partial\rho_j$ 由式  (3.7) 的材料內插關係式決定。
 
 在含有密度過濾與投影映射的框架下，FOM 對原始設計變數 $\boldsymbol{\rho}$ 的完整梯度須透過連鎖律逐層反向映射：
-
 \begin{align}
 \frac{\partial \text{FOM}}{\partial \boldsymbol{\rho}} = \frac{\partial \text{FOM}}{\partial \bar\rho}\cdot \frac{\partial \bar\rho}{\partial \tilde\rho}\cdot \frac{\partial \tilde\rho}{\partial \boldsymbol{\rho}}
 \end{align}
-
 利用 MEEP 的伴隨最佳化模組，將 N2F 轉換算子、FOM 以及過濾/投影鏈整合為一可微分計算圖，使梯度得以自動反向傳播至原始設計變數 $\boldsymbol{\rho}$。
 
 \subsection{MMA Update and Complete Optimization Workflow}
@@ -215,13 +185,10 @@ g = \frac{|C|}{C_{{\rm CPL,vac}}}
 \subsection{LG Mode Projection and Mode Overlap Integral}
 
 最佳化目標是使遠場光場逼近特定模態指標 $ (\ell, p)$ 的拉格耳–高斯 (Laguerre–Gaussian, LG)光束。LG 模態複振幅場 $U_{\ell,p} (\rho,\phi,z)$ 的完整數學形式已於 Section 2.1.3 說明；此處直接以其組建左旋圓偏振 (LCP) 目標場：
-
 \begin{align}
 \mathbf{E}_{target} = \frac{U_{\ell,p}}{\sqrt{2}}\hat{x} + \frac{i\,U_{\ell,p}}{\sqrt{2}}\hat{y}
 \end{align}
-
 透過功率歸一化 ($\int |\mathbf{E}_{target}|^2\, dA = 1$)，消除絕對強度差異，使分析聚焦於相位分佈與相對強度輪廓。給定遠場複振幅 $\mathbf{E}_{ff} =  (E_{ff,x}, E_{ff,y})$，模態重疊積分 (mode overlap integral)定義：
-
 \begin{align}
 \text{Overlap} = \int_{A} \!\left (E_{ff,x}\,E_{target,x}^{*} + E_{ff,y}\,E_{target,y}^{*}\right)\! dA
 \end{align}
@@ -229,21 +196,17 @@ g = \frac{|C|}{C_{{\rm CPL,vac}}}
 \subsection{Modal Purity}
 
 基於式  (3.16) 的重疊積分，模態純度定義為
-
 \begin{align}
 \text{Purity} = \frac{|\text{Overlap}|^2}{P_{sim}\cdot P_{target}}, \qquad P_{sim} = \int_A \!\left (|E_{ff,x}|^2+|E_{ff,y}|^2\right)\!dA,\quad P_{target}=1
 \end{align}
-
 Purity 是介於 0 (完全不匹配) 至 1 (完全匹配) 的無因次比值，對場的絕對強度不敏感，適用於評估最終結構與目標 LG 模態的形狀匹配程度。$|\text{Overlap}|^2$ 則反映絕對耦合功率，兩者互補 (詳見第~\ref{ssec:purity_overlap} 節)。
 
 \subsection{Phase Winding Verification}
 
 相位纏繞分析是直接驗證遠場螺旋光束拓樸荷的方法：在遠場強度峰值半徑：
-
 \begin{align}
 r_{\rm peak} = w_0\sqrt{|\ell|/2}
 \end{align}
-
 的圓形路徑上取樣 LCP 電場相位，展開後計算角向總相位變化量，理論上應等於 $\ell \times 2\pi$ ($\ell = 0$ 時另取小半徑圓環以避開中心奇點)。相位纏繞誤差 $|\Delta\ell/\ell|$ 可作為拓樸荷精度的量化指標。
 
 \subsection{Optical Chirality Analysis}
