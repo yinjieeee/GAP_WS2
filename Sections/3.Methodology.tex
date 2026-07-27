@@ -2,15 +2,15 @@
 
 \label{ch:Methodology}
 
-電磁模擬、物理建模與拓樸最佳化構成本章的三條主軸，各節安排如下：
+This chapter is organized around three main themes: electromagnetic simulation, physical modeling, and topology optimization, structured as follows:
 
-3.1 介紹數值模擬工具 (FDTD 方法與 MEEP 套件)；
+3.1 introduces the numerical simulation tools (the FDTD method and the MEEP package);
 
-3.2 完整描述物理模型的幾何配置、材料參數與光源設定，定性架構與具體數值一同呈現；
+3.2 provides a complete description of the physical model—its geometric configuration, material parameters, and source settings—presenting both the qualitative framework and the specific numerical values;
 
-3.3 依最佳化流程順序，逐步說明拓樸最佳化的各核心模組及其實作參數；
+3.3 walks through the core modules of the topology optimization process in order, along with their implementation parameters;
 
-3.4 定義評估最終結構光學性能所採用的各項指標，包含 LG 模態重疊積分、模態純度、相位纏繞數驗證與光學手性密度分析。
+3.4 defines the performance metrics used to evaluate the final structure, including the LG mode overlap integral, mode purity, phase winding verification, and optical chirality density analysis.
 
 %===================================================================
 
@@ -18,22 +18,22 @@
 
 \subsection{Finite-Difference Time-Domain Method}
 
-電磁模擬以時域有限差分法 (Finite-Difference Time-Domain, FDTD) 求解 Maxwell 方程式：
+Electromagnetic simulation is carried out using the finite-difference time-domain (FDTD) method to solve Maxwell's equations:
 \begin{align}
 \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}, \qquad
 \nabla \times \mathbf{H} = \frac{\partial \mathbf{D}}{\partial t} + \mathbf{J}, \qquad
 \mathbf{B} = \mu \mathbf{H}, \qquad
 \mathbf{D} = \varepsilon \mathbf{E}
 \end{align}
-FDTD 方法由 Yee 於 1966 年提出，將電場與磁場分量交錯配置於空間網格節點  (Yee cell)，以蛙跳格式在時域數值迭代\cite{yee1966numerical}。數值穩定性受 Courant–Friedrichs–Lewy  (CFL) 條件約束：
+The FDTD method was proposed by Yee in 1966. It places electric and magnetic field components on staggered spatial grid nodes (Yee cells) and advances them in time using a leapfrog scheme \cite{yee1966numerical}. Numerical stability is governed by the Courant--Friedrichs--Lewy (CFL) condition:
 \begin{align}
 \Delta t \le \frac{1}{c\sqrt{(1/\Delta x)^2 + (1/\Delta y)^2 + (1/\Delta z)^2}}
 \end{align}
-其中 $\Delta t$ 為時間步長，$c$ 為光速，$\Delta x$、$\Delta y$、$\Delta z$ 為各方向的空間網格大小。計算域邊界採用完全匹配層  (Perfectly Matched Layer, PML) 吸收邊界條件，以模擬開放輻射邊界、抑制人工反射\cite{berenger1994aperfecctly}。
+where $\Delta t$ is the time step, $c$ is the speed of light, and $\Delta x$, $\Delta y$, $\Delta z$ are the spatial grid sizes in each direction. The boundaries of the computational domain use perfectly matched layer (PML) absorbing boundary conditions to simulate open radiation boundaries and suppress artificial reflections \cite{berenger1994aperfecctly}.
 
 \subsection{Simulation Environment}
 
-MEEP  (MIT Electromagnetic Equation Propagation) 是一套開源 FDTD 軟體套件，支援任意非均勻介質分佈、寬頻脈衝激發與並行計算\cite{Oskooi2009meep}。其伴隨變量法延伸模組將正向模擬、伴隨模擬、材料內插與投影映射整合為一可微分的計算圖，使目標函數對設計變數的梯度得以透過自動微分框架高效計算\cite{Hammond2022high}。
+MEEP (MIT Electromagnetic Equation Propagation) is an open-source FDTD software package that supports arbitrary non-uniform media distributions, broadband pulse excitation, and parallel computing \cite{Oskooi2009meep}. Its adjoint optimization extension integrates the forward simulation, adjoint simulation, material interpolation, and projection mapping into a differentiable computational graph, allowing gradients of the figure of merit with respect to design variables to be efficiently computed through an automatic differentiation framework \cite{Hammond2022high}.
 
 %===================================================================
 
@@ -41,39 +41,39 @@ MEEP  (MIT Electromagnetic Equation Propagation) 是一套開源 FDTD 軟體套�
 
 \subsection{Simulation Geometry}
 
-模擬計算域採用三層垂直堆疊結構 (見圖~\ref{fig:sim_geometry_a}，圖\ref{fig:sim_geometry_b})：底部為鑽石 (diamond) 高折射率基板 ($n = 2.40$)，中間為單層 $\text{WS}_2$ 激子發光層 ($n = 2.40$，厚度設為 $1/\text{resolution}$，近似原子級單層)，頂部為 GaP (磷化鎵，$n = 3.31$)與空氣 ($n = 1$)二元介質的拓樸最佳化設計層，厚度 $t_{\rm design} = 0.257\;\mu\text{m}$ (對應激發波長 $\lambda = 0.593\;\mu\text{m}$ 下 $2\pi$ 的相位差)。設計層上方設置近場監測面，計算域四周與上下邊界以 PML 封閉。圓偏振點光源嵌於 $\text{WS}_2$ 層，其輻射場向上通過設計層，由近場監測面採集後經近遠場轉換 (N2F) 傳播至遠場觀察平面。
+The simulation domain uses a three-layer vertically stacked structure (see Figures~\ref{fig:sim_geometry_a} and \ref{fig:sim_geometry_b}): at the bottom is a diamond high-index substrate ($n = 2.40$); in the middle is the monolayer $\text{WS}_2$ excitonic emission layer ($n = 2.40$, thickness set to $1/\text{resolution}$, approximating an atomically thin monolayer); on top is the topology optimization design layer composed of two materials, GaP ($n = 3.31$) and air ($n = 1$), with a design thickness of $t_{\rm design} = 0.257\;\mu\text{m}$ (corresponding to a $2\pi$ phase difference at the excitation wavelength $\lambda = 0.593\;\mu\text{m}$). A near-field monitor plane is placed just above the design layer, and PML boundaries close all sides and the top and bottom of the domain. A circularly polarized point source is embedded in the $\text{WS}_2$ layer; its radiated field travels upward through the design layer, is collected by the near-field monitor, and then propagated to the far-field observation plane via near-to-far-field transformation (N2F).
 
-計算域橫向尺寸為 $S_x = S_y = W_{\rm design} + 2\,d_{\rm pml}$，其中設計區域邊長 $W_{\rm design} = 4.5\;\mu\text{m}$，PML 層厚度 $d_{\rm pml} = 0.3\;\mu\text{m}$。空間解析度為 $50\;\text{grid points}/\mu\text{m}$，網格離散化後設計區域共含 $N_x \times N_y = 226 \times 226 \approx 5.1\times10^4$ 個設計自由度，每個節點對應一個獨立的密度設計變數 $\rho_j \in [0,1]$。
+The lateral dimensions of the computational domain are $S_x = S_y = W_{\rm design} + 2\,d_{\rm pml}$, where the design region side length is $W_{\rm design} = 4.5\;\mu\text{m}$ and the PML layer thickness is $d_{\rm pml} = 0.3\;\mu\text{m}$. The spatial resolution is $50\;\text{grid points}/\mu\text{m}$, giving a discretized design region of $N_x \times N_y = 226 \times 226 \approx 5.1\times10^4$ design degrees of freedom, each node corresponding to an independent density design variable $\rho_j \in [0,1]$.
 
-GaP 於激發波長 $\lambda = 0.593\;\mu\text{m}$ 處位於其間接能隙 ($E_g \approx 2.26\;\text{eV}$)之下，在此波長下可近似為低損耗高折射率介質，且與電子束微影及反應離子蝕刻製程相容。
+GaP at the excitation wavelength $\lambda = 0.593\;\mu\text{m}$ lies below its indirect bandgap ($E_g \approx 2.26\;\text{eV}$), so it can be approximated as a low-loss, high-index dielectric at this wavelength, and it is compatible with electron beam lithography and reactive ion etching fabrication processes.
 
 
 
 \subsection{$\text{WS}_2$ Dipole Source and Valley Selection Rule}
 
-$\text{WS}_2$ 單層中單一激子的自發輻射在物理上可視為一電偶極源。在模擬中，依據 K/K$'$ 谷選擇定則，採用下列正交電偶極組態模擬圓偏振自發輻射：
+The spontaneous emission from a single exciton in a monolayer $\text{WS}_2$ can be modeled as an electric dipole source. Following the K/K$'$ valley selection rules, the following pair of orthogonal electric dipoles is used to simulate circularly polarized spontaneous emission:
 \begin{align}
 \mathbf{p} (t) = p_0\!\left[\hat{x}\,e^{-i\omega_0 t} + i\,\hat{y}\,e^{-i\omega_0 t}\right] f (t)
 \end{align}
-其中 $f (t)$ 為時域包絡函數，$\hat{x}$ 與 $\hat{y}$ 分量振幅相等、相位相差 $90^{\circ}$，合成左旋圓偏振 (LCP，$\sigma^+$) 的點光源，對應 K 谷激子躍遷的手性。此為理想化的單一圓偏振等效點光源，未考慮 $\text{WS}_2$ 中實際激子的非均向性躍遷矩或多谷疊加效應 (相關限制見第~\ref{ssec:current_limits} 節)。
+where $f (t)$ is the temporal envelope function, and the $\hat{x}$ and $\hat{y}$ components have equal amplitudes and a $90^{\circ}$ phase difference, together forming a left-circularly polarized (LCP, $\sigma^+$) point source corresponding to the chiral character of K-valley exciton transitions. This is an idealized single circularly polarized equivalent point source and does not account for the actual anisotropic transition dipole moment or multi-valley superposition effects in $\text{WS}_2$ (see Section~\ref{ssec:current_limits} for related limitations).
 
 \subsection{Optical Chirality Density}
 
 \label{ssec:chirality_def}
 
-光學手性密度 (optical chirality density) 依 Tang and Cohen 於 2010 年提出的定義為\cite{tang2010optical}
+The optical chirality density is defined following Tang and Cohen (2010) \cite{tang2010optical}:
 \begin{align}
 C = \frac{\varepsilon_0\,\omega}{2}\,\text{Im}\!\left (\mathbf{E}^{*}\cdot\mathbf{H}\right)
 \end{align}
-在 MEEP 的歸一化單位制中 ($\varepsilon_0=\mu_0=c=1$，$\omega = 2\pi f$)，此式化簡為
+In MEEP's normalized unit system ($\varepsilon_0=\mu_0=c=1$, $\omega = 2\pi f$), this simplifies to:
 \begin{align}
 C = \pi f\,\text{Im}\!\left (\mathbf{E}^{*}\cdot\mathbf{H}\right)
 \end{align}
-$C > 0$ 對應 RCP 主導，$C < 0$ 對應 LCP 主導。為量化局部場相對於理想圓偏振平面波的手性增強程度，進一步定義增強因子 ($g$-factor)：
+$C > 0$ indicates RCP dominance; $C < 0$ indicates LCP dominance. To quantify how much the local field enhances chirality relative to an ideal circularly polarized plane wave, an enhancement factor ($g$-factor) is defined:
 \begin{align}
 g = \frac{|C|}{C_{{\rm CPL,vac}}}
 \end{align}
-其中 $C_{{\rm CPL,vac}}$ 為單位振幅圓偏振平面波於真空中的手性密度參考值\cite{hendry2010ultrasensitive}。
+where $C_{{\rm CPL,vac}}$ is the chirality density reference value for a unit-amplitude circularly polarized plane wave in vacuum \cite{hendry2010ultrasensitive}.
 
 %===================================================================
 
@@ -83,81 +83,81 @@ g = \frac{|C|}{C_{{\rm CPL,vac}}}
 
 \section{Topology Optimization}
 
-本節依最佳化流程順序展開：設計變數參數化 (3.3.1)$\to$ 密度過濾與投影 (3.3.2)$\to$ 近遠場轉換 (3.3.3)$\to$ 目標函數 (3.3.4)$\to$ 伴隨變量法梯度計算 (3.3.5)$\to$ MMA 更新演算法 (3.3.6)。各步驟的實作參數與演算法說明一同呈現。圖~\ref{fig:opt_flowchart} 提供完整最佳化迴圈的視覺化流程。
+This section follows the optimization workflow in order: design variable parameterization (3.3.1) $\to$ density filtering and projection (3.3.2) $\to$ near-to-far-field transformation (3.3.3) $\to$ figure of merit (3.3.4) $\to$ adjoint gradient computation (3.3.5) $\to$ MMA update algorithm (3.3.6). Implementation parameters and algorithmic details are presented alongside each step. Figure~\ref{fig:opt_flowchart} provides a visual overview of the complete optimization loop.
 
 \subsection{Design Variables and Material Interpolation}
 
-拓樸最佳化以設計區域內每一空間點的材料密度 $\rho (\mathbf{x})\in[0,1]$ 作為設計變數，透過迭代數值最佳化在連續密度空間中搜尋最佳材料分佈\cite{bendsøe1988generating, sigmund2013topology}。此框架的核心優勢在於不須預設結構拓撲，允許設計空間內的幾何形態自由增減與演變，相較於參數化設計方法具有更高的設計自由度。
+Topology optimization uses the material density $\rho (\mathbf{x})\in[0,1]$ at each point in the design region as the design variable, and searches for the optimal material distribution in the continuous density space through iterative numerical optimization \cite{bendsøe1988generating, sigmund2013topology}. The key advantage of this framework is that no structural topology needs to be assumed in advance—the geometry in the design space is free to grow, shrink, or change, giving it much higher design freedom than parametric design methods.
 
-設計區域的有效介電函數透過線性材料內插決定：
+The effective dielectric function of the design region is determined by linear material interpolation:
 \begin{align}
 \varepsilon (\mathbf{x}) = \varepsilon_{A} + \bar{\rho} (\mathbf{x})\,\bigl (\varepsilon_{B} - \varepsilon_{A}\bigr)
 \end{align}
-其中 $\varepsilon_A$ (空氣，$n=1$)、$\varepsilon_B$ (GaP，$n=3.31$) 分別為兩種設計材料的介電函數，$\bar{\rho}$ 為經過密度過濾與投影處理後的物理密度 (見 3.3.2 節)。
+where $\varepsilon_A$ (air, $n=1$) and $\varepsilon_B$ (GaP, $n=3.31$) are the dielectric functions of the two design materials, and $\bar{\rho}$ is the physical density after density filtering and projection (see Section 3.3.2).
 
 \subsection{Filtering and Projection}
 
-為避免棋盤格效應並考慮最小特徵尺寸的限制，原始設計變數 $\rho$ 先經錐形過濾器 (conic filter) 平滑化\cite{lazarov2011filters}：
+To avoid checkerboard patterns and respect minimum feature size constraints, the raw design variable $\rho$ is first smoothed by a conic filter \cite{lazarov2011filters}:
 \begin{align}
 \tilde{\rho} (\mathbf{x}) = \frac{\displaystyle\sum_{i} w (|\mathbf{x}-\mathbf{x}_i|)\,\rho_i}{\displaystyle\sum_{i} w (|\mathbf{x}-\mathbf{x}_i|)}, \qquad w (r) = \max (0,\; R - r)
 \end{align}
-過濾半徑 $R$ 由目標最小特徵尺寸 $0.05\;\mu\text{m}$ 與侵蝕閾值 $\eta_e = 0.75$ 反推計算得到，以確保最終結構線寬可由電子束微影實現。
+The filter radius $R$ is back-calculated from the target minimum feature size of $0.05\;\mu\text{m}$ and an erosion threshold $\eta_e = 0.75$, to ensure that the final structural linewidths are achievable by electron beam lithography.
 
-過濾後的密度 $\tilde{\rho}$ 再經雙曲正切投影 (tanh projection) 逼近二值化\cite{wang2011projection}：
+The filtered density $\tilde{\rho}$ is then pushed toward binary values by a hyperbolic tangent projection \cite{wang2011projection}:
 \begin{align}
 \bar{\rho} (\mathbf{x}) = \frac{\tanh (\beta\eta) + \tanh\!\left (\beta\bigl (\tilde{\rho} (\mathbf{x})-\eta\bigr)\right)}{\tanh (\beta\eta) + \tanh\!\left (\beta (1-\eta)\right)}
 \end{align}
-其中 $\eta$ 為投影閾值，$\beta$ 為控制投影陡峭程度的參數：$\beta\to 0$ 時結構呈灰階分佈；$\beta\to\infty$ 時趨近二值化。
+where $\eta$ is the projection threshold and $\beta$ controls how sharply the projection binarizes: $\beta\to 0$ gives a grayscale distribution; $\beta\to\infty$ approaches full binary.
 
-\textbf{$\beta$ 排程：}直接以高 $\beta$ 值最佳化容易使梯度下降法陷入局部解，故採用 $\beta$ 值連續遞增策略。$\beta$ 初始為 $\beta_0 = 4$，先以 $\sqrt{2}$ 為公比等比遞增至 $128$，隨後以 $2$ 為公比倍增至 $\beta_{\rm max} = 512$。各階段迭代次數上限設定如下：低 $\beta$ 階段 ($\beta \le 32$)給予 $12$ 次迭代，梯度地形平滑收斂較快；中高 $\beta$ 階段 ($32 < \beta \le 512$)給予 $30$ 次迭代，確保二值化結構充分收斂。每一 $\beta$ 階段內記錄 FOM 最佳的迭代結果 (best-so-far snapshot) 作為下一階段的初始結構。
+\textbf{$\beta$ schedule:} Starting optimization directly with a high $\beta$ value can trap the gradient descent in local minima, so a strategy of gradually increasing $\beta$ is used. $\beta$ starts at $\beta_0 = 4$, increases geometrically by a factor of $\sqrt{2}$ up to 128, and then doubles to $\beta_{\rm max} = 512$. The maximum number of iterations at each stage is set as follows: low-$\beta$ stages ($\beta \le 32$) get 12 iterations, since the smooth gradient landscape converges faster; mid-to-high-$\beta$ stages ($32 < \beta \le 512$) get 30 iterations to ensure the binarized structure converges fully. At each $\beta$ stage, the iteration result with the best FOM (best-so-far snapshot) is used as the starting structure for the next stage.
 
 \subsection{Near-to-Far Field Transformation}
 
-設計區域上方的近場監測面記錄完整的電磁場分量後，經近遠場轉換 (Near-to-Far Field Transformation, N2F)得到遠場的模態分佈。N2F 方法基於電磁等效原理\cite{taflove2005computational, balanis2016antenna}：將監測面上的 $\mathbf{E}$、$\mathbf{H}$ 場等效為面電流與面磁流源。
+After the near-field monitor plane above the design region records the complete electromagnetic field components, the far-field mode distribution is obtained via near-to-far-field transformation (N2F). The N2F method is based on the electromagnetic equivalence principle \cite{taflove2005computational, balanis2016antenna}: the $\mathbf{E}$ and $\mathbf{H}$ fields on the monitor surface are replaced by equivalent surface electric and magnetic current sources:
 \begin{align}
 \mathbf{J}_s = \hat{n}\times\mathbf{H}, \qquad \mathbf{M}_s = -\hat{n}\times\mathbf{E}
 \end{align}
-再以自由空間並矢格林函數將此等效源傳播至任一遠場觀察點：
+These equivalent sources are then propagated to any far-field observation point using the free-space dyadic Green's function:
 \begin{align}
 \mathbf{E}_{ff} (\mathbf{r}_{ff}) = \mathcal{G}\!\left[\mathbf{E}_{near},\, \mathbf{H}_{near}\right]
 \end{align}
-在最佳化迴圈中，引入可微分的 N2F 架構，使 FOM 的伴隨梯度得以映射回 $\mathcal{G}$，進而計算準確的梯度。最佳化完成後的後處理階段，N2F 同樣用於重建多個傳播距離 $z = k\cdot z_R$ ($k \in \{0, 0.1, \dots, 1.0, 2.0, \dots, 10.0\}$，共 20 組) 的遠場複振幅，藉此驗證螺旋光束的相位結構與手性是否隨傳播穩定維持。
+Inside the optimization loop, a differentiable N2F formulation is introduced so that the adjoint gradient of the FOM can be mapped back through $\mathcal{G}$, enabling accurate gradient computation. During post-processing after optimization, N2F is also used to reconstruct the far-field complex amplitude at multiple propagation distances $z = k\cdot z_R$ ($k \in \{0, 0.1, \dots, 1.0, 2.0, \dots, 10.0\}$, 20 values in total), to verify that the helical beam's phase structure and chirality are stably maintained as the beam propagates.
 
 \subsection{Figure of Merit}
 
 \label{ssec:FOM}
 
-最佳化的目標是在遠場監測平面 ($z = 10\,z_R$，其中 $z_R = \pi w_0^2/\lambda$ 為瑞利長度) 使光場逼近目標 LG 模態。§3.4 將說明重疊積分 (Overlap) 與模態純度 (Purity) 的定義；此處說明目標函數的設計動機。
+The optimization objective is to make the far-field light approach the target LG mode in the far-field monitor plane ($z = 10\,z_R$, where $z_R = \pi w_0^2/\lambda$ is the Rayleigh length). Section 3.4 will explain the definitions of the overlap integral and mode purity; here, the motivation for the FOM design is discussed.
 
-純度本質上是無因次比值，對電磁場的絕對強度不敏感：當模擬總功率 $P_{sim}\to 0$ 時，Purity 仍可維持高值，使最佳化器收斂至耦合效率極低的病態解。為同時兼顧模態形狀保真度與能量耦合效率，引入對絕對重疊強度的對數正則化目標函數：
+Purity is a dimensionless ratio and is insensitive to the absolute intensity of the electromagnetic field: when the simulated total power $P_{sim}\to 0$, Purity can still remain high, which would cause the optimizer to converge to a pathological solution with very low coupling efficiency. To simultaneously account for mode shape fidelity and energy coupling efficiency, a logarithmically regularized FOM based on the absolute overlap intensity is introduced:
 \begin{align}
 \text{FOM} = \log\!\left (\text{Purity}+\epsilon\right) \;+\; \alpha\,\log\!\left (|\text{Overlap}|^2+\epsilon\right)
 \end{align}
-其中 $\epsilon = 10^{-30}$ 為數值穩定項。代入 Purity 定義並利用 $P_{target}=1$，化簡為：
+where $\epsilon = 10^{-30}$ is a numerical stability term. Substituting the Purity definition and using $P_{target}=1$, this simplifies to:
 \begin{align}
 \text{FOM} =  (1+\alpha)\,\log\!\left (|\text{Overlap}|^2\right) \;-\; \log\!\left (P_{sim}\right)
 \end{align}
-\textbf{權重係數 $\alpha$：}$\alpha$ 控制最佳化器在模態形狀匹配與絕對耦合效率間的相對重視程度。$\alpha$ 過小時，初期容易收斂於低耦合功率的局部解；$\alpha$ 過大時，則犧牲模態純度以換取絕對功率。本研究透過初步試驗選取 $\alpha = 0.1$ 作為兼顧兩者的平衡值。最佳化以最小化為方向，故程式回傳 $-\text{FOM}$。
+\textbf{Weight coefficient $\alpha$:} $\alpha$ controls how much the optimizer balances mode shape matching against absolute coupling efficiency. Too small an $\alpha$ and the optimizer tends early on to converge to a low-coupling-power local minimum; too large and it sacrifices mode purity for absolute power. A preliminary search selected $\alpha = 0.1$ as a good balance. Since the optimization minimizes the objective, the code returns $-\text{FOM}$.
 
 \subsection{Adjoint Method}
 
-設計變數梯度 $\partial \text{FOM}/\partial \rho_j$ 若以有限差分逐一擾動計算，其計算成本與設計變數數目 $N \approx 5.1\times10^4$ 成正比，不具實用性。伴隨變量法僅需兩次電磁模擬 (一次正向、一次伴隨)，即可取得對所有設計變數的梯度，計算成本與 $N$ 無關\cite{lalau2013adjoint}：
+Computing the gradient $\partial \text{FOM}/\partial \rho_j$ by finite difference—perturbing each design variable one at a time—would be proportional in cost to the number of design variables $N \approx 5.1\times10^4$, which is impractical. The adjoint-variable method requires only two electromagnetic simulations (one forward, one adjoint) to obtain gradients with respect to all design variables, with cost independent of $N$ \cite{lalau2013adjoint}:
 \begin{align}
 \frac{\partial \text{FOM}}{\partial \rho_j} \;\propto\; \text{Re}\!\left[\int_{\Omega_j} \mathbf{E}_{adj} (\mathbf{r}) \cdot \frac{\partial \varepsilon (\mathbf{r})}{\partial \rho_j}\,\mathbf{E}_{fwd} (\mathbf{r})\; dV\right]
 \end{align}
-其中 $\mathbf{E}_{fwd}$ 為正向模擬的電磁場，$\mathbf{E}_{adj}$ 為以 FOM 對電磁場的偏微分作為虛擬光源反向注入所得的伴隨電磁場，$\partial\varepsilon/\partial\rho_j$ 由式  (3.7) 的材料內插關係式決定。
+where $\mathbf{E}_{fwd}$ is the forward simulation electromagnetic field, $\mathbf{E}_{adj}$ is the adjoint electromagnetic field obtained by injecting the partial derivative of the FOM with respect to the electromagnetic field as a virtual source in reverse, and $\partial\varepsilon/\partial\rho_j$ is determined by the material interpolation relation in equation (3.7).
 
-在含有密度過濾與投影映射的框架下，FOM 對原始設計變數 $\boldsymbol{\rho}$ 的完整梯度須透過連鎖律逐層反向映射：
+In the framework with density filtering and projection mapping, the complete gradient of the FOM with respect to the original design variables $\boldsymbol{\rho}$ must be backpropagated layer by layer using the chain rule:
 \begin{align}
 \frac{\partial \text{FOM}}{\partial \boldsymbol{\rho}} = \frac{\partial \text{FOM}}{\partial \bar\rho}\cdot \frac{\partial \bar\rho}{\partial \tilde\rho}\cdot \frac{\partial \tilde\rho}{\partial \boldsymbol{\rho}}
 \end{align}
-利用 MEEP 的伴隨最佳化模組，將 N2F 轉換算子、FOM 以及過濾/投影鏈整合為一可微分計算圖，使梯度得以自動反向傳播至原始設計變數 $\boldsymbol{\rho}$。
+Using MEEP's adjoint optimization module, the N2F transformation operator, the FOM, and the filtering/projection chain are integrated into a differentiable computational graph, so that gradients are automatically backpropagated to the original design variables $\boldsymbol{\rho}$.
 
 \subsection{MMA Update and Complete Optimization Workflow}
 
-取得梯度後，以 Method of Moving Asymptotes  (MMA) 演算法迭代更新設計變數\cite{svanberg1987method}。相較於梯度下降法或 Adam 最佳化器，MMA 採用凸可分離規劃架構：每次迭代利用當前點的梯度資訊建立滿足凸性與可分離性的近似子問題，並透過動態修正的移動漸近線約束搜尋步幅，兼顧收斂穩定性與計算效率。MMA 求解器透過 NLopt 函式庫實作，設計變數邊界為 $0 \le \rho_j \le 1$\cite{johnson2014nlopt}。
+After obtaining the gradients, the design variables are iteratively updated using the Method of Moving Asymptotes (MMA) algorithm \cite{svanberg1987method}. Compared to gradient descent or Adam optimizers, MMA uses a convex separable programming framework: at each iteration, it builds a convex, separable approximate sub-problem based on current gradient information, and constrains the search step size using dynamically adjusted moving asymptotes, balancing convergence stability and computational efficiency. The MMA solver is implemented via the NLopt library, with design variable bounds $0 \le \rho_j \le 1$ \cite{johnson2014nlopt}.
 
-圖~\ref{fig:opt_flowchart} 呈現完整最佳化迴圈，涵蓋從初始化到結構收斂的全部步驟。
+Figure~\ref{fig:opt_flowchart} shows the complete optimization loop, covering all steps from initialization to structural convergence.
 
 
 %===================================================================
@@ -166,67 +166,67 @@ g = \frac{|C|}{C_{{\rm CPL,vac}}}
 
 \label{sec:metrics}
 
-本節定義評估最佳化結構性能的各項指標。所有評估均基於最終二值化結構 $\bar{\rho}^*$ 的後處理正向模擬結果，評估平面預設於 $z = 10\,z_R$ ($z_R = \pi w_0^2/\lambda$ 為瑞利長度)。
+This section defines the metrics used to evaluate the performance of the optimized structures. All evaluations are based on post-processing forward simulation results of the final binarized structure $\bar{\rho}^*$, and the evaluation plane is set at $z = 10\,z_R$ ($z_R = \pi w_0^2/\lambda$ is the Rayleigh length) by default.
 
 \subsection{LG Mode Projection and Mode Overlap Integral}
 
-最佳化目標是使遠場光場逼近特定模態指標 $ (\ell, p)$ 的拉格耳–高斯 (Laguerre–Gaussian, LG)光束。LG 模態複振幅場 $U_{\ell,p} (\rho,\phi,z)$ 的完整數學形式已於 Section 2.1.3 說明；此處直接以其組建左旋圓偏振 (LCP) 目標場：
+The optimization objective is to make the far-field match a Laguerre--Gaussian (LG) beam with specific mode indices $(\ell, p)$. The full mathematical form of the LG mode complex amplitude $U_{\ell,p} (\rho,\phi,z)$ has been described in Section 2.1.3; here it is directly used to construct the left-circularly polarized (LCP) target field:
 \begin{align}
 \mathbf{E}_{target} = \frac{U_{\ell,p}}{\sqrt{2}}\hat{x} + \frac{i\,U_{\ell,p}}{\sqrt{2}}\hat{y}
 \end{align}
-透過功率歸一化 ($\int |\mathbf{E}_{target}|^2\, dA = 1$)，消除絕對強度差異，使分析聚焦於相位分佈與相對強度輪廓。給定遠場複振幅 $\mathbf{E}_{ff} =  (E_{ff,x}, E_{ff,y})$，模態重疊積分 (mode overlap integral)定義：
+Power normalization ($\int |\mathbf{E}_{target}|^2\, dA = 1$) removes the effect of absolute intensity differences, keeping the analysis focused on the phase distribution and relative intensity profile. Given the far-field complex amplitude $\mathbf{E}_{ff} =  (E_{ff,x}, E_{ff,y})$, the mode overlap integral is defined as:
 \begin{align}
 \text{Overlap} = \int_{A} \!\left (E_{ff,x}\,E_{target,x}^{*} + E_{ff,y}\,E_{target,y}^{*}\right)\! dA
 \end{align}
 
 \subsection{Modal Purity}
 
-基於式  (3.16) 的重疊積分，模態純度定義為
+Based on the overlap integral in equation (3.16), the mode purity is defined as:
 \begin{align}
 \text{Purity} = \frac{|\text{Overlap}|^2}{P_{sim}\cdot P_{target}}, \qquad P_{sim} = \int_A \!\left (|E_{ff,x}|^2+|E_{ff,y}|^2\right)\!dA,\quad P_{target}=1
 \end{align}
-Purity 是介於 0 (完全不匹配) 至 1 (完全匹配) 的無因次比值，對場的絕對強度不敏感，適用於評估最終結構與目標 LG 模態的形狀匹配程度。$|\text{Overlap}|^2$ 則反映絕對耦合功率，兩者互補 (詳見第~\ref{ssec:purity_overlap} 節)。
+Purity is a dimensionless ratio between 0 (complete mismatch) and 1 (perfect match), insensitive to the absolute field intensity, and is suitable for evaluating how well the final structure matches the target LG mode in shape. $|\text{Overlap}|^2$ quantifies the absolute coupling power. The two are complementary (see Section~\ref{ssec:purity_overlap} for details).
 
 \subsection{Phase Winding Verification}
 
-相位纏繞分析是直接驗證遠場螺旋光束拓樸荷的方法：在遠場強度峰值半徑：
+Phase winding analysis is the direct method for verifying the topological charge of the far-field helical beam: the LCP electric field phase is sampled along a circular path at the far-field intensity peak radius:
 \begin{align}
 r_{\rm peak} = w_0\sqrt{|\ell|/2}
 \end{align}
-的圓形路徑上取樣 LCP 電場相位，展開後計算角向總相位變化量，理論上應等於 $\ell \times 2\pi$ ($\ell = 0$ 時另取小半徑圓環以避開中心奇點)。相位纏繞誤差 $|\Delta\ell/\ell|$ 可作為拓樸荷精度的量化指標。
+After unwrapping, the total azimuthal phase change is calculated; it should ideally equal $\ell \times 2\pi$ ($\ell = 0$ uses a small-radius circle to avoid the central singularity). The phase winding error $|\Delta\ell/\ell|$ serves as a quantitative indicator of topological charge accuracy.
 
 \subsection{Optical Chirality Analysis}
 
 \label{ssec:chirality_analysis}
 
-光學手性密度 (定義見式  (3.4)– (3.6)) 分別應用於兩個觀察平面：
+The optical chirality density (defined in equations (3.4)--(3.6)) is evaluated at two observation planes:
 
 \begin{enumerate}
-  \item \textbf{近場面} (設計層正上方，$z = 0^+$)：評估奈米結構在近場對圓偏振的選擇性增強程度，反映結構對 K 谷 LCP 輻射的局域手性響應。
-  \item \textbf{遠場面} ($z = 10\,z_R$)：驗證近場手性特徵是否於遠場傳播後仍保留，確認漸逝波衰減後遠場傳播場的偏振純度。
+  \item \textbf{Near-field plane} (just above the design layer, $z = 0^+$): Evaluates how selectively the nanostructure enhances circular polarization in the near field, reflecting the local chiral response of the structure to the K-valley LCP radiation.
+  \item \textbf{Far-field plane} ($z = 10\,z_R$): Verifies whether the near-field chiral character is preserved after propagation to the far field, confirming the polarization purity of the propagating field after evanescent wave decay.
 \end{enumerate}
 
-此外，為分析手性沿傳播軸的演化機制，計算 $z = k\cdot z_R$ ($k = 0.0, 0.1, \dots, 1.0, 2.0, \dots, 10.0$) 共 20 個橫截面的手性密度分佈，建立從近場到遠場的完整演化圖像 (見第~\ref{ssec:chirality_prop} 節)。
+In addition, to analyze how chirality evolves along the propagation axis, the chirality density distribution is computed at 20 cross-sections, $z = k\cdot z_R$ ($k = 0.0, 0.1, \dots, 1.0, 2.0, \dots, 10.0$), building a complete picture of the evolution from near field to far field (see Section~\ref{ssec:chirality_prop}).
 
 
 \begin{figure}[htb]
 \centering
     \includegraphics[width=1.0\textwidth]{img/xz_structure_waist.png}
-\caption{模擬計算域剖面示意圖。由下而上依序為：PML 吸收邊界 (底部)、鑽石基板 ($n=2.40$)、單層 WS$_2$ 激發層 (含圓偏振偶極點光源)、GaP/空氣拓樸最佳化設計層 ($t_{\rm design}=0.257\;\mu$m)、近場監測面 (紅色虛線)、空氣區域，以及 PML (頂部與側邊)。近場監測面所採集的電磁場經近遠場轉換 (N2F) 傳播至遠場觀察平面。}
+\caption{Cross-sectional diagram of the simulation computational domain. From bottom to top: PML absorbing boundary (bottom), diamond substrate ($n=2.40$), monolayer WS$_2$ excitation layer (with circularly polarized dipole point source), GaP/air topology optimization design layer ($t_{\rm design}=0.257\;\mu$m), near-field monitor plane (red dashed line), air region, and PML (top and sides). The electromagnetic field collected by the near-field monitor is propagated to the far-field observation plane via near-to-far-field transformation (N2F).}
 \label{fig:sim_geometry_a}
 \end{figure}
 
 \begin{figure}[htb]
 \centering
     \includegraphics[width=0.75\textwidth]{img/xz_structure.png}
-\caption{模擬計算域剖面示意圖。圖中標示空間座標系與近遠場轉換投影之目標遠場觀察高度。}
+\caption{Cross-sectional diagram of the simulation computational domain showing the spatial coordinate system and the target far-field observation height for the near-to-far-field transformation projection.}
 \label{fig:sim_geometry_b}
 \end{figure}
 
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=1.0\textwidth]{img/to_workflow.pngㄉ}
-\caption{拓樸最佳化迭代流程圖。每一輪迭代依序執行：正向 FDTD 模擬、N2F 遠場轉換、FOM 計算、伴隨模擬、鏈式梯度計算以及 MMA 更新。達到迭代上限後，若 $\beta < \beta_{\rm max}$ 則增大 $\beta$ 繼續最佳化 (漸進二值化)；直至 $\beta = \beta_{\rm max} = 512$ 收斂後，輸出最終二值化結構 $\bar{\rho}^*$。}
+\includegraphics[width=1.0\textwidth]{img/to_workflow.png}
+\caption{Topology optimization iteration flowchart. Each iteration performs, in order: forward FDTD simulation, N2F far-field transformation, FOM calculation, adjoint simulation, chain-rule gradient computation, and MMA update. After reaching the iteration limit, if $\beta < \beta_{\rm max}$, $\beta$ is increased and optimization continues (progressive binarization); once $\beta = \beta_{\rm max} = 512$ and convergence is reached, the final binarized structure $\bar{\rho}^*$ is output.}
 \label{fig:opt_flowchart}
 \end{figure}

@@ -1,8 +1,3 @@
-[[intro 0724]]
-
-改了motivation,，因為和2.3高重複，把1.2保留概念性描述
-
-
 \chapter{Introduction}
 
 \label{ch:intro}
@@ -11,49 +6,49 @@
 
 \subsection{OAM and Future Optical Communications}
 
-傳統上，光通訊主要依賴空間、時間、波長、振幅與偏振等自由度來調變訊號。然而，隨著全球數據流量迎來爆炸性成長，傳統自由度所組成的多工系統在容量提升上，逐漸面臨頻譜效率、功耗與系統複雜度等實際工程限制。因此，探索新型態的多維度光場調變技術，成為下一代光通訊技術發展的重要方向。
+Traditional optical communications rely on spatial, temporal, wavelength, amplitude, and polarization degrees of freedom to encode information. However, as global data traffic continues to grow at an explosive rate, multiplexing systems built on these conventional degrees of freedom are running into practical engineering limits in terms of spectral efficiency, power consumption, and system complexity. This has pushed researchers to look for new ways to modulate light fields in multiple dimensions, which is now a key direction for next-generation optical communications.
 
-在這些新興的光場自由度中，軌道角動量 (Orbital Angular Momentum, OAM) 以其獨特的螺旋相位結構受到廣泛關注。攜帶 OAM 的光束相位會隨方位角改變(方位角相位依賴性，以拓樸電荷 $\ell$ 表示，在理論上可取任意整數值。由於不同拓樸電荷的 OAM 模態之間彼此正交，能夠提供空間複用額外的空間模態自由度，在不額外佔用頻譜資源的前提下提升頻譜效率。
+Among the emerging light-field degrees of freedom, orbital angular momentum (OAM) has attracted broad attention because of its unique helical phase structure. A beam carrying OAM has a phase that varies with the azimuthal angle—described by a topological charge $\ell$ that can in principle take any integer value. Because OAM modes with different topological charges are mutually orthogonal, they provide an additional set of spatial mode channels for multiplexing, boosting spectral efficiency without consuming extra spectral bandwidth.
 
-這種在自由空間光通訊與無線傳輸的 OAM 技術，已在諸多文獻中獲得廣泛驗證；其中 Willner 等人對 OAM 通訊技術進行的文獻回顧，更奠定了 OAM 在下一代高容量光學通訊中的關鍵地位\cite{willner2015optical}。除了經典光通訊外，OAM 光束在高維度量子資訊處理等前沿光子學領域中，亦展現出極高的應用價值。
+This OAM technology for free-space optical communications and wireless transmission has been widely demonstrated in the literature; the comprehensive review by Willner et al. solidified OAM's role as a key enabler for next-generation high-capacity optical communications \cite{willner2015optical}. Beyond classical communications, OAM beams also show great promise in cutting-edge photonic applications such as high-dimensional quantum information processing.
 
 \subsection{Need for Chip-scale OAM Emitters}
 
-儘管 OAM 光束的生成技術已相當多元，包括螺旋相位片、空間光調製器及電腦生成全息圖等，但此類方法多依賴體積龐大且難以微縮的自由空間光學元件。這不僅使主動式元件的響應速度受限，更難以整合緊湊型光子積體電路及晶片上光源。
+Although many methods exist for generating OAM beams—including spiral phase plates, spatial light modulators, and computer-generated holograms—these approaches typically rely on bulky free-space optical components that are difficult to miniaturize. This not only limits the response speed of active devices but also makes them hard to integrate into compact photonic integrated circuits and on-chip light sources.
 
-超穎表面的出現為晶片級光場調控提供了突破性的解決方案。透過次波長奈米結構陣列對入射光的振幅、相位及偏振進行精確的局部調控，超穎表面得以在數百奈米厚度的二維介面上實現傳統巨觀光學元件的功能。其中，幾何相位超穎表面因其簡單的相位編碼機制與良好的製程容忍度，成為生成 OAM 光束最廣泛採用的晶片級路徑之一。
+Metasurfaces have emerged as a breakthrough solution for chip-scale light-field control. By using sub-wavelength nanostructure arrays to precisely tailor the amplitude, phase, and polarization of incident light at each point, metasurfaces can reproduce the functions of traditional macroscopic optical elements within a two-dimensional interface only a few hundred nanometers thick. Among them, geometric-phase (Pancharatnam--Berry) metasurfaces have become one of the most widely used chip-scale approaches for generating OAM beams, thanks to their simple phase-encoding mechanism and good fabrication tolerance.
 
-然而，超穎表面本質上屬於被動波前轉換器，必須依賴外部光源入射，無法主動產生具備手性的光場。因此，如何引入具備天然發光能力的主動材料，並將其與奈米結構進行晶片級的混合式整合，成為實現晶片上主動式手性光源的關鍵挑戰。
+However, metasurfaces are fundamentally passive wavefront converters—they require an external light source and cannot actively generate chiral light fields on their own. This raises a key challenge: how to integrate an active material with natural light-emitting capability together with nanostructures at the chip scale, so as to realize an active, on-chip chiral light source.
 
 \subsection{Active Chiral Light Sources}
 
-若要實現主動式的晶片光源，必須引入具備天然手性發光能力的主動材料。單層二維過渡金屬硫屬化物 (Transition Metal Dichalcogenides, TMDs，如 MoS$_2$、WS$_2$ 等) 是一類具備直接能隙的二維半導體。由於其獨特的晶體結構，這類材料展現出特殊的谷光學特性，在內部電子狀態與發光偏振態之間建立了直接聯繫。這種特性使單層 TMDs 能在特定光激發或電注入下，產生具備特定旋向的圓偏振光，為新型光電元件的開發提供了天然平台，因而成為近年發展固態手性光源的研究熱點。
+To build an active chip-scale light source, we need to bring in a material that can naturally emit chiral light. Monolayer two-dimensional transition metal dichalcogenides (TMDs)—such as MoS$_2$ and WS$_2$—are direct-bandgap semiconductors. Their unique crystal structure gives rise to special valley-optical properties, creating a direct link between the internal electronic states and the polarization of the emitted light. This allows monolayer TMDs to emit circularly polarized light with a specific handedness under optical excitation or electrical injection, making them a natural platform for next-generation photonic devices. This has made monolayer TMDs a hot research topic for developing solid-state chiral light sources.
 
 \subsection{Toward Active Valley-controlled OAM Sources}
 
-將單層 TMDs 的谷極化主動發光與緊湊型整合的超穎表面相結合，為晶片級自旋角動量 (Spin Angular Momentum, SAM) 至 OAM的轉換提供了完整的物理連接。理想情況下，單層 TMDs 的谷極化發光攜帶特定的 SAM，隨後透過緊湊型整合的超穎表面進行幾何相位調控，即可將其轉化為特定的 OAM 模態。
+Combining the valley-polarized active emission of monolayer TMDs with compactly integrated metasurfaces provides a complete physical link for chip-scale conversion from spin angular momentum (SAM) to OAM. In the ideal picture, valley-polarized emission from a monolayer TMD carries a specific SAM; this is then converted into a specific OAM mode through geometric-phase control in a compactly integrated metasurface.
 
-這種主動材料與被動奈米結構的混合式整合架構，不僅繼承了二維材料獨特的谷電子學自由度，亦發揮了超穎表面在亞波長尺度下極致的波前操縱能力，是實現高整合度、主動可調控晶片級 OAM 發射器的理想演進方向。
+This hybrid architecture—combining an active 2D material with a passive nanostructure—inherits the unique valleytronic degree of freedom from the 2D material while also exploiting the metasurface's ability to manipulate wavefronts at the sub-wavelength scale. It represents an ideal path toward highly integrated, actively tunable, chip-scale OAM emitters.
 
 \section{Motivation}
 
-儘管前述各小節已揭示 OAM 光束的應用潛力與單層 TMDs 所具備的自旋–谷鎖定特性與手性發光機制，在晶片級實現上，至今仍面臨多重挑戰：現有平台的元件整合度不足、谷極化發光純度受限、傳統正向設計超穎表面的幾何自由度有限，以及缺乏能同時兼顧谷選擇性與高自由度波前控制的主動式奈米光子架構。上述各挑戰的技術根源與相關文獻研究進展，將於第二章文獻回顧中詳細闡述；本節僅就研究動機作概括性說明，以引出本研究的核心目標。
+Although the preceding subsections have outlined the application potential of OAM beams and the spin--valley locking and chiral emission mechanisms of monolayer TMDs, realizing these on a chip still faces multiple challenges: insufficient device integration in existing platforms, limited valley-polarization purity, the restricted geometric freedom of conventional forward-designed metasurfaces, and the lack of an active nanophotonic architecture that simultaneously offers valley selectivity and high-degree-of-freedom wavefront control. The technical origins of these challenges and the relevant literature will be reviewed in detail in Chapter 2; this section only provides a brief overview of the motivation to introduce the core objectives of this work.
 
 \section{Research Objectives and Contributions}
 
-本研究的核心目標在於建立一個基於反向設計的全介電質超穎表面平台，探索單層過渡金屬硫屬化物谷極化發光至高純度軌道角動量光束之轉換機制。
+The core goal of this work is to establish an inverse-design platform for an all-dielectric metasurface, and to explore how valley-polarized emission from monolayer TMDs can be converted into high-purity OAM beams.
 
-為達成此目標，本工作首先建構整合單層過渡金屬硫屬化物發光體、全介電質超穎表面以及近遠場分析之三維數值模擬架構。在此平台基礎上，進一步發展基於伴隨變量法的拓撲優化方法，以有效拓展空間幾何自由度，進行谷控制軌道角動量發射器之反向設計。
+To achieve this, we first build a three-dimensional numerical simulation framework that integrates a monolayer TMD emitter, an all-dielectric metasurface, and near-to-far-field analysis. Based on this platform, we further develop a topology optimization method using the adjoint-variable method to expand the spatial geometric degrees of freedom, and use it to inversely design a valley-controlled OAM emitter.
 
-於優化過程中，將遠場拉格耳–高斯模態純度與數值模擬與理想目標的強度重疊積分納入核心效能指標，以評估並提升所生成 OAM 模態之品質。最後，透過最佳化結構分析其自旋–軌道轉換與模態形成機制，建立由數值設計、性能評估至物理機制分析之完整研究流程。
+During optimization, the far-field Laguerre--Gaussian mode purity and the intensity overlap integral between the simulation and the ideal target are included as core performance metrics to evaluate and improve the quality of the generated OAM modes. Finally, the optimized structure is analyzed to understand the spin-to-orbit conversion and mode-formation mechanisms, establishing a complete research workflow from numerical design and performance evaluation to physical interpretation.
 
 \section{Thesis Organization}
 
-本論文架構如下：
+This thesis is organized as follows:
 
-第一章引介研究背景、研究動機、研究目標、研究貢獻以及全文的組織架構。
-第二章系統性地回顧軌道角動量理論、單層過渡金屬硫屬化物的谷選擇性發光、基於超穎表面的軌道角動量產生技術，以及相關的反向設計方法。
-第三章詳細闡述本研究所採用的數值模擬架構、物理模型、拓樸最佳化方法以及效能指標的具體定義。
-第四章展示最佳化元件結構，並透過近場與遠場特徵分析評估其光學效能。
-第五章探討軌道角動量模態生成的物理機制，將所得結果與前人研究進行對比，並剖析該方法的物理限制與未來研究方向。
-第六章總結本論文的主要研究結論，並概述未來潛在的研究方向。
+Chapter 1 introduces the research background, motivation, objectives, contributions, and the overall structure of the thesis.
+Chapter 2 systematically reviews the theory of orbital angular momentum, valley-selective emission in monolayer TMDs, metasurface-based OAM generation, and related inverse design methods.
+Chapter 3 describes in detail the numerical simulation framework, physical model, topology optimization method, and the specific definitions of the performance metrics used in this work.
+Chapter 4 presents the optimized device structures and evaluates their optical performance through near-field and far-field analysis.
+Chapter 5 discusses the physical mechanisms behind OAM mode generation, compares the results with prior work, and examines the limitations of the method and future research directions.
+Chapter 6 summarizes the main findings of the thesis and outlines potential directions for future work.

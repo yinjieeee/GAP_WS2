@@ -6,36 +6,36 @@
 \section{Summary of Findings}
 \label{sec:summary}
 
-本研究建立了一套基於拓樸最佳化的全介電質奈米結構反向設計平台，
-以單層 WS$_2$ 谷極化激子為主動手性光源，
-系統性地設計並驗證了可將圓偏振點光源轉化為高純度拉格耳–高斯（LG）渦旋光束的奈米結構，
-目標模態涵蓋 LG$_{\ell,0}$，$\ell = 0$ 至 $\ell = 5$。主要結果彙整如下：
+This work establishes a topology-optimization-based inverse design platform for all-dielectric nanostructures,
+using monolayer WS$_2$ valley-polarized excitons as the active chiral light source.
+We systematically designed and verified nanostructures capable of converting a circularly polarized point source into high-purity Laguerre--Gaussian (LG) vortex beams,
+covering target modes LG$_{\ell,0}$ for $\ell = 0$ through $\ell = 5$. The main results are summarized below:
 
 \begin{enumerate}
 
-    \item \textbf{高純度 OAM 模態生成：}
-    在 $\ell \le 3$ 的範圍內，最佳化結構的遠場 LG 模態純度均超過 $94\%$，
-    其中 $\ell = 1$ 達六組最高的 $98.66\%$；
-    $\ell = 4, 5$ 受限於有限設計空間（$4.5\,\mu$m），模態純度約為 $82\%$。
-    所有六組設計的相位纏繞驗證誤差均低於 $1\%$，
-    精確確認遠場渦旋光束攜帶正確的目標拓樸荷。
+    \item \textbf{High-purity OAM mode generation:}
+    For $\ell \le 3$, the far-field LG mode purity of all optimized structures exceeds $94\%$,
+    with $\ell = 1$ reaching the highest value among all six designs at $98.66\%$;
+    $\ell = 4, 5$ are limited by the finite design space ($4.5\,\mu$m) and achieve mode purity of around $82\%$.
+    The phase winding verification error for all six designs is below $1\%$,
+    precisely confirming that the far-field vortex beams carry the correct target topological charge.
 
-    \item \textbf{螺旋對稱幾何自發湧現：}
-    最佳化結構在伴隨法梯度引導下自發形成 $\ell$ 重螺旋對稱幾何，
-    物理上對應 LG$_{\ell,0}$ 模態所需的連續 $\ell \times 2\pi$ 相位分佈，
-    並在外圍疊加散射補償特徵以提升模態整形精度（詳細機制分析見第~\ref{ssec:spiral_emergence} 節）。
+    \item \textbf{Spontaneous emergence of spiral symmetric geometry:}
+    The optimized structures spontaneously form $\ell$-fold spiral symmetric geometry guided by adjoint gradients,
+    physically corresponding to the continuous $\ell \times 2\pi$ phase distribution required by the LG$_{\ell,0}$ mode,
+    with additional scattering compensation features superimposed at the periphery to improve mode shaping accuracy (detailed mechanism analysis in Section~\ref{ssec:spiral_emergence}).
 
-    \item \textbf{圓偏振選擇性驗證：}
-    以 $\ell = 3$ 結構進行偏振交叉激發測試：
-    LCP 激發下目標模態純度 $94.13\%$；
-    反向 RCP 激發下純度暴跌至 $0.84\%$（對比度 $> 100:1$），
-    定量確認最佳化結構具備強烈的圓偏振篩選能力，
-    能有效區分 WS$_2$ 的 K/K$'$ 雙谷。
+    \item \textbf{Circular polarization selectivity verification:}
+    A cross-polarization excitation test was performed on the $\ell = 3$ structure:
+    under LCP excitation, the target mode purity is $94.13\%$;
+    under the reverse RCP excitation, purity drops sharply to $0.84\%$ (contrast ratio $> 100:1$),
+    quantitatively confirming that the optimized structure has strong circular polarization selectivity
+    and can effectively distinguish the K/K$'$ dual valleys of WS$_2$.
 
-    \item \textbf{近遠場手性演化機制釐清：}
-    光學手性密度沿傳播軸分析顯示，近場因局域散射呈 LCP/RCP 混合態；
-    進入遠場輻射區（$z \ge z_R$）後，漸逝波衰減，傳播場完全恢復為純淨 RCP 手性態，
-    建立了從近場激發到遠場 OAM 渦旋光束的完整物理圖像（詳見第~\ref{ssec:chirality_prop} 節）。
+    \item \textbf{Clarification of near-to-far-field chirality evolution mechanism:}
+    Analysis of optical chirality density along the propagation axis shows that in the near field, local scattering creates a mixed LCP/RCP state;
+    upon entering the far-field radiation region ($z \ge z_R$), evanescent waves decay and the propagating field fully recovers to a pure RCP chiral state,
+    establishing a complete physical picture from near-field excitation to far-field OAM vortex beam (see Section~\ref{ssec:chirality_prop} for details).
 
 \end{enumerate}
 
@@ -44,47 +44,47 @@
 \section{Significance and Contributions}
 \label{sec:significance}
 
-本研究的核心貢獻在於提出並驗證了一條以主動谷極化光源驅動的晶片級 OAM 發射器設計路徑。
-相較於現有依賴外部平面波激發的被動超穎表面方案（如 Sroor 2020 達 $\sim 90\%$ 純度但無谷選擇性）
-以及既有的谷-OAM 結合平台（如 Li 2023 具備谷選擇性但未量化 LG 模態純度），
-本研究在「主動光源 + 高純度 LG 模態 + 可量化谷間對比度」三個維度上同時具備競爭優勢。
+The core contribution of this work is proposing and verifying a chip-scale OAM emitter design path driven by an active valley-polarized light source.
+Compared to existing passive metasurface approaches relying on external plane wave excitation (e.g., Sroor 2020 achieving $\sim 90\%$ purity but without valley selectivity),
+and to existing valley-OAM combination platforms (e.g., Li 2023 with valley selectivity but without quantified LG mode purity),
+this work simultaneously holds competitive advantages in three dimensions: "active source + high-purity LG mode + quantifiable inter-valley contrast ratio."
 
-在方法學層面，本研究發展了一套整合 FDTD 電磁模擬、伴隨法梯度計算、$\beta$ 連續遞增策略與 MMA 求解器的完整拓樸最佳化流程，
-並以模態純度與絕對重疊積分的聯合對數目標函數兼顧模態形狀保真度與能量耦合效率。
-此框架具備高度通用性，可直接延伸至其他目標模態、光源配置或材料體系。
+At the methodological level, this work develops a complete topology optimization workflow integrating FDTD electromagnetic simulation, adjoint gradient computation, a $\beta$ continuation strategy, and the MMA solver,
+using a joint logarithmic objective function of mode purity and absolute overlap integral to balance mode shape fidelity and energy coupling efficiency.
+This framework is highly general and can be directly extended to other target modes, source configurations, or material systems.
 
-在物理理解層面，本研究揭示了 Purity 與 $|{\rm Overlap}|^2$ 隨拓樸荷增大的解耦機制，
-闡明固定設計域尺寸下高階 OAM 整形的物理極限（詳見第~\ref{ssec:purity_overlap} 節），
-為後續高階渦旋光束發射器的設計指標選取提供了重要參考。
+At the level of physical understanding, this work reveals the decoupling mechanism of Purity and $|{\rm Overlap}|^2$ as topological charge increases,
+elucidating the physical limits of high-order OAM shaping within a fixed design domain (see Section~\ref{ssec:purity_overlap}),
+providing important guidance for selecting design metrics in future high-order vortex beam emitter designs.
 
 %===================================================================
 
 \section{Future Work}
 \label{sec:future_work}
 
-基於本研究成果，以下四個方向最具立即延伸價值：
+Based on the results of this work, the following four directions hold the most immediate value for extension:
 
-\textbf{（一）擴大設計域與提升解析度：}
-針對 $\ell \ge 4$ 的高階模態，系統性探討擴大設計面積（目標 $\ge 8\,\mu$m）與提升網格解析度對模態純度的提升效果，
-以突破當前 $82\%$ 的效能瓶頸。
+\textbf{(i) Expand design domain and increase resolution:}
+For high-order modes with $\ell \ge 4$, systematically explore the effect of enlarging the design area (target $\ge 8\,\mu$m) and increasing grid resolution on mode purity,
+to break through the current $82\%$ performance ceiling.
 
-\textbf{（二）雙谷 OAM 多工：}
-結合 WS$_2$ 的 K/K$'$ 雙谷選擇性，設計同時響應 LCP（$+\ell$）與 RCP（$-\ell$）激發的雙通道 OAM 發射器，
-實現基於谷自由度的拓樸荷雙工編碼。
-主要挑戰在於如何在單一結構中同時滿足兩個互相正交偏振輸入的 OAM 整形目標，
-需於 FOM 中引入雙光源多目標優化框架。
+\textbf{(ii) Dual-valley OAM multiplexing:}
+Combining the K/K$'$ dual-valley selectivity of WS$_2$, design a dual-channel OAM emitter that simultaneously responds to LCP ($+\ell$) and RCP ($-\ell$) excitation,
+realizing topological charge duplex encoding based on the valley degree of freedom.
+The main challenge is how to simultaneously satisfy OAM shaping targets for two mutually orthogonal polarization inputs in a single structure,
+which requires introducing a dual-source multi-objective optimization framework into the FOM.
 
-\textbf{（三）製程公差分析與實驗驗證：}
-以本研究最佳材料分佈作為直接設計輸入，
-首先進行 FDTD 製程公差模擬（邊壁粗糙度 $\pm 5\,{\rm nm}$、蝕刻深度 $\pm 5\%$），
-評估實驗預期的純度範圍，
-再進行 GaP 薄膜電子束微影與反應離子刻蝕，
-並以光激發 WS$_2$ 量測遠場 OAM 模態純度，
-完成從數值預測到實驗驗證的完整研究閉環。
+\textbf{(iii) Fabrication tolerance analysis and experimental verification:}
+Using the best material distribution from this work as a direct design input,
+first perform FDTD fabrication tolerance simulations (sidewall roughness $\pm 5\,{\rm nm}$, etch depth $\pm 5\%$)
+to evaluate the expected purity range in experiment,
+then carry out GaP thin film electron beam lithography and reactive ion etching,
+and measure the far-field OAM mode purity through optical excitation of WS$_2$,
+completing the full research cycle from numerical prediction to experimental verification.
 
-\textbf{（四）Purcell 腔增強與谷極化純度提升：}
-如第~\ref{ssec:current_limits} 節所指出，實驗中 WS$_2$ 的有限谷極化純度（室溫 $20$--$50\%$）是限制實際器件性能的關鍵因素。
-結合光子晶體微腔或 Fabry-Pérot 腔的 Purcell 效應，可加速激子自發輻射速率，
-在競爭性去極化機制主導前完成光子提取，
-有望將實驗谷極化度提升至 $>80\%$，顯著改善最終 OAM 模態純度。
+\textbf{(iv) Purcell cavity enhancement and valley polarization purity improvement:}
+As noted in Section~\ref{ssec:current_limits}, the limited valley polarization purity of WS$_2$ at room temperature ($20$--$50\%$) is a key factor limiting actual device performance.
+Combining the Purcell effect of photonic crystal microcavities or Fabry-Pérot cavities can accelerate the exciton spontaneous emission rate,
+completing photon extraction before the competing depolarization mechanisms take over,
+and is expected to raise the experimental valley polarization degree to $>80\%$, significantly improving the final OAM mode purity.
 

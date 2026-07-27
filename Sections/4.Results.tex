@@ -2,15 +2,15 @@
 
 \label{ch:Results}
 
-本章以主題式比較架構呈現六組拓樸最佳化設計的結果，目標模態涵蓋 LG$_{\ell,0}$，$\ell = 0$ 至 $\ell = 5$。各節針對同一物理現象，橫跨全部六組數據進行系統性比較，以凸顯拓樸荷對設計特性的影響。section 4.5.3 與 section 4.7 來自最佳化完成後以最佳密度分佈 $\bar{\rho}^{*}$ 重新執行的後處理正向模擬 ($\beta = 512$，最終二值化結構)，其餘皆是最佳化過程取最終 $\beta=512$ 對應最佳結果展示。
+This chapter presents the results of six topology-optimized designs in a thematic comparative framework, covering target modes LG$_{\ell,0}$ for $\ell = 0$ through $\ell = 5$. Each section systematically compares all six datasets for the same physical quantity, highlighting how the topological charge affects design characteristics. Sections 4.5.3 and 4.7 are based on post-processing forward simulations re-run with the best density distribution $\bar{\rho}^{*}$ after optimization is complete ($\beta = 512$, final binarized structure); all other results display the best outcome found during optimization at the final $\beta = 512$ stage.
 
 \begin{table}[htb]
     \centering
-    \caption{六組設計數據基本資訊彙整。}
+    \caption{Summary of basic information for the six designs.}
     \label{tab:case_summary}
     \begin{tabular}{ccc}
         \hline
-        目標拓樸荷 $\ell$ & 目標模態 & 最佳迭代次數 \\
+        Target topological charge $\ell$ & Target mode & Best iteration number \\
         \hline
         0 & LG$_{0,0}$ (Gaussian) & 257 \\
         1 & LG$_{1,0}$ & 282 \\
@@ -29,15 +29,15 @@
 
 \label{sec:opt_process}
 
-本節展示六組數據的最佳化收斂歷程，包含 $\beta$ 排程、FOM 曲線與模態純度演化，用以驗證 $\beta$ 漸進策略的數值穩定性。
+This section shows the convergence history of the six designs, including the $\beta$ schedule, FOM curves, and mode purity evolution, to verify the numerical stability of the $\beta$ continuation strategy.
 
 \subsection{Beta Continuation Schedule and FOM Convergence}
 
 \label{ssec:opt_FOM}
 
-所有數據均採用相同的 $\beta$ 排程：從 $\beta = 4$ 出發，依固定迭代間隔增至最終 $\beta = 512$，每次 $\beta$ 切換以紫色垂直線標示 (見圖~\ref{fig:FOM_history_all})。FOM 曲線在各組數據的 $\beta < 16$ 階段均呈大幅上升趨勢，並在此區間的末期達到數值最高點。此收斂模式反映了低 $\beta$ 階段較寬鬆的邊界條件允許優化器在連續密度空間中快速探索，從而有效尋獲全域較優的拓撲佈局並達到最高性能。
+All six designs use the same $\beta$ schedule: starting from $\beta = 4$ and increasing at fixed iteration intervals to a final $\beta = 512$, with each $\beta$ switch marked by a purple vertical line (see Figure~\ref{fig:FOM_history_all}). The FOM curves for all designs show a large upward trend during the $\beta < 16$ stage, reaching their highest values near the end of this interval. This convergence pattern reflects the fact that the looser boundary conditions at low $\beta$ allow the optimizer to explore the continuous density space freely and efficiently find globally better topological layouts that achieve peak performance.
 
-低拓樸荷 $\ell = 0, 1$ 的 FOM 最終值 ($0.39$, and higher) 顯著高於高拓撲荷 $\ell = 3, 4, 5$ (FOM $\approx 0.30$ 至 $0.19$)，這表明更高階的 OAM 模態需要更複雜的相位調制，因而限制了最終的耦合效率。值得注意的是，儘管 $\ell = 3$ 的 FOM 數值略低，但在 $\beta$ 切換後的性能恢復速度依然極快，說明拓撲荷的增加並未使最佳化收斂特性顯著惡化。
+The final FOM values for low topological charges $\ell = 0, 1$ ($0.39$ and higher) are noticeably higher than for high topological charges $\ell = 3, 4, 5$ (FOM $\approx 0.30$ to $0.19$), indicating that higher-order OAM modes require more complex phase modulation, which limits the final coupling efficiency. Notably, although the FOM value for $\ell = 3$ is slightly lower, performance recovers very quickly after each $\beta$ switch, showing that increasing the topological charge does not significantly worsen the convergence behavior.
 
 \begin{figure}[htb]
 \centering
@@ -52,7 +52,7 @@
 	    \includegraphics[width=0.47\textwidth]{img/022_FOM_history_staircase.png}
 	    \\ (e) $\ell = 4$ &  (f) $\ell = 5$ 
 	\end{tabular}
-\caption{$\ell = 0$ 至 $5$ 的 FOM 收斂歷程。藍色虛線為每次迭代的原始 FOM 值；紅色虛線為 best-so-far 追蹤值；紫色垂直線標示 $\beta$ 漸進策略切換點 ($\beta_\text{final} = 512$)。}
+\caption{FOM convergence history for $\ell = 0$ to $5$. Blue dashed line: raw FOM value at each iteration; red dashed line: best-so-far tracking value; purple vertical lines: $\beta$ continuation switch points ($\beta_\text{final} = 512$).}
 \label{fig:FOM_history_all}
 \end{figure}
 
@@ -63,11 +63,11 @@
 
 \label{ssec:opt_purity}
 
-圖~\ref{fig:purity_history_all} 呈現六組數據的模態純度收斂歷程。purity演化歷程與 FOM 歷程相似，均於前期迅速建立主體結構，並在第 2 至 4 次 $\beta$ 切換後即達到飽和與穩定。
+Figure~\ref{fig:purity_history_all} shows the mode purity convergence history for the six designs. The purity evolution closely tracks the FOM history: the main structure forms rapidly in the early stage, and purity saturates and stabilizes after the 2nd to 4th $\beta$ switches.
 
-低拓樸荷 $\ell = 0, 1, 2$ 的最終 Purity 均超過 $96\%$，其中 $\ell = 1$ 達到六組中最高的 $98.66\%$，表明此設計條件下最佳化的解品質最為優秀。隨拓樸荷提升，$\ell = 3$ Purity 降至 $94.13\%$，而 $\ell = 4$ 與 $\ell = 5$ 則進一步降至 $81.94\%$ 與 $82.62\%$。高拓樸荷數據中，現有 4.5 $\mu\text{m}$ 的設計區域空間尺寸限制、解析度不足，高階 OAM 模態已達物理極限。因此純度在優化初期就碰到瓶頸，後期即便調高 $\beta$ 值，也只是引發結構的邊界振盪，無法再提升最終純度。
+Low topological charge designs $\ell = 0, 1, 2$ all achieve final purity above $96\%$, with $\ell = 1$ reaching the highest of all six at $98.66\%$, indicating the best solution quality under these design conditions. As topological charge increases, $\ell = 3$ drops to $94.13\%$, while $\ell = 4$ and $\ell = 5$ fall further to $81.94\%$ and $82.62\%$. In the high topological charge cases, the finite $4.5\;\mu\text{m}$ design area size and resolution limit mean the high-order OAM modes are approaching their physical limits. Purity therefore hits a ceiling early in the optimization, and further increases in $\beta$ only cause structural boundary oscillations without improving the final purity.
 
-$\ell = 0$ 至 $5$ 的最終量化結果彙整於表~\ref{tab:results_summary}。
+The final quantitative results for $\ell = 0$ to $5$ are summarized in Table~\ref{tab:results_summary}.
 
 \begin{figure}[htb]
 \centering
@@ -82,7 +82,7 @@ $\ell = 0$ 至 $5$ 的最終量化結果彙整於表~\ref{tab:results_summary}�
 	    \includegraphics[width=0.47\textwidth]{img/022_purity_history_staircase.png}
 	    \\ (e) $\ell = 4$ &  (f) $\ell = 5$ 
 	\end{tabular}
-\caption{$\ell = 0$ 至 $5$ 的模態純度收斂歷程。藍色虛線為各迭代瞬時值；紅色虛線為 best-so-far 追蹤值；紫色垂直線為 $\beta$ 切換點。右上角標示最終最佳 Purity 值。}
+\caption{Mode purity convergence history for $\ell = 0$ to $5$. Blue dashed line: instantaneous value at each iteration; red dashed line: best-so-far tracking value; purple vertical lines: $\beta$ switch points. The final best purity value is indicated in the upper right corner.}
 \label{fig:purity_history_all}
 \end{figure}
 
@@ -90,11 +90,11 @@ $\ell = 0$ 至 $5$ 的最終量化結果彙整於表~\ref{tab:results_summary}�
 
 \begin{table}[htb]
 \centering
-\caption{$\ell = 0$ 至 $5$ 的效能評估彙整 ($z = 10\,z_R$ 遠場平面)。}
+\caption{Performance summary for $\ell = 0$ to $5$ (far-field plane at $z = 10\,z_R$).}
 \label{tab:results_summary}
     \begin{tabular}{ccccc}
         \hline
-        $\ell$ & 目標模態 & Purity  (\%) & $|\text{Overlap}|^{2}$ & FOM\\
+        $\ell$ & Target mode & Purity (\%) & $|\text{Overlap}|^{2}$ & FOM\\
         \hline
         0 & LG$_{0,0}$ & 96.81 & 60.92 & 0.38\\
         1 & LG$_{1,0}$ & 98.66 & 53.88 &  0.39\\
@@ -112,13 +112,13 @@ $\ell = 0$ 至 $5$ 的最終量化結果彙整於表~\ref{tab:results_summary}�
 
 \label{sec:structures}
 
-% 只有2特別明顯，其他數據並不，所以要再確認一下或重跑數據
+% Note: the spiral feature is particularly obvious for l=2; others are less clear — to be verified or re-run
 
-圖~\ref{fig:structures_all} 展示了六組數據經最佳化後最終收斂的 GaP/空氣二元介質密度分佈圖（黑色代表 GaP，折射率 $n = 3.31$；白色代表空氣，折射率 $n = 1$）。
+Figure~\ref{fig:structures_all} shows the final converged GaP/air binary material density distributions for the six designs (black represents GaP, refractive index $n = 3.31$; white represents air, refractive index $n = 1$).
 
-觀察這六組結構可發現明確的幾何演化規律：結構中央的螺旋對稱階數與目標拓撲荷 $\ell$ 完全一致。$\ell = 0$ 呈現完整的旋轉對稱環形幾何，中央為封閉的 GaP 圓核；$\ell = 1$ 至 $\ell = 5$ 則依序出現單臂、雙臂至五重螺旋對稱特徵。此幾何特徵表明，最佳化在梯度引導下，自發將角向相位調制轉譯為旋轉對稱的螺旋設計策略。這不僅與螺旋相位板（Spiral Phase Plate, SPP）的物理機制高度吻合，細節處更融入了額外的散射輔助特徵，用以進一步提升近遠場的耦合效率。
+Examining these six structures reveals a clear geometric evolution: the order of the spiral symmetry at the center of each structure exactly matches the target topological charge $\ell$. $\ell = 0$ shows full rotational symmetry with a closed GaP circular core at the center; $\ell = 1$ through $\ell = 5$ successively display one-arm, two-arm, up to five-fold spiral symmetry features. This geometric character shows that the optimizer, guided by gradients, spontaneously translates the required azimuthal phase modulation into a rotationally symmetric spiral design strategy. This closely parallels the working principle of a spiral phase plate (SPP), while the details are richer—the surrounding scattering features serve as compensation mechanisms for correcting near-field coupling errors, further improving far-field mode shaping accuracy.
 
-隨拓樸荷增大，中央螺旋的幾何複雜度提升，外圍散射特徵也變得更為密集，反映高階 OAM 模態對相位空間的更高調制需求。
+As topological charge increases, the geometric complexity of the central spiral grows, and the surrounding scattering features become denser, reflecting the higher modulation demand on the phase space for higher-order OAM modes.
 
 \begin{figure}[htb]
 \centering
@@ -132,7 +132,7 @@ $\ell = 0$ 至 $5$ 的最終量化結果彙整於表~\ref{tab:results_summary}�
         \includegraphics[width=0.3\textwidth]{img/022_structure_iter_282_beta_512.00.png}
         \\(d) $\ell = 3$ &  (e) $\ell = 4$ &  (f) $\ell = 5$
     \end{tabular}
-\caption{$\ell = 0$ 至 $5$ 最終收斂的 GaP/空氣二元介質密度分佈圖 ($\beta = 512$，二值化結構)。黑色代表 GaP，折射率 $n = 3.31$；白色代表空氣，折射率 $n = 1$。各結構中央可見與目標拓樸荷對應的 $\ell$ 重螺旋對稱幾何。}
+\caption{Final converged GaP/air binary material density distributions for $\ell = 0$ to $5$ ($\beta = 512$, binarized structures). Black represents GaP ($n = 3.31$); white represents air ($n = 1$). At the center of each structure, $\ell$-fold spiral symmetry corresponding to the target topological charge is visible.}
 \label{fig:structures_all}
 
 \end{figure}
@@ -144,11 +144,11 @@ $\ell = 0$ 至 $5$ 的最終量化結果彙整於表~\ref{tab:results_summary}�
 
 \label{sec:nearfield}
 
-圖~\ref{fig:nearfield_all} 呈現六組數據在設計層正上方近場監測面的 LCP 與 RCP 電場相位及歸一化強度分佈 ($|E_\text{LCP}|^2$ 與 $|E_\text{RCP}|^2$)。
+Figure~\ref{fig:nearfield_all} shows the LCP and RCP electric field phase and normalized intensity distributions ($|E_\text{LCP}|^2$ and $|E_\text{RCP}|^2$) at the near-field monitor plane just above the design layer for the six designs.
 
-LCP 強度分佈 (各組右上) 在所有數據中均集中於結構中央區域 ($\sim 1\ \mu\text{m}$ 尺度)，呈現非均勻的局域化增強，反映最佳化結構對 LCP 偶極輻射的近場收集效率。LCP 相位分佈 (各組左上) 受結構散射影響而呈現複雜的空間分佈，與遠場的有序螺旋相位形成對比，顯示近場的相位調制是透過散射效應的集體作用而非局域的相位延遲。
+The LCP intensity distribution (upper right of each group) is concentrated in the central region of the structure ($\sim 1\;\mu\text{m}$ scale) for all designs, showing non-uniform localized enhancement that reflects the near-field collection efficiency of the optimized structure for LCP dipole radiation. The LCP phase distribution (upper left of each group) shows a complex spatial pattern due to structural scattering—a stark contrast to the ordered spiral phase in the far field—indicating that near-field phase modulation arises from the collective action of scattering effects rather than local phase delay.
 
-RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化強度比較直接反映了結構對圓偏振的選擇性 (見第~\ref{sec:pol_selectivity} 節)。各數據的 RCP 強度分佈形態因設計而異，但均未表現出與 LCP 相同的集中近場增強，表明最佳化結構確實對 K 谷 LCP 輻射具有選擇性的近場耦合。
+The RCP component (bottom row of each group) has clearly lower intensity than the LCP component; the normalized intensity ratio between the two directly reflects the structure's circular polarization selectivity (see Section~\ref{sec:pol_selectivity}). The RCP intensity distribution pattern varies across designs but shows no concentrated near-field enhancement like LCP in any case, indicating that the optimized structure indeed exhibits selective near-field coupling to the K-valley LCP radiation.
 
 \begin{figure}[htb]
 \centering
@@ -163,7 +163,7 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 	    \includegraphics[width=0.47\textwidth]{img/022_phase_iter_282_beta_512.00.png}
 	    \\ (e) $\ell = 4$ &  (f) $\ell = 5$ 
 	\end{tabular}
-\caption{$\ell = 0$ 至 $5$ 在設計層正上方近場監測面的電場分佈。各組四格子圖：左上 LCP 相位，右上 $|\text{LCP}|^2$ 歸一化強度，左下 RCP 相位，右下 $|\text{RCP}|^2$ 歸一化強度。}
+\caption{Near-field electric field distributions just above the design layer for $\ell = 0$ to $5$. Each group of four panels: upper left — LCP phase; upper right — $|\text{LCP}|^2$ normalized intensity; lower left — RCP phase; lower right — $|\text{RCP}|^2$ normalized intensity.}
 \label{fig:nearfield_all}
 \end{figure}
 
@@ -175,13 +175,13 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 
 \label{sec:farfield}
 
-圖~\ref{fig:farfield_all} 以四格子圖形式比較六組數據在 $z = 10\,z_R$ 遠場評估平面的模擬 LCP 相位與強度 (上排)，以及目標 LG$_{\ell,0}$ 模態的理論相位與強度 (下排)。
+Figure~\ref{fig:farfield_all} compares, in four-panel format, the simulated LCP phase and intensity (top row) and the theoretical phase and intensity of the target LG$_{\ell,0}$ mode (bottom row) for all six designs at the far-field evaluation plane $z = 10\,z_R$.
 
-\textbf{強度分佈：}$\ell = 0$ 遠場呈現中心峰值的高斯輪廓；$\ell \geq 1$ 的所有數據均呈現中心強度為零的環形光斑，且環形半徑隨 $\ell$ 增大，與 LG 模態理論預期相符 (峰值半徑 $r_\text{peak} = w_0\sqrt{\ell/2}$)。高拓樸荷數據 $\ell = 4, 5$ 的環形光斑輕微不均。
+\textbf{Intensity distribution:} The $\ell = 0$ far field shows a Gaussian profile with a central intensity peak; all designs with $\ell \geq 1$ show a doughnut-shaped spot with zero center intensity, with the ring radius increasing with $\ell$, consistent with the LG mode theoretical prediction (peak radius $r_\text{peak} = w_0\sqrt{\ell/2}$). The ring spots for high topological charges $\ell = 4, 5$ are slightly uneven.
 
-\textbf{相位分佈：} $\ell = 0$ 至 $2$ 數據的遠場相位均清晰呈現對應的螺旋結構。相位螺旋的臂數與旋轉方向和目標模態完全對應，定性驗證了各設計的拓樸荷正確性 (詳細量化驗證見第~\ref{sec:winding} 節)。然而，高拓樸荷數據 $\ell = 3$ 至 $5$ 的相位螺旋臂於強度中心處無法如低拓樸荷般完美對齊，在 $\ell = 4$ 與 $5$ 時更呈現些許雜亂，此偏差反映了有限設計空間下高階 OAM 模態整形的固有難度。
+\textbf{Phase distribution:} The far-field phase for $\ell = 0$ to $2$ clearly shows the corresponding spiral structure. The number of spiral arms and their rotation direction match the target mode exactly, qualitatively confirming the correctness of the topological charge for each design (detailed quantitative verification in Section~\ref{sec:winding}). However, for high topological charges $\ell = 3$ to $5$, the spiral arms do not align as perfectly at the intensity center as in the low topological charge cases, and for $\ell = 4$ and $5$ the phase shows some irregularity. This deviation reflects the inherent difficulty of shaping high-order OAM modes within a finite design space.
 
-\textbf{量化結果：}六組數據的 Purity 與 $|\text{Overlap}|^2$ 已列於表~\ref{tab:results_summary}。整體趨勢顯示，Purity 隨 $\ell$ 增大而降低，在 $\ell \leq 3$ 範圍內均超過 $94\%$，$\ell = 4, 5$ 則降至約 $82\%$。$|\text{Overlap}|^2$ 則由 $\ell = 0$ 的 $60.92$ 大幅下降至 $\ell \geq 4$ 的 $4.00$ 以下。由於監測區域已依各拓樸荷的光斑尺寸動態調整以確保固定涵蓋比例，此顯著衰減並非源於幾何截斷，而是反映了在有限設計空間下，結構對高階 OAM 模態調控能力受限所導致的模態純度下降與空間能量散射。
+\textbf{Quantitative results:} Purity and $|\text{Overlap}|^2$ for all six designs are listed in Table~\ref{tab:results_summary}. The overall trend shows that purity decreases as $\ell$ increases, remaining above $94\%$ for $\ell \leq 3$, and dropping to about $82\%$ for $\ell = 4, 5$. $|\text{Overlap}|^2$ drops significantly from $60.92$ at $\ell = 0$ to below $4.00$ for $\ell \geq 4$. Since the monitor area was dynamically adjusted based on the spot size for each topological charge to ensure a fixed coverage ratio, this sharp drop does not arise from geometric truncation; rather, it reflects the degradation in mode purity and spatial energy scattering caused by limited structural control over high-order OAM modes within the finite design space.
 
 \begin{figure}[htb]
 \centering
@@ -196,7 +196,7 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 	    \includegraphics[width=0.47\textwidth]{img/022_ff_iter_282_beta_512.00.png}
 	    \\ (e) $\ell = 4$ &  (f) $\ell = 5$ 
 	\end{tabular}
-\caption{$\ell = 0$ 至 $5$ 的遠場 LG 模態分析 ($z = 10\,z_R$)。各組四格子圖：左上模擬 LG$_{\ell,0}$ 相位，右上模擬 LG$_{\ell,0}$ 強度，左下目標 LG$_{\ell,0}$ 相位，右下目標 LG$_{\ell,0}$ 強度。圖頂部標示對應的 Purity 與 $|\text{Overlap}|^2$ 值。}
+\caption{Far-field LG mode analysis for $\ell = 0$ to $5$ ($z = 10\,z_R$). Each group of four panels: upper left — simulated LG$_{\ell,0}$ phase; upper right — simulated LG$_{\ell,0}$ intensity; lower left — target LG$_{\ell,0}$ phase; lower right — target LG$_{\ell,0}$ intensity. Purity and $|\text{Overlap}|^2$ values are indicated at the top of each group.}
 \label{fig:farfield_all}
 \end{figure}
 
@@ -205,19 +205,19 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 
 \section{Optical Chirality}
 \label{sec:chirality}
-光學手性密度 $C \propto -\omega\,\varepsilon_0\,\text{Im} (\mathbf{E}^* \cdot \mathbf{B})$ 可量化空間中電磁場的手徵特性：$C > 0$ 對應 LCP 主導，$C < 0$ 對應 RCP 主導。本節首先以高階模態 ($\ell = 5$) 為代表，剖析光學手性沿傳播軸 ($z$ 軸) 的演化機制，隨後進一步對比六組數據在近場與遠場平面的手性分佈特徵。
+The optical chirality density $C \propto -\omega\,\varepsilon_0\,\text{Im} (\mathbf{E}^* \cdot \mathbf{B})$ quantifies the chiral character of the electromagnetic field in space: $C > 0$ indicates LCP dominance; $C < 0$ indicates RCP dominance. This section first uses the high-order mode ($\ell = 5$) as a representative case to analyze how optical chirality evolves along the propagation axis ($z$-axis), and then compares the near-field and far-field chirality distributions across all six designs.
 
 \subsection{Chirality Propagation}
 \label{ssec:chirality_prop}
-為了釐清光束傳播過程中的手性演化物理機制，圖~\ref{fig:chirality_prop_l5} 呈現了 $\ell = 5$ 模態從近場 ($z \approx 0^+$) 傳播至遠場 ($z = 10\,z_R$) 的光學手性密度分佈切面。
+To clarify the physical mechanism of chirality evolution during beam propagation, Figure~\ref{fig:chirality_prop_l5} shows cross-sections of the optical chirality density distribution for the $\ell = 5$ mode propagating from the near field ($z \approx 0^+$) to the far field ($z = 10\,z_R$).
 
-結果顯示，近場區域 ($z \ll z_R$) 呈現明顯的 LCP/RCP 混合態，且受拓樸結構強烈的局域散射與漸逝波耦合影響，點光源上方過半區域展現藍色的 LCP 主導特徵 ($C > 0$)。然而，隨著傳播距離 $z$ 增加，非輻射性的漸逝波迅速指數衰減，局域散射場趨於零；當光束進入遠場輻射區 ($z \ge z_R$) 後，最終由傳播場完全主導，使光學手性恢復為純粹且均勻的 RCP 態 ($C < 0$)，與光源手性一致。此演化過程完整證實了遠場傳播場能完美保留光源的 RCP 手性純度。
+The results show that the near-field region ($z \ll z_R$) displays a pronounced LCP/RCP mixed state, strongly influenced by the intense local scattering and evanescent wave coupling of the topological structure; more than half the area above the point source shows blue positive values ($C > 0$), indicating LCP dominance. However, as the propagation distance $z$ increases, the non-radiative evanescent waves decay exponentially and quickly vanish, and the local scattering field approaches zero; when the beam enters the far-field radiation region ($z \ge z_R$), it is completely dominated by the propagating field, and the optical chirality recovers to a pure and uniform RCP state ($C < 0$), consistent with the handedness of the source. This evolution fully confirms that the far-field propagating field perfectly preserves the RCP chirality purity of the source.
 
 \begin{figure}[htb]
 \centering
     \includegraphics[width=1.0\textwidth]{img/chirality_prop_0p0to0p9zr_Fixed_XY_360.png}\\[4pt]
     \includegraphics[width=1.0\textwidth]{img/chirality_prop_1to10zr_Fixed_XY_360.png}
-\caption{$\ell = 5$ 的光學手性傳播演化圖。上圖：$z = 0.0z_{R}$ 至 $0.9 z_{R}$；下圖：$z = 1.0z_{R}$ 至 $10.0 z_{R}$。}
+\caption{Optical chirality propagation evolution for $\ell = 5$. Top panel: $z = 0.0z_{R}$ to $0.9 z_{R}$; bottom panel: $z = 1.0z_{R}$ to $10.0 z_{R}$.}
 \label{fig:chirality_prop}
 \end{figure}
 
@@ -225,9 +225,9 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 \subsection{Near-Field Chirality}
 \label{ssec:chirality_near}
 
-基於上述傳播機制，圖~\ref{fig:near_chirality_all} 進一步展示 $\ell = 0$ 至 $5$ 在在設計層正上方近場監測面的光學手性密度分佈 (原始值 $C$ 與歸一化值 $C/|C|_\text{max}$)。
+Based on the propagation mechanism described above, Figure~\ref{fig:near_chirality_all} further shows the optical chirality density distributions (raw value $C$ and normalized value $C/|C|_\text{max}$) at the near-field monitor plane just above the design layer for $\ell = 0$ to $5$.
 
-在近場區域，光學手性呈現 LCP 與 RCP 混合的分佈特徵，且大部分區域以藍色正值 ($C > 0$，即 LCP 分量) 居多。此現象源於奈米結構在近場引起的強烈局域散射與漸逝波 (evanescent waves) 耦合，進而在光源主導的 RCP 基礎上激發了顯著的局域 LCP 反向偏振分量。
+In the near-field region, the optical chirality shows a mixed LCP/RCP distribution, with most areas dominated by blue positive values ($C > 0$, i.e., LCP). This arises from the intense local scattering and evanescent wave coupling that the nanostructure induces in the near field, which excites significant local LCP reverse-polarization components on top of the RCP-dominated source field.
 
 \begin{figure}[htb]
 \centering
@@ -242,16 +242,16 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 	    \includegraphics[width=0.47\textwidth]{img/022_near_chirality_282_beta_512.00.png}
 	    \\ (e) $\ell = 4$ &  (f) $\ell = 5$ 
 	\end{tabular}
-\caption{$\ell = 0$ 至 $5$ 的近場光學手性密度分佈。左欄：原始手性密度 $C$；右欄：歸一化手性密度 $C/|C|_\text{max}$。近場呈現 LCP 與 RCP 混合分佈，其中 LCP 佔據較多。}
+\caption{Near-field optical chirality density distributions for $\ell = 0$ to $5$. Left column: raw chirality density $C$; right column: normalized chirality density $C/|C|_\text{max}$. The near field shows a mixed LCP/RCP distribution with LCP occupying the majority.}
 \label{fig:near_chirality_all}
 \end{figure}
 
 \subsection{Far-Field Chirality}
 \label{ssec:chirality_far}
 
-圖~\ref{fig:ff_chirality_all} 呈現 $\ell = 0$ 至 $5$ 在遠場評估平面 ($z = 10\,z_R$) 的光學手性密度分佈。
+Figure~\ref{fig:ff_chirality_all} shows the optical chirality density distributions at the far-field evaluation plane ($z = 10\,z_R$) for $\ell = 0$ to $5$.
 
-不同於近場的混合態，遠場手性密度在光斑主要區域內均呈現純粹且均勻的負值 (紅色，$C < 0$)，代表光束傳播至遠場後完全由 RCP 手性主導，恢復為與入射光源一致的偏振態。值得注意的是，遠場光學手性密度的幾何輪廓與遠場光強度分佈完全重合。從物理機制來看，手性分佈緊密跟隨光強，證實遠場偏振在空間中高度一致；光束於整個截面上皆維持純淨的 RCP 圓偏振，手性密度的邊緣遞減僅受光強衰減影響，而非偏振品質下降。同時，此一致的幾何特徵亦表明奈米結構在進行 OAM 相位重塑時，有效將自旋與軌道角動量解耦，未誘發非預期的自旋-軌道耦合干擾，確保遠場輻射場擁有極高的偏振純度與模態品質。
+Unlike the mixed state in the near field, the far-field chirality density within the main spot region is uniformly and purely negative (red, $C < 0$), meaning the beam has fully recovered to RCP handedness consistent with the source polarization after propagating to the far field. It is worth noting that the geometric outline of the far-field optical chirality density perfectly overlaps with the far-field intensity distribution. Physically, the chirality distribution closely follows the intensity, confirming that the far-field polarization is highly uniform across the beam cross-section—the beam maintains pure RCP circular polarization everywhere, and the edge decay of the chirality density is only due to intensity falloff, not degradation in polarization quality. This consistent geometric character also indicates that the nanostructure, while performing OAM phase reshaping, effectively decouples spin and orbital angular momentum without introducing unintended spin-orbit coupling effects, ensuring the far-field radiation has very high polarization purity and mode quality.
 
 \begin{figure}[htb]
 \centering
@@ -266,7 +266,7 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 	    \includegraphics[width=0.47\textwidth]{img/022_ff_chirality_282_beta_512.00.png}
 	    \\ (e) $\ell = 4$ &  (f) $\ell = 5$ 
 	\end{tabular}
-\caption{$\ell = 0$ 至 $5$ 的遠場光學手性密度分佈 ($z = 10\,z_R$)。左欄：原始手性密度 $C$；右欄：歸一化手性密度 $C/|C|_\text{max}$。遠場光斑範圍內呈現純粹且均勻的 RCP (紅色負值) 手性分佈。}
+\caption{Far-field optical chirality density distributions for $\ell = 0$ to $5$ ($z = 10\,z_R$). Left column: raw chirality density $C$; right column: normalized chirality density $C/|C|_\text{max}$. Within the far-field spot, purely uniform RCP (red negative values) chirality is observed.}
 \label{fig:ff_chirality_all}
 \end{figure}
 
@@ -278,22 +278,22 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 
 \label{sec:winding}
 
-相位纏繞分析是驗證遠場渦旋光束拓樸荷的直接方法：在遠場強度峰值半徑 $r_\text{peak}$ 的圓形路徑上取樣 LCP 電場相位，展開後計算角向總相位變化量，理想情況下應等於 $\ell \times 2\pi$。
+Phase winding analysis is the direct method for verifying the topological charge of the far-field vortex beam: the LCP electric field phase is sampled along a circular path at the far-field intensity peak radius $r_\text{peak}$; after unwrapping, the total azimuthal phase change is calculated, which should ideally equal $\ell \times 2\pi$.
 
-圖~\ref{fig:winding_all} 呈現六組數據的相位纏繞驗證結果。各數據在對應 $r_\text{fraction}$ (峰值半徑與評估區域半徑之比)的圓形路徑取樣後，展開相位 (橙色實線) 與理想 $\ell \times 2\pi$ 線性斜率 (黑色虛線) 的吻合程度如下：
+Figure~\ref{fig:winding_all} shows the phase winding verification results for the six designs. After sampling along a circular path at the corresponding $r_\text{fraction}$ (ratio of peak radius to evaluation region radius) for each design, the agreement between the unwrapped phase (orange solid line) and the ideal $\ell \times 2\pi$ linear slope (black dashed line) is as follows:
 
   
 
 \begin{itemize}
-	\item $\ell = 0$ (017，$r_\text{frac} = 0.200$)：展開相位趨近於零 ($\approx 0 \times 2\pi$)，與高斯光束的零拓樸荷一致。
-    \item $\ell = 1$ (018，$r_\text{frac} = 0.3885$)：展開相位總量 $= 1.00 \times 2\pi$，誤差 $< 0.1\%$。
-    \item $\ell = 2$ (013，$r_\text{frac} = 0.4878$)：總量 $= 1.99 \times 2\pi$，誤差 $0.5\%$。
-    \item $\ell = 3$ (020，$r_\text{frac} = 0.5468$)：總量 $\approx 3.00 \times 2\pi$，誤差 $< 1\%$。
-    \item $\ell = 4$ (021，$r_\text{frac} = 0.5868$)：總量 $\approx 4.00 \times 2\pi$，誤差 $< 1\%$。
-    \item $\ell = 5$ (022，$r_\text{frac} = 0.6176$)：總量 $\approx 5.00 \times 2\pi$，誤差 $< 1\%$。
+	\item $\ell = 0$ (017, $r_\text{frac} = 0.200$): Unwrapped phase approaches zero ($\approx 0 \times 2\pi$), consistent with zero topological charge of a Gaussian beam.
+    \item $\ell = 1$ (018, $r_\text{frac} = 0.3885$): Total unwrapped phase $= 1.00 \times 2\pi$, error $< 0.1\%$.
+    \item $\ell = 2$ (013, $r_\text{frac} = 0.4878$): Total $= 1.99 \times 2\pi$, error $0.5\%$.
+    \item $\ell = 3$ (020, $r_\text{frac} = 0.5468$): Total $\approx 3.00 \times 2\pi$, error $< 1\%$.
+    \item $\ell = 4$ (021, $r_\text{frac} = 0.5868$): Total $\approx 4.00 \times 2\pi$, error $< 1\%$.
+    \item $\ell = 5$ (022, $r_\text{frac} = 0.6176$): Total $\approx 5.00 \times 2\pi$, error $< 1\%$.
 \end{itemize}
 
-所有數據的展開相位均與理論預期高度吻合，精確驗證了各設計確實在遠場產生了目標拓樸荷的渦旋光束。儘管 $\ell = 4, 5$ 的強度環形存在輕微的角向不均勻性 (見第~\ref{sec:farfield} 節)，其相位纏繞仍精確呈現對應拓樸荷，表明高 Purity 的喪失主要源於強度輪廓的偏差，而非相位奇點的失位或拓樸荷的改變。
+The unwrapped phase for all designs closely matches the theoretical prediction, precisely verifying that each design does indeed generate a vortex beam with the target topological charge in the far field. Although the intensity ring for $\ell = 4, 5$ shows slight azimuthal non-uniformity (see Section~\ref{sec:farfield}), the phase winding still accurately reflects the corresponding topological charge. This indicates that the loss of high purity mainly comes from deviations in the intensity profile rather than misalignment of the phase singularity or a change in the topological charge.
 \begin{figure}[htb]
 \centering
 	\begin{tabular}{cc} 
@@ -307,7 +307,7 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 	    \includegraphics[width=0.47\textwidth]{img/022_ff_winding_iter_282_beta_512.00_rfraction_0.6176.png}
 	    \\ (e) $\ell = 4$ &  (f) $\ell = 5$ 
 	\end{tabular}
-\caption{$\ell = 0$ 至 $5$ 的遠場相位纏繞驗證。子圖左欄：在峰值半徑處沿角向取樣的包裹相位；子圖右欄：展開相位 (橙色)與理想 $\ell \times 2\pi$ 斜率 (黑色虛線)比較。所有數據展開相位總量與目標拓樸荷誤差 $< 1\%$。}
+\caption{Far-field phase winding verification for $\ell = 0$ to $5$. Sub-panel left column: wrapped phase sampled azimuthally at the peak radius; sub-panel right column: unwrapped phase (orange) compared with the ideal $\ell \times 2\pi$ slope (black dashed line). For all designs, the total unwrapped phase agrees with the target topological charge to within $< 1\%$ error.}
 \label{fig:winding_all}
 \end{figure}
 
@@ -316,21 +316,21 @@ RCP 分量 (各組下排)的強度明顯低於 LCP 分量，兩者的歸一化�
 
 \section{Circular Polarization Selectivity}
 \label{sec:pol_selectivity}
-為確認最佳化奈米結構是否能精準篩選偏振，本節進行了偏振交叉激發測試。在谷電子學應用中，WS$_2$ 單層材料的 $K$ 谷與 $K'$ 谷激子會分別發射 LCP 與 RCP 光；因此，結構必須能辨識特定的偏振態，同時抑制非目標偏振的耦合。
+To confirm whether the optimized nanostructure can accurately distinguish polarization states, a cross-polarization excitation test is performed in this section. In valleytronics applications, the $K$-valley and $K'$-valley excitons in a WS$_2$ monolayer emit LCP and RCP light respectively; therefore, the structure must be able to recognize a specific polarization state while suppressing coupling to the non-target polarization.
 
-模擬的拓樸結構皆以 LCP 點光源進行拓樸最佳化。為了定量檢驗其篩選能力，我們以 $\ell = 3$ 結構為代表，將輸入光源改為反向偏振的 RCP 點光源，並評估遠場 OAM 模態純度。
+All topological structures were topology-optimized using an LCP point source. To quantitatively examine their selectivity, the $\ell = 3$ structure is used as a representative case: the input source is changed to an RCP point source of opposite handedness, and the far-field OAM mode purity is evaluated.
 
-測試結果顯示，當改用 RCP 光源激發這套 LCP 最佳化結構時，遠場目標 $\ell = 3$ 的純度僅 $0.84\%$。此極低的純度與原本 LCP 光源下高效轉換的結果形成鮮明對比，直接證明該結構具備極強的圓偏振篩選能力。
+The test results show that when the same LCP-optimized structure is excited by the RCP source, the far-field purity for the target $\ell = 3$ mode is only $0.84\%$. This extremely low purity stands in sharp contrast to the highly efficient conversion achieved under the original LCP source, directly demonstrating that the structure has very strong circular polarization selectivity.
 
-這種偏振選擇性源於奈米結構內部的幾何相位與近場非對稱散射。當非目標偏振 (RCP) 入射時，結構無法滿足 OAM 模態整形所需的幾何相位條件，導致絕大部分能量散射為雜散場，無法有效耦合至遠場目標模態。
+This polarization selectivity arises from the geometric phase and near-field asymmetric scattering within the nanostructure. When the non-target polarization (RCP) is incident, the structure cannot satisfy the geometric phase conditions required for OAM mode shaping, and the vast majority of the energy is scattered into stray fields that cannot effectively couple into the far-field target mode.
 
 \begin{figure}[htb] 
 \centering
 	\includegraphics[width=0.7\textwidth]{img/020_ff_iter_282_beta_512.00.png}
-	\\ (a) 目標偏振 (LCP)\\
+	\\ (a) Target polarization (LCP)\\
 	\includegraphics[width=0.7\textwidth]{img/RCP_ff_iter_000_beta_0.00.png}
-	\\(b) 反向偏振 (RCP) 
- \caption{偏振交叉激發下之遠場 OAM 模態純度對比 ($\ell = 3$)。(a) 目標偏振 (LCP) 與 (b) 反向偏振 (RCP) 光源照射同一最佳化結構的遠場模態分佈。當使用 RCP 光源入射時，$\ell = 3$ 模態純度暴跌至僅 0.84\%，證實該結構具備極強的圓偏振篩選能力。} 
+	\\(b) Cross polarization (RCP) 
+ \caption{Comparison of far-field OAM mode purity under polarization cross-excitation ($\ell = 3$). (a) Target polarization (LCP) and (b) cross polarization (RCP) sources illuminating the same optimized structure. When the RCP source is used, the $\ell = 3$ mode purity drops sharply to only $0.84\%$, confirming that the structure has very strong circular polarization selectivity.} 
  \label{fig:ff_purity}
  \end{figure}
  

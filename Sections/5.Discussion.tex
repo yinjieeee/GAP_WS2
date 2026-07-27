@@ -2,10 +2,10 @@
 
 \label{ch:Discussion}
 
-本章基於第四章的數值結果，就三個面向深入探討：
- (一)設計效能的物理成因與拓樸荷依賴性；
- (二)與現有文獻的比較定位；
- (三)本研究方法的限制與未來研究方向。
+This chapter builds on the numerical results from Chapter 4 and explores three aspects in depth:
+ (i) the physical origins of design performance and its dependence on topological charge;
+ (ii) comparison and positioning relative to existing literature;
+ (iii) the limitations of this work's methodology and directions for future research.
 
 %===================================================================
 
@@ -17,31 +17,31 @@
 
 \label{ssec:spiral_emergence}
 
-第四章已確認，拓樸最佳化在梯度引導下自發生成與目標拓樸荷 $\ell$ 相符的 $\ell$ 重螺旋對稱結構 (圖~\ref{fig:structures_all})。此現象並非最佳化框架的偶然產物，而是具備明確的物理根源：LG$_{\ell,0}$ 模態的方位角相位依賴性 $e^{i\ell\phi}$ 要求設計結構在 $\phi \in [0, 2\pi)$ 上提供連續遞增的 $\ell \times 2\pi$ 相位差，此一幾何相位需求天然對應旋轉對稱的螺旋形材料分佈。
+Chapter 4 confirmed that topology optimization, guided by adjoint gradients, spontaneously generates $\ell$-fold spiral symmetric structures that match the target topological charge $\ell$ (Figure~\ref{fig:structures_all}). This is not an accidental outcome of the optimization framework—it has a clear physical origin: the azimuthal phase dependence $e^{i\ell\phi}$ of the LG$_{\ell,0}$ mode requires the designed structure to provide a continuously increasing $\ell \times 2\pi$ phase difference across $\phi \in [0, 2\pi)$, and this geometric phase requirement naturally corresponds to a rotationally symmetric spiral material distribution.
 
-拓樸最佳化透過伴隨法梯度精確計算每個空間點的幾何相位貢獻，在約 $5.1\times10^4$ 個設計自由度中搜尋全域最佳解，其結果與螺旋相位板 (Spiral Phase Plate, SPP) 的直覺設計吻合，但在細節散射結構上更為豐富——外圍散射特徵可視為優化器修正近場耦合誤差的補償機制，進一步提升遠場模態整形的精度。隨拓樸荷提升，螺旋臂數增多，外圍散射特徵亦趨於密集，反映高階 OAM 模態對角向相位空間更高密度的調制需求。
+Through precise adjoint gradient computation over approximately $5.1\times10^4$ design degrees of freedom, topology optimization searches for a globally optimal solution that aligns with the intuitive design of a spiral phase plate (SPP). However, the detail of the scattering features is richer—the surrounding scattering structures can be understood as a compensation mechanism by which the optimizer corrects near-field coupling errors, further improving the accuracy of far-field mode shaping. As topological charge increases, the number of spiral arms grows and the peripheral scattering features become denser, reflecting the higher-density modulation demand on azimuthal phase space for higher-order OAM modes.
 
-\subsection{Origin of the Purity–Overlap Decoupling}
+\subsection{Origin of the Purity--Overlap Decoupling}
 
 \label{ssec:purity_overlap}
 
-表~\ref{tab:results_summary} 揭示了一個值得深入探討的現象：$\ell = 1$ 的 Purity 達六組最高 ($98.66\%$)，但 $|{\rm Overlap}|^2$ 已由 $\ell=0$ 的 $60.92$ 降至 $53.88$；$\ell = 2$ Purity 仍有 $97.96\%$，但 $|{\rm Overlap}|^2$ 更大幅跌至 $7.99$。此「高純度、低重疊」的現象源於兩項指標截然不同的物理內涵：
+Table~\ref{tab:results_summary} reveals a phenomenon worth examining in depth: the Purity for $\ell = 1$ is the highest of all six ($98.66\%$), yet $|{\rm Overlap}|^2$ has already dropped from $60.92$ at $\ell=0$ to $53.88$; for $\ell = 2$, Purity is still $97.96\%$, but $|{\rm Overlap}|^2$ drops further to $7.99$. This "high purity, low overlap" phenomenon arises from the fundamentally different physical meanings of the two metrics:
 
-Purity 衡量遠場場型與目標 LG 模態的\textit{歸一化形狀吻合度} (見式  (3.9))，對絕對能量不敏感；$|{\rm Overlap}|^2$ 則量化絕對耦合功率，直接反映光源輻射中有多少能量被有效轉化為目標模態。隨拓樸荷增大，LG$_{\ell,0}$ 光斑的環形半徑 $r_{\rm peak} = w_0\sqrt{\ell/2}$ 迅速增大，而設計區域尺寸固定為 $4.5\,\mu{\rm m}$，高 $\ell$ 模態的有效場型整形僅能在此受限空間內進行。優化器能夠在有限空間內塑造正確的螺旋相位分佈 (維持高 Purity)，但無法同時確保足夠的絕對能量耦合進入更大尺度的模態 (故 $|{\rm Overlap}|^2$ 顯著下降)。
+Purity measures the \textit{normalized shape agreement} between the far-field pattern and the target LG mode (see equation (3.9)) and is insensitive to the absolute energy level; $|{\rm Overlap}|^2$ quantifies the absolute coupling power, directly reflecting how much of the source radiation is effectively converted into the target mode. As topological charge increases, the ring peak radius of the LG$_{\ell,0}$ mode, $r_{\rm peak} = w_0\sqrt{\ell/2}$, grows rapidly, while the design region size is fixed at $4.5\,\mu{\rm m}$. Effective pattern shaping for high-$\ell$ modes can only happen within this constrained space. The optimizer can produce the correct spiral phase distribution within the finite space (maintaining high Purity), but cannot simultaneously ensure sufficient absolute energy coupling into the larger-scale modes (hence $|{\rm Overlap}|^2$ drops significantly).
 
-這一解耦現象印證了以 Purity 與 $|{\rm Overlap}|^2$ 作為雙重評估指標的必要性：兩者互補，前者反映模態形狀的保真度，後者反映能量轉換的效率，缺一不可。
+This decoupling confirms that using both Purity and $|{\rm Overlap}|^2$ as dual evaluation metrics is necessary: the two are complementary—the former reflects the fidelity of the mode shape, the latter reflects the efficiency of energy conversion, and neither alone is sufficient.
 
 \subsection{Physical Limits of High-Order OAM Generation}
 
 \label{ssec:high_order_limit}
 
-$\ell = 4, 5$ 的模態純度跌至約 $82\%$，遠場相位分佈亦出現輕微不均 (見第~\ref{sec:farfield} 節)。此效能下降可歸因於以下兩個相互耦合的物理限制：
+The mode purity for $\ell = 4, 5$ drops to around $82\%$, and slight non-uniformity appears in the far-field phase distribution (see Section~\ref{sec:farfield}). This performance drop can be attributed to two mutually coupled physical limitations:
 
-\textbf{ (一)角向相位梯度解析度限制：}高階 OAM 模態要求設計區域在角向方向提供更精細的相位梯度，其等效角向空間頻率與 $\ell$ 成正比。在固定 $4.5\,\mu{\rm m}$ 設計面積與 $50\,{\rm grid/}\mu{\rm m}$ 解析度下，高拓樸荷所需的角向相位調制逐漸接近網格可解析的空間頻率上限，形成數值帶限 (numerical bandwidth limitation)，使優化器無法精確表達所需的精細幾何相位分佈。
+\textbf{(i) Azimuthal phase gradient resolution limit:} High-order OAM modes require finer azimuthal phase gradients across the design region, with an equivalent azimuthal spatial frequency proportional to $\ell$. At a fixed $4.5\,\mu{\rm m}$ design area and $50\,{\rm grid/}\mu{\rm m}$ resolution, the azimuthal phase modulation needed for high topological charges gradually approaches the spatial frequency ceiling resolvable by the grid, creating a numerical bandwidth limitation—the optimizer can no longer accurately express the required fine geometric phase distribution.
 
-\textbf{ (二)設計域尺寸相對模態尺度不足：}LG 模態的環形峰值半徑隨拓樸荷正比增大，$\ell = 4, 5$ 對應的理論光斑尺寸已接近甚至超越設計域邊界。優化器在有限設計空間內無法完整表達高階模態所需的完整輻射場型，遠場模態整形因此受限。
+\textbf{(ii) Insufficient design domain size relative to mode scale:} The ring peak radius of LG modes grows proportionally with topological charge, and for $\ell = 4, 5$ the theoretical spot size is approaching or even exceeding the design domain boundary. The optimizer cannot fully express the complete radiation pattern required for high-order modes within the finite design space, limiting far-field mode shaping.
 
-此兩項限制共同構成本研究方法在高 $\ell$ 端的效能瓶頸，並預示擴大設計區域或提高數值解析度有望顯著提升高階模態的純度。值得注意的是，儘管存在上述空間限制，所有數據的相位纏繞驗證 (第~\ref{sec:winding} 節) 均顯示拓樸荷精度誤差 $< 1\%$，說明高 $\ell$ 的效能損失主要表現在強度輪廓偏差，而非拓樸荷本身的失準。
+These two limitations together form the performance bottleneck of this work at high $\ell$, and suggest that expanding the design region or increasing numerical resolution would likely significantly improve mode purity for high-order modes. Notably, despite these spatial constraints, the phase winding verification for all designs (Section~\ref{sec:winding}) shows topological charge accuracy errors below $1\%$, indicating that the performance loss at high $\ell$ is primarily expressed as deviations in the intensity profile, not as misalignment of the topological charge itself.
 
   
 
@@ -59,38 +59,38 @@ $\ell = 4, 5$ 的模態純度跌至約 $82\%$，遠場相位分佈亦出現輕�
 
 \begin{table}[htb]
 \centering
-\caption{本研究與現有代表性 OAM 超穎表面方案的量化比較。}
+\caption{Quantitative comparison of this work with representative existing OAM metasurface approaches.}
 \label{tab:comparison}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{p{2.8cm}cccp{2.5cm}c}
 \hline
-方案 & 設計方法 & 材料 & Purity  (\%) & 光源類型 & 谷選擇性 \\
+Approach & Design method & Material & Purity (\%) & Source type & Valley selectivity \\
 \hline
-Karimi 2014 \cite{karimi2014generating} & 正向 (幾何相位) & Au 電漿子 & $\sim$64 & 外部平面波 & 無 \\
-Guo 2016 \cite{guo2merging} & 正向 (幾何+延遲相位) & Au 電漿子 & $>$90 & 外部平面波 & 無 \\
-Sroor 2020 \cite{sroor2020high} & 正向 ($\text{TiO}_2$ 超穎表面) & $\text{TiO}_2$ 全介電 & $\sim$90  ($\ell \le 100$) & 雷射腔內 & 無 \\
-Li 2023 \cite{li2023valley} & TMD 光子晶體 (BIC) & TMD/Si & 未量化 Purity & 主動 (TMD) & 固定 $\ell$ \\
-\textbf{本研究} & \textbf{反向設計 (拓樸最佳化)} & \textbf{GaP 全介電} & \textbf{82$\sim$ 98 ($\ell \le 3$)} & \textbf{主動 (WS$_2$ 谷極化激子)} & \textbf{固定 $\ell$ $\&$ RCP 純度 $<1\%$} \\
+Karimi 2014 \cite{karimi2014generating} & Forward (geometric phase) & Au plasmonic & $\sim$64 & External plane wave & None \\
+Guo 2016 \cite{guo2merging} & Forward (geometric+propagation phase) & Au plasmonic & $>$90 & External plane wave & None \\
+Sroor 2020 \cite{sroor2020high} & Forward ($\text{TiO}_2$ metasurface) & $\text{TiO}_2$ all-dielectric & $\sim$90  ($\ell \le 100$) & Intracavity laser & None \\
+Li 2023 \cite{li2023valley} & TMD photonic crystal (BIC) & TMD/Si & Purity not quantified & Active (TMD) & Fixed $\ell$ \\
+\textbf{This work} & \textbf{Inverse design (topology optimization)} & \textbf{GaP all-dielectric} & \textbf{82$\sim$ 98 ($\ell \le 3$)} & \textbf{Active (WS$_2$ valley-polarized exciton)} & \textbf{Fixed $\ell$ \& RCP purity $<1\%$} \\
 \hline
 \end{tabular}
 }
 \end{table}
 
-表~\ref{tab:comparison} 彙整本研究與代表性現有文獻在核心指標上的量化比較。由表~\ref{tab:comparison} 可見，本研究在以下三個維度上較現有方案具備明確優勢：
+Table~\ref{tab:comparison} summarizes a quantitative comparison of this work with representative literature on core metrics. As can be seen, this work holds clear advantages over existing approaches in three dimensions:
 
-\textbf{ (一)同時具備高純度與主動手性光源整合：}現有方案或具備高純度 (Sroor 2020: $\sim 90\%$)但光源為被動外部平面波；或採用主動 TMD 材料 (Li 2023)但未量化 LG 模態純度且受限於固定晶格幾何。本研究以 $98.66\%$ ($\ell = 1$)至 $94.13\%$ ($\ell = 3$)的 LG 模態純度，同時整合主動谷極化激子光源，填補了「主動光源 + 高純度 LG 模態」的設計缺口。
+\textbf{(i) Simultaneous high purity and active chiral source integration:} Existing approaches either achieve high purity (Sroor 2020: $\sim 90\%$) but rely on a passive external plane wave source; or use an active TMD material (Li 2023) but do not quantify LG mode purity and are limited by fixed lattice geometry. This work achieves LG mode purity from $98.66\%$ ($\ell = 1$) to $94.13\%$ ($\ell = 3$), while simultaneously integrating an active valley-polarized exciton source, filling the "active source + high-purity LG mode" design gap.
 
-\textbf{ (二)谷極化選擇性量化驗證：}目前文獻中僅少數工作對谷間串擾 (inter-valley crosstalk)進行量化。本研究直接以 RCP 交叉激發測試 ($\ell = 3$ 結構，RCP 純度 $0.84\%$ vs. LCP 純度 $94.13\%$)提供了明確且可與未來實驗比對的基準數據。
+\textbf{(ii) Quantitative verification of valley polarization selectivity:} Only a small number of existing works have quantified inter-valley crosstalk. This work directly provides a clear, experimentally benchmarkable baseline through the RCP cross-excitation test ($\ell = 3$ structure: RCP purity $0.84\%$ vs. LCP purity $94.13\%$).
 
-\textbf{ (三)設計自由度：}以 $5.1\times10^4$ 個設計自由度取代傳統幾何參數 (通常少於 10 個)，使優化器能自動搜尋非直覺的高性能結構，同時不需預設幾何形狀。
+\textbf{(iii) Design freedom:} Using $5.1\times10^4$ design degrees of freedom instead of the traditional few geometric parameters (usually fewer than 10) allows the optimizer to automatically search for non-intuitive high-performance structures without any preset geometric shape.
 
 \subsection{Topology Optimization in Nanophotonics}
 
 \label{ssec:compare_topo}
 
-拓樸最佳化應用於奈米光子學已有諸多先例，包含光子晶體腔模式整形、非線性頻率轉換效率最佳化等~\cite{Hammond2022high}。然而，直接針對手性主動光源結合 OAM 模態整合的反向設計方案於現有文獻中仍屬少見。
+There are many precedents for applying topology optimization to nanophotonics, including photonic crystal cavity mode shaping and nonlinear frequency conversion efficiency optimization \cite{Hammond2022high}. However, inverse design approaches directly targeting chiral active light sources combined with OAM mode integration remain rare in the existing literature.
 
-本研究最主要的方法學貢獻在於三點。第一，以手性發光點光源 (而非外部入射平面波)作為優化驅動場，使所得結構從設計起點即對應谷極化激子的實際輻射環境。第二，以 LG 模態重疊積分與模態純度的聯合對數目標函數 (式  (3.16))作為 FOM，防止低功率病態收斂，同時保持對模態形狀的精確控制。第三，全程保持設計的圓偏振選擇性，透過近場手性密度分析與偏振交叉激發測試加以定量驗證 (第~\ref{sec:chirality} 節與第~\ref{sec:pol_selectivity} 節)。
+The main methodological contributions of this work lie in three points. First, a chiral emitting point source (rather than an external incident plane wave) is used as the optimization driving field, so the resulting structure corresponds from the start to the actual radiation environment of valley-polarized excitons. Second, the joint logarithmic objective function of LG mode overlap integral and mode purity (equation (3.16)) is used as the FOM, preventing low-power pathological convergence while maintaining precise control over mode shape. Third, the circular polarization selectivity of the design is maintained throughout, and quantitatively verified through near-field chirality density analysis and polarization cross-excitation testing (Sections~\ref{sec:chirality} and \ref{sec:pol_selectivity}).
 
 %===================================================================
 
@@ -104,12 +104,12 @@ Li 2023 \cite{li2023valley} & TMD 光子晶體 (BIC) & TMD/Si & 未量化 Purity
 
 \label{ssec:current_limits}
 
-本研究存在以下幾項值得正視的限制，並就各項限制對結果可信度的影響進行評估：
+This work has several limitations worth acknowledging, and their impact on the reliability of the results is assessed for each:
 
-\textbf{ (一)設計區域尺寸固定：}$4.5\,\mu{\rm m}$ 的設計邊長對低拓樸荷 ($\ell \le 2$)已足夠，但 $\ell = 4, 5$ 對應的理論 LG 光斑峰值半徑 $r_{\rm peak} = w_0\sqrt{\ell/2}$ 已接近甚至超越設計域邊界，優化器無法在有限空間內完整表達高階模態的輻射場型 (詳見第~\ref{ssec:high_order_limit} 節)。根據估算，若設計域擴大至 $8\,\mu{\rm m}$ 以上，$\ell = 4, 5$ 的模態純度有望恢復至 $90\%$ 以上。
+\textbf{(i) Fixed design region size:} The $4.5\,\mu{\rm m}$ design side length is adequate for low topological charges ($\ell \le 2$), but for $\ell = 4, 5$ the theoretical LG spot peak radius $r_{\rm peak} = w_0\sqrt{\ell/2}$ is approaching or exceeding the design domain boundary, and the optimizer cannot fully express the radiation pattern of high-order modes within the finite space (see Section~\ref{ssec:high_order_limit} for details). Based on estimates, expanding the design domain to $8\,\mu{\rm m}$ or more could restore the mode purity for $\ell = 4, 5$ to above $90\%$.
 
-\textbf{ (二)單一波長設計：}本研究以 $\lambda = 0.593\,\mu{\rm m}$ (WS$_2$ 激子峰值波長附近)為單一目標波長進行優化。GaP 在此波長附近色散不大 ($\Delta n/\Delta\lambda \approx 0.3\,\mu{\rm m}^{-1}$)，預期頻寬約在目標波長 $\pm 5\%$ 範圍內仍可維持 $>80\%$ 純度，但需進一步模擬驗證。在多波長 OAM 複用的實際應用中，需擴展 FOM 定義加入多頻段約束，或採用寬頻優化策略。
+\textbf{(ii) Single-wavelength design:} This work optimizes at a single target wavelength $\lambda = 0.593\,\mu{\rm m}$ (near the WS$_2$ exciton peak wavelength). GaP has relatively small dispersion near this wavelength ($\Delta n/\Delta\lambda \approx 0.3\,\mu{\rm m}^{-1}$), and purity is expected to remain above $80\%$ within about $\pm 5\%$ of the target wavelength, but this requires further simulation verification. For practical applications involving multi-wavelength OAM multiplexing, the FOM definition would need to be extended with multi-band constraints, or a broadband optimization strategy would need to be adopted.
 
-\textbf{ (三)理想偶極光源近似：}數值模型以理想圓偏振點偶極 ($100\%$ 圓偏振純度)模擬 WS$_2$ 激子輻射，未考慮下列三項實際因素： (a) 激子線寬 ($\sim$几十 meV)導致的非單色性； (b) 室溫下谷間散射誘發的去極化 (實驗室溫谷極化度通常為 $20\text{--}50\%$)； (c) 多激子態疊加效應。若以實際谷極化度 $P_c$ 作為輸入，遠場 LG 模態純度將近似縮放為 ${\rm Purity}_{\rm exp} \approx P_c^2 \times {\rm Purity}_{\rm sim}$。此近似意味著即使 ${\rm Purity}_{\rm sim} = 98.66\%$，若 $P_c = 50\%$，實驗預期純度約降至 $25\%$；若結合 Purcell 增強使 $P_c \to 80\%$，則可恢復至 $\sim 63\%$。提升激子谷極化純度 (如降溫、Purcell 腔增強)對實際元件性能至關重要。
+\textbf{(iii) Ideal dipole source approximation:} The numerical model simulates WS$_2$ exciton radiation as an ideal circularly polarized point dipole ($100\%$ circular polarization purity), without accounting for three practical factors: (a) non-monochromaticity from exciton linewidth ($\sim$ tens of meV); (b) depolarization from inter-valley scattering at room temperature (experimental room-temperature valley polarization degree is typically $20\text{--}50\%$); (c) multi-exciton superposition effects. If the actual valley polarization degree $P_c$ is used as input, the far-field LG mode purity will approximately scale as ${\rm Purity}_{\rm exp} \approx P_c^2 \times {\rm Purity}_{\rm sim}$. This means that even with ${\rm Purity}_{\rm sim} = 98.66\%$, if $P_c = 50\%$, the experimentally expected purity would drop to about $25\%$; if Purcell enhancement raises $P_c \to 80\%$, it could recover to $\sim 63\%$. Improving the excitonic valley polarization purity (e.g., through cooling or Purcell cavity enhancement) is critical for actual device performance.
 
-\textbf{ (四)二元材料假設與製程公差：}最終結構為 GaP/空氣二元材料的理想二值化分佈，實際製造中的邊壁粗糙度 (sidewall roughness $\sim 5\,{\rm nm}$)、刻蝕深度誤差 ($\pm 5\%$)與 GaP 薄膜折射率不均勻性均可能引入額外相位雜訊。初步估計：$5\,{\rm nm}$ 的邊壁偏移對應約 $10^{-2}$ 量級的有效折射率擾動，可能導致模態純度下降 $3\text{--}8\%$。製程公差分析 (fabrication tolerance analysis)應作為後續工作的重要組成，以建立從數值預測到實驗量測的可靠映射關係。上述各項限制的改進方向將於第六章提出。
+\textbf{(iv) Binary material assumption and fabrication tolerance:} The final structure is an ideally binarized GaP/air distribution. In actual fabrication, sidewall roughness ($\sim 5\,{\rm nm}$), etch depth errors ($\pm 5\%$), and GaP film refractive index non-uniformity could all introduce additional phase noise. A rough estimate suggests that a $5\,{\rm nm}$ sidewall offset corresponds to an effective refractive index perturbation on the order of $10^{-2}$, potentially causing mode purity to drop by $3\text{--}8\%$. Fabrication tolerance analysis should be an important part of future work, to establish a reliable mapping from numerical prediction to experimental measurement. Improvement directions for all of the above limitations will be proposed in Chapter 6.
