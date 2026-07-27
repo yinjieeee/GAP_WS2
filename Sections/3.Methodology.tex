@@ -41,21 +41,13 @@ MEEP  (MIT Electromagnetic Equation Propagation) 是一套開源 FDTD 軟體套�
 
 \subsection{Simulation Geometry}
 
-模擬計算域採用三層垂直堆疊結構 (見圖~\ref{fig:sim_geometry})：底部為鑽石 (diamond) 高折射率基板 ($n = 2.40$)，中間為單層 $\text{WS}_2$ 激子發光層 ($n = 2.40$，厚度設為 $1/\text{resolution}$，近似原子級單層)，頂部為 GaP (磷化鎵，$n = 3.31$)與空氣 ($n = 1$)二元介質的拓樸最佳化設計層，厚度 $t_{\rm design} = 0.257\;\mu\text{m}$ (對應激發波長 $\lambda = 0.593\;\mu\text{m}$ 下 $2\pi$ 的相位差)。設計層上方設置近場監測面，計算域四周與上下邊界以 PML 封閉。圓偏振點光源嵌於 $\text{WS}_2$ 層，其輻射場向上通過設計層，由近場監測面採集後經近遠場轉換 (N2F) 傳播至遠場觀察平面。
+模擬計算域採用三層垂直堆疊結構 (見圖~\ref{fig:sim_geometry_a}，圖\ref{fig:sim_geometry_b})：底部為鑽石 (diamond) 高折射率基板 ($n = 2.40$)，中間為單層 $\text{WS}_2$ 激子發光層 ($n = 2.40$，厚度設為 $1/\text{resolution}$，近似原子級單層)，頂部為 GaP (磷化鎵，$n = 3.31$)與空氣 ($n = 1$)二元介質的拓樸最佳化設計層，厚度 $t_{\rm design} = 0.257\;\mu\text{m}$ (對應激發波長 $\lambda = 0.593\;\mu\text{m}$ 下 $2\pi$ 的相位差)。設計層上方設置近場監測面，計算域四周與上下邊界以 PML 封閉。圓偏振點光源嵌於 $\text{WS}_2$ 層，其輻射場向上通過設計層，由近場監測面採集後經近遠場轉換 (N2F) 傳播至遠場觀察平面。
 
 計算域橫向尺寸為 $S_x = S_y = W_{\rm design} + 2\,d_{\rm pml}$，其中設計區域邊長 $W_{\rm design} = 4.5\;\mu\text{m}$，PML 層厚度 $d_{\rm pml} = 0.3\;\mu\text{m}$。空間解析度為 $50\;\text{grid points}/\mu\text{m}$，網格離散化後設計區域共含 $N_x \times N_y = 226 \times 226 \approx 5.1\times10^4$ 個設計自由度，每個節點對應一個獨立的密度設計變數 $\rho_j \in [0,1]$。
 
 GaP 於激發波長 $\lambda = 0.593\;\mu\text{m}$ 處位於其間接能隙 ($E_g \approx 2.26\;\text{eV}$)之下，在此波長下可近似為低損耗高折射率介質，且與電子束微影及反應離子蝕刻製程相容。
 
-\begin{figure}[htb]
-\centering
-    \includegraphics[width=0.6\textwidth]{img/xz_structure_waist.png}
-    \\ (a) 模擬區域，包含設計區域、光源、PML
-    \includegraphics[width=0.6\textwidth]{img/xz_structure.png}
-    \\ (b) 模擬區域，附上遠場位置示意圖
-\caption{模擬計算域剖面示意圖。由下而上依序為：PML 吸收邊界 (底部)、鑽石基板 ($n=2.40$)、單層 WS$_2$ 激發層 (含圓偏振偶極點光源)、GaP/空氣拓樸最佳化設計層 ($t_{\rm design}=0.257\;\mu$m)、近場監測面 (紅色虛線)、空氣區域，以及 PML (頂部與側邊)。近場監測面所採集的電磁場經近遠場轉換 (N2F) 傳播至遠場觀察平面。}
-\label{fig:sim_geometry}
-\end{figure}
+
 
 \subsection{$\text{WS}_2$ Dipole Source and Valley Selection Rule}
 
@@ -167,12 +159,6 @@ g = \frac{|C|}{C_{{\rm CPL,vac}}}
 
 圖~\ref{fig:opt_flowchart} 呈現完整最佳化迴圈，涵蓋從初始化到結構收斂的全部步驟。
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.47\textwidth]{img/017_purity_history_staircase.png}
-\caption{拓樸最佳化迭代流程圖。每一輪迭代依序執行：正向 FDTD 模擬、N2F 遠場轉換、FOM 計算、伴隨模擬、鏈式梯度計算以及 MMA 更新。達到迭代上限後，若 $\beta < \beta_{\rm max}$ 則增大 $\beta$ 繼續最佳化 (漸進二值化)；直至 $\beta = \beta_{\rm max} = 512$ 收斂後，輸出最終二值化結構 $\bar{\rho}^*$。}
-\label{fig:opt_flowchart}
-\end{figure}
 
 %===================================================================
 
@@ -221,3 +207,26 @@ r_{\rm peak} = w_0\sqrt{|\ell|/2}
 \end{enumerate}
 
 此外，為分析手性沿傳播軸的演化機制，計算 $z = k\cdot z_R$ ($k = 0.0, 0.1, \dots, 1.0, 2.0, \dots, 10.0$) 共 20 個橫截面的手性密度分佈，建立從近場到遠場的完整演化圖像 (見第~\ref{ssec:chirality_prop} 節)。
+
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=1.0\textwidth]{img/xz_structure_waist.png}
+\caption{模擬計算域剖面示意圖。由下而上依序為：PML 吸收邊界 (底部)、鑽石基板 ($n=2.40$)、單層 WS$_2$ 激發層 (含圓偏振偶極點光源)、GaP/空氣拓樸最佳化設計層 ($t_{\rm design}=0.257\;\mu$m)、近場監測面 (紅色虛線)、空氣區域，以及 PML (頂部與側邊)。近場監測面所採集的電磁場經近遠場轉換 (N2F) 傳播至遠場觀察平面。}
+\label{fig:sim_geometry_a}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.75\textwidth]{img/xz_structure.png}
+\caption{模擬計算域剖面示意圖。圖中標示空間座標系與近遠場轉換投影之目標遠場觀察高度。}
+\label{fig:sim_geometry_b}
+\end{figure}
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1.0\textwidth]{img/to_workflow.pngㄉ}
+\caption{拓樸最佳化迭代流程圖。每一輪迭代依序執行：正向 FDTD 模擬、N2F 遠場轉換、FOM 計算、伴隨模擬、鏈式梯度計算以及 MMA 更新。達到迭代上限後，若 $\beta < \beta_{\rm max}$ 則增大 $\beta$ 繼續最佳化 (漸進二值化)；直至 $\beta = \beta_{\rm max} = 512$ 收斂後，輸出最終二值化結構 $\bar{\rho}^*$。}
+\label{fig:opt_flowchart}
+\end{figure}
