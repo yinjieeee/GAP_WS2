@@ -13,13 +13,14 @@ This chapter builds on the numerical results from Chapter 4 and explores three a
 
 \label{sec:physics_discussion}
 
-\subsection{Mechanism of Spiral Geometry Emergence}
+\subsection{Mechanism of SPP-like Geometry Emergence in $\ell=2$ and Free-Form Optimization in Other Modes}
 
 \label{ssec:spiral_emergence}
 
-Chapter 4 confirmed that topology optimization, guided by adjoint gradients, spontaneously generates $\ell$-fold spiral symmetric structures that match the target topological charge $\ell$ (Figure~\ref{fig:structures_all}). This is not an accidental outcome of the optimization framework—it has a clear physical origin: the azimuthal phase dependence $e^{i\ell\phi}$ of the LG$_{\ell,0}$ mode requires the designed structure to provide a continuously increasing $\ell \times 2\pi$ phase difference across $\phi \in [0, 2\pi)$, and this geometric phase requirement naturally corresponds to a rotationally symmetric spiral material distribution.
+Chapter 4 showed that, for the $\ell = 2$ design, topology optimization guided by adjoint gradients spontaneously discovers a clear two-arm spiral structure at the center (Figure~\ref{fig:structures_all}(c)). This outcome has a clear physical origin: the azimuthal phase dependence $e^{i2\phi}$ of the LG$_{2,0}$ mode requires the structure to provide a continuously increasing $2 \times 2\pi$ phase difference across $\phi \in [0, 2\pi)$. This requirement is directly met by a two-arm spiral material distribution, which closely mirrors the working principle of a spiral phase plate (SPP). The surrounding scattering features act as a compensation mechanism by which the optimizer corrects near-field coupling errors, further improving the accuracy of far-field mode shaping.
 
-Through precise adjoint gradient computation over approximately $5.1\times10^4$ design degrees of freedom, topology optimization searches for a globally optimal solution that aligns with the intuitive design of a spiral phase plate (SPP). However, the detail of the scattering features is richer—the surrounding scattering structures can be understood as a compensation mechanism by which the optimizer corrects near-field coupling errors, further improving the accuracy of far-field mode shaping. As topological charge increases, the number of spiral arms grows and the peripheral scattering features become denser, reflecting the higher-density modulation demand on azimuthal phase space for higher-order OAM modes.
+For the other designs ($\ell = 0, 1, 3, 4, 5$), topology optimization does not produce simple $\ell$-fold spiral patterns. Instead, the optimizer converges to free-form, non-intuitive material distributions with no obvious geometric regularity. This reflects the nature of global topology optimization: an SPP-like spiral strategy is not always the globally optimal solution. When the spiral approach does not maximize the figure of merit, the optimizer automatically explores other structural forms. In all designs, the surrounding scattering features become denser as topological charge increases, reflecting the higher modulation demand on azimuthal phase space for higher-order OAM modes.
+
 
 \subsection{Origin of the Purity--Overlap Decoupling}
 
@@ -27,7 +28,7 @@ Through precise adjoint gradient computation over approximately $5.1\times10^4$ 
 
 Table~\ref{tab:results_summary} reveals a phenomenon worth examining in depth: the Purity for $\ell = 1$ is the highest of all six ($98.66\%$), yet $|{\rm Overlap}|^2$ has already dropped from $60.92$ at $\ell=0$ to $53.88$; for $\ell = 2$, Purity is still $97.96\%$, but $|{\rm Overlap}|^2$ drops further to $7.99$. This "high purity, low overlap" phenomenon arises from the fundamentally different physical meanings of the two metrics:
 
-Purity measures the \textit{normalized shape agreement} between the far-field pattern and the target LG mode (see equation (3.9)) and is insensitive to the absolute energy level; $|{\rm Overlap}|^2$ quantifies the absolute coupling power, directly reflecting how much of the source radiation is effectively converted into the target mode. As topological charge increases, the ring peak radius of the LG$_{\ell,0}$ mode, $r_{\rm peak} = w_0\sqrt{\ell/2}$, grows rapidly, while the design region size is fixed at $4.5\,\mu{\rm m}$. Effective pattern shaping for high-$\ell$ modes can only happen within this constrained space. The optimizer can produce the correct spiral phase distribution within the finite space (maintaining high Purity), but cannot simultaneously ensure sufficient absolute energy coupling into the larger-scale modes (hence $|{\rm Overlap}|^2$ drops significantly).
+Purity measures the normalized shape agreement between the far-field pattern and the target LG mode (see equation (3.9)) and is insensitive to the absolute energy level; $|{\rm Overlap}|^2$ quantifies the absolute coupling power, directly reflecting how much of the source radiation is effectively converted into the target mode. As topological charge increases, the ring peak radius of the LG$_{\ell,0}$ mode, $r_{\rm peak} = w_0\sqrt{\ell/2}$, grows rapidly, while the design region size is fixed at $4.5\,\mu{\rm m}$. Effective pattern shaping for high-$\ell$ modes can only happen within this constrained space. The optimizer can produce the correct spiral phase distribution within the finite space (maintaining high Purity), but cannot simultaneously ensure sufficient absolute energy coupling into the larger-scale modes (hence $|{\rm Overlap}|^2$ drops significantly).
 
 This decoupling confirms that using both Purity and $|{\rm Overlap}|^2$ as dual evaluation metrics is necessary: the two are complementary—the former reflects the fidelity of the mode shape, the latter reflects the efficiency of energy conversion, and neither alone is sufficient.
 
@@ -62,27 +63,31 @@ These two limitations together form the performance bottleneck of this work at h
 \caption{Quantitative comparison of this work with representative existing OAM metasurface approaches.}
 \label{tab:comparison}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{p{2.8cm}cccp{2.5cm}c}
+%\begin{tabular}{p{2.8cm}cccp{2.5cm}c}
+\begin{tabular}{cccccc}
 \hline
 Approach & Design method & Material & Purity (\%) & Source type & Valley selectivity \\
 \hline
 Karimi 2014 \cite{karimi2014generating} & Forward (geometric phase) & Au plasmonic & $\sim$64 & External plane wave & None \\
-Guo 2016 \cite{guo2merging} & Forward (geometric+propagation phase) & Au plasmonic & $>$90 & External plane wave & None \\
+Guo 2016 \cite{guo2016merging} & Forward (geometric+propagation phase) & Au plasmonic & $>$90 & External plane wave & None \\
 Sroor 2020 \cite{sroor2020high} & Forward ($\text{TiO}_2$ metasurface) & $\text{TiO}_2$ all-dielectric & $\sim$90  ($\ell \le 100$) & Intracavity laser & None \\
-Li 2023 \cite{li2023valley} & TMD photonic crystal (BIC) & TMD/Si & Purity not quantified & Active (TMD) & Fixed $\ell$ \\
-\textbf{This work} & \textbf{Inverse design (topology optimization)} & \textbf{GaP all-dielectric} & \textbf{82$\sim$ 98 ($\ell \le 3$)} & \textbf{Active (WS$_2$ valley-polarized exciton)} & \textbf{Fixed $\ell$ \& RCP purity $<1\%$} \\
+Li 2023 \cite{li2023valley} & TMD photonic crystal (BIC) & $\text{WSe}_2$/Si & Purity not quantified & \textbf{Active ($\text{WSe}_2$)} & Fixed $\ell$ \\
+\textbf{This work} & \textbf{Inverse design (topology optimization)} & \textbf{GaP all-dielectric} & \textbf{82$\sim$ 98 ($\ell \le 3$)} & \textbf{Active ($\text{WS}_2$)} & \textbf{Fixed $\ell$ \& RCP purity $<1\%$} \\
 \hline
 \end{tabular}
 }
 \end{table}
 
+
 Table~\ref{tab:comparison} summarizes a quantitative comparison of this work with representative literature on core metrics. As can be seen, this work holds clear advantages over existing approaches in three dimensions:
 
-\textbf{(i) Simultaneous high purity and active chiral source integration:} Existing approaches either achieve high purity (Sroor 2020: $\sim 90\%$) but rely on a passive external plane wave source; or use an active TMD material (Li 2023) but do not quantify LG mode purity and are limited by fixed lattice geometry. This work achieves LG mode purity from $98.66\%$ ($\ell = 1$) to $94.13\%$ ($\ell = 3$), while simultaneously integrating an active valley-polarized exciton source, filling the "active source + high-purity LG mode" design gap.
+\textbf{(i) Simultaneous high purity and active chiral source integration:} Existing approaches either achieve high purity (Sroor 2020: $\sim 90\%$) but use an intracavity metasurface laser, which is a large laser setup rather than emitter integration, and lacks valley selectivity; or combine TMD material  with metasurfaces to act as an active circularly polarized light source (Li 2023) but do not quantify LG mode purity and are limited by fixed lattice geometry. This work achieves LG mode purity from $98.66\%$ ($\ell = 1$) to $94.13\%$ ($\ell = 3$), while simultaneously integrating an active valley-polarized exciton source, filling the "active source + high-purity LG mode" design gap.
 
 \textbf{(ii) Quantitative verification of valley polarization selectivity:} Only a small number of existing works have quantified inter-valley crosstalk. This work directly provides a clear, experimentally benchmarkable baseline through the RCP cross-excitation test ($\ell = 3$ structure: RCP purity $0.84\%$ vs. LCP purity $94.13\%$).
 
-\textbf{(iii) Design freedom:} Using $5.1\times10^4$ design degrees of freedom instead of the traditional few geometric parameters (usually fewer than 10) allows the optimizer to automatically search for non-intuitive high-performance structures without any preset geometric shape.
+\textbf{(iii) Design freedom:} Using $5.1\times10^4$ design degrees of freedom instead of the traditional few geometric parameters allows the optimizer to automatically search for non-intuitive high-performance structures without any preset geometric shape.
+
+\textbf{(iv) Compact footprint:} The device footprint of this work is $4.5 \times 4.5\;\mu\text{m}^2$. This is much smaller than the large laser cavity setup in Sroor et al. (2020) and the periodic photonic crystal array in Li et al. (2023). This small size is close to the exciton diffusion length in monolayer $\text{WS}_2$, which helps to reduce intervalley scattering during emission. Topology optimization makes this compact size possible by encoding the full phase profile within a single non-periodic design region. This allows the device to achieve high OAM purity and active valley-locked emission within an ultra-compact footprint.
 
 \subsection{Topology Optimization in Nanophotonics}
 

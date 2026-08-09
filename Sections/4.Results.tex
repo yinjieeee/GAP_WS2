@@ -116,9 +116,12 @@ The final quantitative results for $\ell = 0$ to $5$ are summarized in Table~\re
 
 Figure~\ref{fig:structures_all} shows the final converged GaP/air binary material density distributions for the six designs (black represents GaP, refractive index $n = 3.31$; white represents air, refractive index $n = 1$).
 
-Examining these six structures reveals a clear geometric evolution: the order of the spiral symmetry at the center of each structure exactly matches the target topological charge $\ell$. $\ell = 0$ shows full rotational symmetry with a closed GaP circular core at the center; $\ell = 1$ through $\ell = 5$ successively display one-arm, two-arm, up to five-fold spiral symmetry features. This geometric character shows that the optimizer, guided by gradients, spontaneously translates the required azimuthal phase modulation into a rotationally symmetric spiral design strategy. This closely parallels the working principle of a spiral phase plate (SPP), while the details are richer—the surrounding scattering features serve as compensation mechanisms for correcting near-field coupling errors, further improving far-field mode shaping accuracy.
+Examining the six structures, the most visually striking feature appears in the $\ell = 2$ design (Figure~\ref{fig:structures_all}(c)): a clear two-arm spiral pattern is visible at the center, closely resembling the working principle of a spiral phase plate (SPP). This suggests that the optimizer, guided by adjoint gradients, spontaneously discovers a design strategy similar to a two-arm SPP to provide the required $2 \times 2\pi$ azimuthal phase modulation. The surrounding scattering features act as a compensation mechanism to correct near-field coupling errors and improve far-field mode shaping accuracy.
 
-As topological charge increases, the geometric complexity of the central spiral grows, and the surrounding scattering features become denser, reflecting the higher modulation demand on the phase space for higher-order OAM modes.
+For the other designs, the structures do not show simple $\ell$-fold rotational spiral features. $\ell = 0$ shows a roughly symmetric closed GaP core at the center; $\ell = 1, 3, 4, 5$ produce free-form, non-intuitive material distributions with no obvious geometric regularity. This reflects the nature of topology optimization: when the SPP-like spiral strategy is not the globally optimal solution, the optimizer automatically searches for an alternative distribution that better satisfies the gradient conditions, even if the result has no geometric symmetry that is easy to interpret visually.
+
+Despite the different geometric forms, all six structures show dense scattering features away from the center. As topological charge increases, these surrounding features become denser, reflecting the higher modulation demand on azimuthal phase space for higher-order OAM modes.
+
 
 \begin{figure}[htb]
 \centering
@@ -132,7 +135,7 @@ As topological charge increases, the geometric complexity of the central spiral 
         \includegraphics[width=0.3\textwidth]{img/022_structure_iter_282_beta_512.00.png}
         \\(d) $\ell = 3$ &  (e) $\ell = 4$ &  (f) $\ell = 5$
     \end{tabular}
-\caption{Final converged GaP/air binary material density distributions for $\ell = 0$ to $5$ ($\beta = 512$, binarized structures). Black represents GaP ($n = 3.31$); white represents air ($n = 1$). At the center of each structure, $\ell$-fold spiral symmetry corresponding to the target topological charge is visible.}
+\caption{Final converged GaP/air binary material density distributions for $\ell = 0$ to $5$ ($\beta = 512$, binarized structures). Black represents GaP ($n = 3.31$); white represents air ($n = 1$). The $\ell = 2$ design shows a clear two-arm spiral pattern at the center, similar to a spiral phase plate (SPP). The other designs show free-form non-intuitive material distributions that do not follow simple $\ell$-fold rotational symmetry.}
 \label{fig:structures_all}
 
 \end{figure}

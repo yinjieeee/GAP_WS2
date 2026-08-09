@@ -93,6 +93,13 @@ From the standpoint of energy flow, substituting the LG field into the time-aver
 \end{align}
 This tells us that electromagnetic energy does not just travel straight along the $z$-axis—it also spirals around the propagation axis with an angular momentum flux density. Each photon in an LG beam therefore carries an OAM of $\ell\hbar$ in addition to the SAM from its polarization. This spatially-derived OAM is precisely what allows LG beams to exert optical torques on microscopic particles and drive them to orbit around the beam axis.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{img/dop_title.png}
+\caption{Intensity (left) and phase (right) profiles of Laguerre--Gaussian modes $\text{LG}_{0,\ell}$ for topological charges $\ell = 0, 1, 2, 3$. The doughnut-shaped intensity ring grows with $|\ell|$, and the phase pattern shows $\ell$ complete $2\pi$ windings around the central singularity. [Placeholder: replace with actual LG mode diagram]}
+\label{fig:lg_modes_placeholder}
+\end{figure}
+
 \subsection{Monolayer Transition Metal Dichalcogenides: Crystal Structure, Band Structure, and Valley Physics}
 
 \subsubsection*{Crystal Structure and Broken Inversion Symmetry}
@@ -211,6 +218,13 @@ If the spatial orientation of the nanostructures is designed to vary linearly wi
 
 Geometric-phase metasurfaces are one of the most representative platforms for realizing SAM-to-OAM conversion. More broadly, photon SOI can be engineered arbitrarily through a spatially non-uniform optical response. By breaking away from the local geometric phase constraint of rotated unit structures, one can freely manipulate the spatial phase gradient in a more general two-dimensional non-uniform medium, realizing light fields with customized OAM states. This provides a theoretical foundation for using novel, counter-intuitive optical structures to control wavefronts and generate high-purity OAM modes.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{img/dop_title.png}
+\caption{Schematic of the Poincar\'{e} sphere representation of polarization states. The north pole corresponds to right-circular polarization ($\sigma^+$), the south pole to left-circular polarization ($\sigma^-$), and the equator to linear polarizations at various orientations. When the polarization state traces a closed path on the sphere, the enclosed solid angle $\Omega_{\rm solid}$ determines the accumulated Pancharatnam--Berry phase $\Phi_{\rm PB} = \Omega_{\rm solid}/2$. [Placeholder: replace with actual Poincar\'{e} sphere diagram]}
+\label{fig:poincare_sphere_placeholder}
+\end{figure}
+
 \subsection{Inverse Design and Topology Optimization}
 
 In traditional nanophotonic device design, forward design is the norm: one relies on physical intuition or established geometric shapes (such as cylinders or rectangular antennas) and performs limited parameter sweeps. This approach is severely limited by the designer's geometric intuition and can only adjust a very small number of degrees of freedom, making it ill-suited for non-intuitive, multi-functional, or highly asymmetric optical field control challenges.
@@ -254,34 +268,65 @@ Despite the impressive performance of existing OAM metasurfaces, current devices
 \end{tabular}
 \end{table}
 
+
 \subsection{Valley-controlled Chiral Photonics}
 
 The synergy between broken spatial inversion symmetry and strong SOC in TMDs gives rise to the unique spin--valley locking effect \cite{xiao2012coupled}. Circularly polarized light can selectively control the electron valley degree of freedom, and this can be efficiently initialized and detected optically through polarization-resolved photoluminescence spectroscopy \cite{mak2012control, zeng2012valley, schaibley2016valleytronics}.
 
 However, exciton lifetime and valley polarization lifetime in monolayer TMDs are typically very short (on the order of a few picoseconds), which greatly limits the logic operations on valley information and its long-distance transport on chip \cite{schaibley2016valleytronics, gong2018nanoscale}. To overcome this key decoherence and loss bottleneck, researchers have mainly pursued two complementary technical paths. One focuses on using the Purcell effect of micro-nano optical cavities to increase the local photonic density of states and speed up the spontaneous emission rate of monolayer TMD excitons, improving their emission efficiency \cite{mak2016photonics, gan2013controlling}; however, conventional microcavities often lack chiral selectivity and cannot actively maintain or manipulate the valley polarization character of excitons \cite{mak2016photonics}. The other, more targeted path exploits the intrinsic valley-selective circular polarization optical transition rules of 2D materials \cite{xiao2012coupled} and couples them in the near field to one-dimensional waveguide structures with optical spin-momentum locking, establishing chiral valley-photon interfaces at the nanoscale for directional extraction and on-chip transport of valley-polarized information.
 
-The most representative example is the work by Gong et al. in 2018 \cite{gong2018nanoscale}. In that study, a few-layer $\text{WS}_2$ was near-field coupled to a single silver nanowire. The transverse intrinsic spin angular momentum carried by the surface plasmon polariton waveguide mode due to optical SOC achieves spin-momentum locking, efficiently converting the near-field circularly polarized dipole emission selectively excited in one valley into unidirectional guided mode propagation in that mode, with a directional coupling efficiency as high as $90 \pm 1\%$. This work successfully established a chiral valley-photon interface at the nanoscale and demonstrated the feasibility of in-plane valley information transport at room temperature.
+The most representative example is the work by Gong et al. in 2018 \cite{gong2018nanoscale}. In that study, a few-layer WS2 was near-field coupled to a single silver nanowire. The transverse intrinsic spin angular momentum carried by the surface plasmon polariton waveguide mode due to optical SOC achieves spinmomentum locking, efficiently converting the near-field circularly polarized dipole emission selectively excited in one valley into unidirectional guided mode propagation in that mode, with a directional coupling efficiency as high as $90 \pm 1\%$ . This work successfully established a chiral valley-photon interface at the nanoscale and demonstrated the feasibility of in-plane valley information transport at room temperature.
 
-Although metallic waveguide structures can achieve very high coupling efficiency through strong electromagnetic field confinement, the intrinsic high ohmic loss of metals severely limits the actual transport distance of valley information. To address this loss bottleneck, subsequent research began exploring coupling TMDs to low-loss, high-refractive-index all-dielectric nanowaveguides or photonic crystal waveguides. In this area, the early experimental pioneers of integrating 2D materials with low-loss, high-index all-dielectric microcavities to control exciton emission are Gan et al. in 2013, and then Wu et al. in 2014 \cite{gan2013controlling, Wu2014control}. In these works, the researchers broke away from the traditional constraint of embedding the emitter inside a photonic crystal, instead transferring a monolayer 2D material onto the surface of a pre-fabricated GaP photonic crystal microcavity; this perfectly avoided any damage to the 2D material's excitonic properties from etching, and experimentally demonstrated effective control of the spontaneous emission rate \cite{gan2013controlling, Wu2014control}.
+Although metallic waveguide structures can achieve very high coupling efficiency through strong electromagnetic field confinement, the intrinsic high ohmic loss of metals severely limits the actual transport distance of valley information. To address this loss bottleneck, subsequent research began exploring coupling TMDs to low-loss, high-refractive-index all-dielectric nanowaveguides or photonic crystal waveguides. In this area, the early experimental pioneers of integrating 2D materials with low-loss, high-index all-dielectric microcavities to control exciton emission are Gan et al. in 2013, and then Wu et al. in 2014 \cite{gan2013controlling, Wu2014control}. In these works, the researchers broke away from the traditional constraint of embedding the emitter inside a photonic crystal, instead transferring a monolayer 2D material onto the surface of a pre-fabricated GaP photonic crystal microcavity; this perfectly avoided any damage to the 2D material's excitonic properties from etching, and experimentally demonstrated effective control of the spontaneous emission rate and far-field radiation patterns \cite{gan2013controlling, Wu2014control}.
 
-Recent work has pushed further toward smaller mode volumes and metasurface control. For example, Sortino et al. in 2019 used GaP nanoantennas near-field coupled to monolayer and bilayer $\text{WSe}_2$ \cite{sortino2019enhanced}. By using a low-loss $\text{GaP}$ resonator with an extremely small mode volume—completely avoiding metal-induced non-radiative and ohmic losses—they achieved photoluminescence enhancement of over $10^4$ times and shortened the exciton radiative decay time to the system detection limit through the Purcell effect. This series of advances from photonic crystal microcavities to dielectric nanoantennas confirmed that all-dielectric GaP nanostructures can effectively overcome the metal loss bottleneck and serve as an excellent platform for controlling 2D exciton emission.
+Building upon these early dielectric platforms, subsequent research pushed further toward smaller mode volumes and metasurface control to actively manipulate valley emission without metal losses. For example, Sortino et al. in 2019 used GaP nanoantennas near-field coupled to monolayer and bilayer WSe2 \cite{sortino2019enhanced}. By using a low-loss GaP resonator with an extremely small mode volume---completely avoiding metal-induced non-radiative and ohmic losses---they achieved photoluminescence enhancement of over $10^4$ times and shortened the exciton radiative decay time to the system detection limit through the Purcell effect.
 
-Beyond in-plane directional waveguiding on the chip surface, how to actively control the three-dimensional free-space radiation behavior of valley-polarized emission has also become another key topic. By building artificially designed all-dielectric chiral metasurfaces on TMD surfaces, researchers can achieve out-of-plane wavefront control while avoiding ohmic losses, leading to the development of low-loss chiral metasurfaces, valley-selective holographic projection, and vortex beam emission carrying OAM.
+This series of advances from photonic crystal microcavities to dielectric nanoantennas confirmed that all-dielectric GaP nanostructures can effectively overcome metal losses \cite{gan2013controlling, Wu2014control, sortino2019enhanced}. These nanostructures serve as an excellent platform for controlling 2D exciton emission through the local Purcell effect \cite{sortino2019enhanced}.
 
-In experiments on out-of-plane three-dimensional spatial control, the core challenge is how to break the out-of-plane symmetry of the system to efficiently extract chiral valley-polarized photons. Rong et al. in 2020 made a breakthrough in this direction \cite{rong2020photonic}. Using polycrystalline silicon dielectric material to avoid metal losses, they excited the photonic Rashba effect, successfully converting the intrinsic valley spin of monolayer $\text{WSe}_2$ into highly directional spin-locked beams radiating into free space in specific directions, achieving highly directive out-of-plane beam shaping.
+Beyond in-plane directional waveguiding on the chip surface, how to actively control the three-dimensional free-space radiation of valley-polarized emission has become another key topic \cite{wang2020routing, rong2020photonic}.
+
+ To extract and separate valley-polarized photons into free space, researchers **must** break the spatial symmetry of the nanophotonic systems. This symmetry breaking creates circularly polarized modes with opposite helicities in momentum space. In recent years, researchers have developed two main parallel paths for out-of-plane control: all-dielectric photonic crystal (PhC) slabs with delocalized Bloch modes, and chiral metasurfaces with localized resonant modes.
+
+% --- PART A: Delocalized Bloch modes in PhC slabs (Wang 2020 & Huang 2024) ---
+The first path utilizes all-dielectric PhC slabs supporting delocalized modes over a large area \cite{wang2020routing, huang2024directing}. Wang et al. in 2020 used a silicon nitride PhC slab without in-plane inversion symmetry to control valley emission \cite{wang2020routing}. By breaking the $C_2$ symmetry with triangular holes, they created circularly polarized Bloch modes. This design successfully routed the valley photons of a monolayer $\text{WS}_2$ at room temperature. It achieved an 88\% valley polarization in momentum space and enhanced the radiative rate by 75\%.
+
+To improve valley coherence at room temperature, Huang et al. in 2024 extended this PhC slab strategy to three-layer (3~L) $\text{WS}_2$ \cite{huang2024directing}. Multilayer TMDs have a shorter exciton lifetime, which helps maintain valley polarization at room temperature. They broke the inversion symmetry of the slab by shifting the smaller air holes in a dual-hole square lattice. This asymmetric perturbation created strong directional circular dichroism. As a result, the exciton emissions from different valleys were successfully separated into different far-field channels at room temperature.
+
+% --- PART B: Localized resonant modes in chiral metasurfaces (Rong 2020) ---
+The second path uses chiral metasurfaces or high-Q cavity modes to shape far-field radiation. Rong et al. in 2020 transferred monolayer $\text{WSe}_2$ onto a polycrystalline silicon metasurface \cite{rong2020photonic}. They excited the photonic Rashba effect to convert $\text{WSe}_2$ valley spin into highly directional, spin-locked narrow beams in free space.
 
 As nano-optics and 2D material photonic devices have rapidly evolved, research attention has shifted from traditional in-plane directional waveguiding to how to efficiently extract and control out-of-plane chiral radiation in free space. However, building active chiral light source devices faces a fundamental physical challenge: while direct-bandgap monolayer TMDs have very high exciton emission efficiency and intrinsic valley spin selectivity, their atomically thin thickness (about $0.7\text{ nm}$) limits the electromagnetic field interaction strength and phase control ability; conversely, while multilayer materials or directly patterned TMDs can provide enough geometric phase control, multilayer TMDs lose direct-bandgap character and their emission efficiency drops exponentially. As a result, the best technical path for building 2D chiral light sources and laser chips has become the hybrid integration of a high-emission-efficiency monolayer TMD active layer with a low-loss, high-index dielectric metasurface.
 
-On this technical path, recent research has achieved landmark results. For example, Rong et al. in 2023 transferred monolayer $\text{WS}_2$ onto a $\text{Si}_3\text{N}_4$ Kagome photonic crystal lattice surface, and by breaking spatial inversion symmetry to excite the photonic Rashba effect, demonstrated a highly coherent spin--valley-locked monolayer laser at room temperature \cite{rong2023spin}. Subsequently, Pan et al. in 2025 used a silicon chiral metasurface to excite high-activity, strongly chiral near-field enhanced non-local quasi-bound states in the continuum, raising the circular polarization degree of valley-selective emission from monolayer $\text{MoSe}_2$ to new highs at room temperature \cite{pan2025room}.
+On this technical path, recent research has achieved landmark results. For example, Rong et al. in 2023 combined monolayer $\text{WS}_2$ with a $\text{Si}_3\text{N}_4$ Kagome photonic crystal lattice \cite{rong2023spin}. This work broke spatial inversion symmetry to excite the photonic Rashba effect, demonstrating a highly coherent spin-valley-locked monolayer laser at room temperature.
 
-Despite the excellent performance of these high-Q cavity-based hybrid devices in boosting chiral extraction efficiency and exciton emission rates, significant technical bottlenecks remain. Existing devices mostly rely on periodic, highly symmetric conventional lattice geometries (such as Kagome lattices or notched square arrays), which typically confine their far-field wavefront control to simple directional narrow beams or multi-symmetric radiation spots. Without an external polarization filter, how to directly shape the spontaneous emission of monolayer TMD excitons into a complex, high-degree-of-freedom wavefront—such as directly generating OAM-carrying vortex beams or LG modes with high mode purity—while simultaneously maintaining high valley polarization selectivity, remains the core bottleneck facing current spin--valley optoelectronic chips.
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{img/dop_title.png}
+\caption{Key structural and physical elements of the spin-valley Rashba monolayer laser (Rong et al., 2023 \cite{rong2023spin}). (a)~Schematic laser architecture: the spin-valley optical microcavity is formed by interfacing an inversion-symmetric (IS) cladding region (Kagome $q=0$ lattice) with an inversion-asymmetric (IaS) core region ($q=\sqrt{3}\times\sqrt{3}$ Kagome lattice), which selectively confines $\pm K$ photonic spin-valley modes for high-$Q$ resonances, enabling coherent spin-polarized lasing from $\pm K'$ valley excitons in an incorporated $\text{WS}_2$ monolayer. (b)~IS photonic spin-like lattice: top-view and tilted-view SEM images with a spin-degenerate parabolic band hosting a $\Gamma$-BIC. (c)~IaS photonic spin-like lattice: SEM images and band structure showing the emergent photonic Rashba effect splitting the spin-degenerate band into two opposite spin-polarized branches (red: $+K$; blue: $-K$). Scale bars, 200~nm. (d)~Valley-contrasting optical selection rules for $\pm K'$ valley excitons in the $\text{WS}_2$ monolayer. (e)~Structural details of one unit cell of the IaS lattice. [Placeholder: replace with actual Fig.~1(a)--(e) from Rong et al.~2023; obtain permission before submission]}
+\label{fig:rong2023_fig1_placeholder}
+\end{figure}
 
-\begin{table}[h]
+Subsequently, Pan et al. in 2025 used a silicon chiral metasurface to excite high-activity, strongly chiral near-field enhanced non-local quasi-bound states in the continuum (quasi-BIC) \cite{pan2025room}. This work raised the circular polarization degree of valley-selective emission from monolayer $\text{MoSe}_2$ to new highs at room temperature.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{img/dop_title.png}
+\caption{Representative results from Pan et al. (2025) \cite{pan2025room}: silicon chiral metasurface design supporting quasi-BIC modes and the measured room-temperature valley-selective circular polarization degree of $\text{MoSe}_2$. [Placeholder: replace with actual figure from Pan et al.~2025; obtain permission before submission]}
+\label{fig:pan2025_placeholder}
+\end{figure}
+
+Despite the excellent performance of these high-Q cavity-based hybrid devices in boosting chiral extraction efficiency and exciton emission rates, significant technical bottlenecks remain. Existing devices mostly rely on periodic, highly symmetric conventional lattice geometries (such as Kagome lattices or notched square arrays), which typically confine their far-field wavefront control to simple directional narrow beams or multi-symmetric radiation spots. Without an external polarization filter, how to directly shape the spontaneous emission of monolayer TMD excitons into a complex, high-degree-of-freedom wavefront---such as directly generating OAM-carrying vortex beams or LG modes with high mode purity---while simultaneously maintaining high valley polarization selectivity, remains the core bottleneck facing current spin--valley optoelectronic chips.
+
+\begin{table}[H]
 \centering
 \caption{Timeline of valley chiral photonics research}
 \label{tab:timeline_valley}
 \small
-\begin{tabular}{c p{11cm}}
+
+\renewcommand{\arraystretch}{0.01} 
+
+\begin{tabular}{c >{\begin{spacing}{0.85}\raggedright\arraybackslash}p{11cm}<{\end{spacing}}}
+
 \toprule
 \textbf{Year} & \textbf{Key Contribution} \\
 \midrule
@@ -293,8 +338,10 @@ Despite the excellent performance of these high-Q cavity-based hybrid devices in
 2016 & Systematic review of valleytronics advances; noted that picosecond exciton lifetime limits long-distance on-chip valley information transport \cite{schaibley2016valleytronics} \\
 2018 & WS$_2$ near-field coupled to silver nanowire; valley-selective directional coupling efficiency reaches $90\pm1$\% \cite{gong2018nanoscale} \\
 2019 & GaP nanoantennas near-field coupled to WSe$_2$; PL enhancement of $10^4$ times and radiative decay shortened via Purcell effect \cite{sortino2019enhanced} \\
+2020 & First demonstration of routing and separating $\text{WS}_2$ valley excitons at room temperature using in-plane inversion-symmetry-broken PhC slabs \cite{wang2020routing} \\
 2020 & Polycrystalline silicon metasurface excites photonic Rashba effect, converting WSe$_2$ valley spin into directional spin-locked narrow beam \cite{rong2020photonic} \\
 2023 & Monolayer WS$_2$ combined with Si$_3$N$_4$ Kagome photonic crystal; room-temperature spin--valley-locked coherent laser \cite{rong2023spin} \\
+2024 & Directing 3~L $\text{WS}_2$ valley emission using SiN PhC slabs with perturbed dual-hole lattices supporting directional circular dichroism \cite{huang2024directing} \\
 2025 & Silicon chiral metasurface excites quasi-BIC strongly chiral near field; room-temperature valley-selective circular polarization degree of MoSe$_2$ greatly improved \cite{pan2025room} \\
 \bottomrule
 \end{tabular}
@@ -337,6 +384,13 @@ However, looking at existing inverse-designed metasurface research, the core mec
 By contrast, applying inverse design to valley emitter control in 2D materials is still in its early stages. Most existing TMD valley emission control relies on plasmonic or nanowire structures designed by conventional physical intuition \cite{mak2012control, deng2021plasmonic}. Although some research has combined inverse design with monolayer TMDs for cavity coupling or dark exciton detection \cite{gelly2023inverse}, high-degree-of-freedom emission control targeting specific valley chirality remains very scarce. Even more challenging: very few studies have explored how to directly convert chiral circularly polarized emission from a specific valley degree of freedom into OAM-carrying LG beams.
 
 Although silicon chips can already realize efficient inverse-designed OAM emitters \cite{white2023inverse}, no valley-selective inverse-designed emitter has yet simultaneously addressed momentum matching, chiral selection, and far-field spatial mode conversion. This research gap is the core problem that this thesis aims to explore and solve.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{img/dop_title.png}
+\caption{Inverse-designed silicon optical vortex beam emitter (White et al., 2023 \cite{white2023inverse}): topology-optimized device structure and measured far-field OAM vortex beam pattern. This work demonstrated the feasibility of inverse design for active OAM devices on a silicon chip, but does not incorporate valley selectivity. [Placeholder: replace with actual figure from White et al.~2023; obtain permission before submission]}
+\label{fig:white2023_placeholder}
+\end{figure}
 
 \begin{table}[h]
 \centering
