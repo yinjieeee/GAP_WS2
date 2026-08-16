@@ -7,7 +7,7 @@
 \subsection{Orbital Angular Momentum of Light}
 \label{ssec:oam of light}
 
-In classical electromagnetism and modern quantum optics, light carries not only linear momentum but also angular momentum. Optical angular momentum can be clearly divided into two parts: spin angular momentum (SAM) and orbital angular momentum (OAM). SAM is tied to the circular polarization state of the light wave and describes the rotational character of the field vector, while OAM depends on the spatial geometry of the field—specifically, the spatial phase structure of the wavefront.
+In classical electromagnetism and modern quantum optics, light carries not only linear momentum but also angular momentum. Optical angular momentum can be clearly divided into two parts: SAM and OAM. SAM is tied to the circular polarization state of the light wave and describes the rotational character of the field vector, while OAM depends on the spatial geometry of the field—specifically, the spatial phase structure of the wavefront.
 At the physical level, the total angular momentum density $\mathbf{J}$ of an electromagnetic field can be defined through the Poynting vector as:
 \begin{align}
 \mathbf{J} = \mathbf{E} \times \mathbf{H}
@@ -16,13 +16,13 @@ where $\mathbf{E}$ is the electric field vector and $\mathbf{H}$ is the magnetic
 \begin{align}
 \mathbf{J} = \mathbf{S} + \mathbf{L}
 \end{align}
-This decomposition means that SAM and OAM are completely separate and do not exchange energy or couple during propagation.
+This decomposition means that SAM and OAM are completely separate and will naturally decouple and become energy-independent during propagation.
 
 For a beam with a helical wavefront, the complex field amplitude in cylindrical coordinates $(r, \phi, z)$ contains an azimuthal phase factor $e^{i\ell\phi}$. From a quantum mechanical perspective, each photon in such a beam carries a well-defined OAM:
 \begin{align}
 L_z = \ell\hbar
 \end{align}
-Here, $L_z$ is the OAM component along the propagation direction, $\ell$ is the topological charge (an integer, required by single-valuedness of the wave), and $\hbar$ is the reduced Planck constant. This spatially varying phase gradient creates an azimuthal component of the Poynting vector that spirals around the propagation axis, giving rise to a macroscopic OAM.
+Here, $L_z$ is the OAM component along the propagation direction, $\ell$ is the topological charge (an integer, required by single-valuedness of the wave), and $\hbar$ is the reduced Planck constant. Due to this spatially varying phase gradient, the Poynting vector generates an azimuthal component that spirals around the propagation axis, generating macroscopic OAM.
 
 \subsection{Spin-Orbit Interaction}
 
@@ -95,8 +95,8 @@ This tells us that electromagnetic energy does not just travel straight along th
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{img/dop_title.png}
-\caption{Intensity (left) and phase (right) profiles of Laguerre--Gaussian modes $\text{LG}_{0,\ell}$ for topological charges $\ell = 0, 1, 2, 3$. The doughnut-shaped intensity ring grows with $|\ell|$, and the phase pattern shows $\ell$ complete $2\pi$ windings around the central singularity. [Placeholder: replace with actual LG mode diagram]}
+\includegraphics[width=1.0\textwidth]{img/target_LG_grid2x3.png}
+\caption{Phase (left) and intensity (right) profiles of Laguerre--Gaussian modes $\text{LG}_{0,\ell}$ for topological charges $\ell = 0\sim5$. The doughnut-shaped intensity ring grows with $|\ell|$, and the phase pattern shows $\ell$ complete $2\pi$ windings around the central singularity.}
 \label{fig:lg_modes_placeholder}
 \end{figure}
 
@@ -104,9 +104,9 @@ This tells us that electromagnetic energy does not just travel straight along th
 
 \subsubsection*{Crystal Structure and Broken Inversion Symmetry}
 
-Monolayer transition metal dichalcogenides (TMDs) have the chemical formula MX$_2$, where M is a transition metal atom (e.g., Mo or W) and X is a chalcogen atom (e.g., S or Se). Structurally, monolayer MX$_2$ consists of a layer of transition metal atoms sandwiched between two layers of chalcogen atoms, forming an X-M-X sandwich in which each metal atom is in trigonal prismatic coordination with six nearest chalcogen neighbors.
+Expressed as $\text{MX}_2$, monolayer transition metal dichalcogenides (TMDs) consist of a transition metal atom, M (e.g., Mo, W), and two chalcogen atoms, X (e.g., S, Se). Structurally, monolayer MX$_2$ consists of a layer of transition metal atoms sandwiched between two layers of chalcogen atoms, forming an X-M-X sandwich in which each metal atom is in trigonal prismatic coordination with six nearest chalcogen neighbors.
 
-In bulk form, TMDs have a spatial inversion center (belonging to the $D_{3d}$ point group), making the $K$ and $K'$ valleys at the Brillouin zone corners energetically equivalent, so bulk TMDs are indirect-bandgap semiconductors. However, when the material is thinned to the single-layer limit, the loss of interlayer coordination breaks the spatial inversion symmetry, and the point group is lowered from $D_{3d}$ to $D_{3h}$. This symmetry breaking has profound physical consequences: the $K$ and $K'$ valleys become two inequivalent high-symmetry points in the Brillouin zone, the material becomes a direct-bandgap semiconductor \cite{mak2010atomically, splendiani2010emerging}, and the valley degree of freedom becomes well-defined, enabling valley-selective optical transitions.
+In bulk 2H-TMDs, the crystal structure possesses spatial inversion symmetry belonging to the $D_{6h}$ point group, and the bulk material is an indirect-bandgap semiconductor. When thinned down to the monolayer limit, the loss of inversion symmetry lowers the point group to $D_{3h}$. Combined with the loss of interlayer coupling and quantum confinement, the material transitions into a direct-bandgap semiconductor. Furthermore, the absence of inversion symmetry allows spin degeneracy to be lifted in the presence of strong spin-orbit coupling (SOC). Time-reversal symmetry requires the corresponding spin polarizations at the K and K′ valleys to be opposite, giving rise to spin--valley locking and valley-dependent optical selection rules.
 
 \begin{figure}[H] 
 \centering 
@@ -122,9 +122,11 @@ In bulk form, TMDs have a spatial inversion center (belonging to the $D_{3d}$ po
 \label{fig:tmds_structure_b} 
 \end{figure}
 
+---
+
 \subsubsection*{Band Structure, Spin-Orbit Coupling, and Exciton Physics}
 
-In the band structure, the strong spin-orbit coupling (SOC) of the transition metal atoms—especially in W-based materials—causes a significant spin splitting at the valence band maximum at the $K$ point, forming two spin sub-bands at different energies. This splitting is as large as 400--460 meV in W-based materials (WS$_2$, WSe$_2$) and around 140--160 meV in Mo-based materials (MoS$_2$, MoSe$_2$). Due to time-reversal symmetry, the direction of the spin splitting is opposite in the $K$ and $K'$ valleys—this is the spin--valley locking effect: at the $K$ valley, spin-up electrons occupy the higher valence sub-band; at the $K'$ valley, spin-down electrons occupy the corresponding position \cite{xiao2012coupled}.
+In the band structure, the strong spin-orbit coupling (SOC) of the transition metal atoms—especially in W-based materials—causes a significant spin splitting at the valence band maximum at the $K$ point, forming two spin sub-bands at different energies. This splitting is as large as 430--460 meV in W-based materials (WS$_2$, WSe$_2$) and around 150--180 meV in Mo-based materials (MoS$_2$, MoSe$_2$). Due to time-reversal symmetry, the direction of the spin splitting is opposite in the $K$ and $K'$ valleys—this is the spin--valley locking effect: at the $K$ valley, spin-up electrons occupy the higher valence sub-band; at the $K'$ valley, spin-down electrons occupy the corresponding position \cite{xiao2012coupled}.
 
 
 \begin{figure}[H] 
@@ -136,94 +138,31 @@ In the band structure, the strong spin-orbit coupling (SOC) of the transition me
 
 On top of this band structure, optically excited electron-hole pairs are held together by strong Coulomb attraction, forming excitons—quasiparticles made of an electron and a hole. Compared to bulk three-dimensional semiconductors, Coulomb interactions in 2D materials are strongly enhanced because dielectric screening is reduced, giving exciton binding energies of 0.3--0.5 eV—far larger than the thermal energy at room temperature ($k_BT \approx 26\text{ meV}$). This means excitons remain stable at room temperature and dominate the optical response of TMDs \cite{wang2018colloquium}.
 
-Two types of excitons can be defined based on which valence sub-band is involved. The A exciton forms via a transition from the conduction band minimum to the upper (higher-energy) spin sub-band, giving lower emission energy; the B exciton forms via a transition to the lower spin sub-band, and the energy difference between A and B is the SOC splitting $\Delta_{\text{SOC}}$. In the literature review and simulation discussion that follow, valley-selective emission signals all refer to A-exciton transitions.
+Two types of excitons can be defined based on which valence sub-band is involved. The A exciton involves the upper (higher-energy) valence sub-band, resulting in a smaller bandgap and lower emission energy; the B exciton involves the lower valence sub-band, with the energy difference between A and B corresponding to the valence band SOC splitting $\Delta_{\text{SOC}}$. In the literature review and simulation discussion that follow, valley-selective emission signals all refer to A-exciton transitions.
 
 \subsubsection*{Quantum Mechanical Derivation of the Valley Selection Rules}
 
-The physical origin of the valley selection rules can be derived rigorously from the symmetry of the electric-dipole optical matrix elements. Under the constraints of the $D_{3h}$ point group, the conduction band Bloch states at the $K$ and $K'$ valleys are mainly contributed by the transition metal's $d_{z^2}$ orbital (magnetic quantum number $m = 0$), while the valence band Bloch states at the $K$ and $K'$ valleys are formed by the combinations $d_{\pm 2} \equiv (d_{x^2-y^2} \pm id_{xy})/\sqrt{2}$, with effective magnetic quantum number $m = \pm 2$, where $\pm$ corresponds to valley index $\tau = \pm 1$ ($K$ and $K'$ valleys, respectively).
+The physical origin of the valley selection rules can be derived from the symmetry of the electric-dipole optical matrix elements. Under the constraints of the $D_{3h}$ point group, the conduction band Bloch states at the K and K' valleys are mainly contributed by the transition metal's $d_{z^2}$ orbital (magnetic quantum number $m = 0$), while the valence band Bloch states at the K and K' valleys are formed by the combinations $d_{\pm 2} \equiv (d_{x^2-y^2} \pm i d_{xy})/\sqrt{2}$, carrying OAM projections of $m = \pm 2$, where $\pm$ corresponds to valley index $\tau = \pm 1$ (K and K' valleys, respectively).
+
 The electric-dipole matrix element for optical transitions is:
 \begin{align}
 \mathbf{P}_\tau = \langle u_{c,\tau\mathbf{K}} | \hat{\mathbf{p}} | u_{v,\tau\mathbf{K}} \rangle
 \end{align}
-Defining the momentum operators for left- and right-circularly polarized light as $\hat{p}_\pm = \hat{p}_x \pm i\hat{p}_y$ (corresponding to photon angular momentum $\pm\hbar$), conservation of angular momentum and the selection rules from the irreducible representations of $D_{3h}$ rigorously give:
+Defining the momentum operators for right- and left-circularly polarized light as $\hat{p}_\pm = \hat{p}_x \pm i\hat{p}_y$ (corresponding to photon angular momentum $\pm\hbar$), conservation of angular momentum and the selection rules from the irreducible representations of $D_{3h}$ give:
 \begin{align}
 |\langle u_{c,\mathbf{K}} | \hat{p}_+ | u_{v,\mathbf{K}} \rangle|^2 &\neq 0, \quad |\langle u_{c,\mathbf{K}} | \hat{p}_- | u_{v,\mathbf{K}} \rangle|^2 = 0 \\
 |\langle u_{c,\mathbf{K}'} | \hat{p}_+ | u_{v,\mathbf{K}'} \rangle|^2 &= 0, \quad |\langle u_{c,\mathbf{K}'} | \hat{p}_- | u_{v,\mathbf{K}'} \rangle|^2 \neq 0
 \end{align}
 These strict selection rules mean that in this study's configuration, the $\text{K}$ valley is selectively excited by left-circularly polarized light ($\text{LCP}, \sigma^-$), and the $\text{K}'$ valley is selectively excited by right-circularly polarized light ($\text{RCP}, \sigma^+$), demonstrating a locked relationship between the photon's SAM and the electron's valley degree of freedom \cite{xiao2012coupled}.
 
-In practice, by illuminating monolayer TMDs with circularly polarized light of a given helicity, one can selectively excite electron-hole pairs in a single valley, breaking the carrier balance between the two valleys and achieving dynamic valley polarization. When these polarized valley excitons undergo radiative recombination, their photoluminescence inherits the polarization of the excitation light: $K$-valley excitons emit $\sigma^-$ and $K'$-valley excitons emit $\sigma^+$ circularly polarized light.
+In practice, by illuminating monolayer TMDs with circularly polarized light of a given helicity, one can selectively excite electron-hole pairs in a single valley, breaking the carrier balance between the two valleys and achieving valley polarization. When these polarized valley excitons undergo radiative recombination, their radiative emission can retain the valley-dependent circular polarization: K-valley excitons emit $\sigma^-$ and K'-valley excitons emit $\sigma^+$ circularly polarized light.
 
 The purity of valley-polarized emission is usually quantified by the degree of circular polarization ($Pc$), defined as the difference between the left- and right-circular polarization intensities divided by their sum:
 \begin{align}
-Pc = \frac{I (\sigma^+) - I (\sigma^-)}{I (\sigma^+) + I (\sigma^-)}
+Pc = \frac{I (\sigma^-) - I (\sigma^+)}{I (\sigma^-) + I (\sigma^+)}
 \end{align}
-Since the circular polarization of a photon directly corresponds to its SAM, valley-polarized radiation from monolayer TMDs makes them ideal candidates as single-photon sources and as platforms for manipulating photon SAM \cite{gong2018nanoscale}. However, to further increase the information-carrying capacity of optical signals, converting this intrinsic valley degree of freedom (SAM) into photon OAM has become a central topic in modern spin photonics.
+Hence, optical valley control relies fundamentally on the direct coupling between the electronic valley and the photonic SAM. The quantum selection rules show that the valley state of an exciton determines the circular polarization of its emitted light. Due to this spin-valley locking, the valley state can be controlled and read out through optical polarization. This strong coupling provides the foundation for integrating valley-polarized emission with nanophotonic structures. It also enables the conversion of valley-dependent SAM into OAM for on-chip light manipulation.
 
-With the development of metasurface and all-dielectric valley-photonic crystal technologies, specially designed micro-nanostructures have been shown to control and demonstrate OAM with valley-contrast character, enabling valley-chirality-selective unidirectional excitation \cite{chen2017valley}. This opens up new and important solutions for chip-integrated quantum information processing and multi-dimensional optical control.
-
-\subsection{Spin-Orbit Interaction and SAM-to-OAM Conversion}
-
-Spin-orbit interaction (SOI) in photonics describes the coupling between a photon's SAM (its polarization state) and its spatial OAM (the geometric structure of its wavefront). In different optical systems, SOI can be triggered by different geometric mechanisms: in tightly focused systems, the sharp bending of the wavefront drives a spontaneous SAM-to-OAM conversion; in planar nanophotonics, spatially non-uniform geometric phase engineering provides a chip-compatible path to realize SOI. Both mechanisms are described below.
-
-\subsubsection*{Spin-Orbit Interaction in Tightly Focused Systems}
-
-When an optical system moves beyond the paraxial regime, SAM and OAM are no longer independent. In a tightly focused system, rays converge at very large angles, bending the wavefront sharply and creating a highly non-uniform transverse field near the focus. The transverse spatial gradients ($\partial E_x/\partial x$ and $\partial E_y/\partial y$) grow large, and Gauss's law requires:
-\begin{align}
-\nabla \cdot \mathbf{E} = \frac{\partial E_x}{\partial x} + \frac{\partial E_y}{\partial y} + \frac{\partial E_z}{\partial z} = 0
-\end{align}
-This forces a significant longitudinal field component $E_z$, comparable in amplitude to the transverse components, which is both mathematically and physically important. This coupling of field components, driven by geometric boundaries and wavefront structure, is the core mechanism behind optical spin-orbit interaction.
-
-For a circularly polarized Gaussian beam with SAM ($s = \pm 1$) tightly focused by a high-NA lens, when the input is LCP ($s = +1$):
-\begin{align}
-\mathbf{E}_{in} = \mathbf{E}_{0}  (r,z)  (\hat{x} + is\hat{y})e^{ikz}
-\end{align}
-Converting to cylindrical coordinates:
-\begin{align}
-\mathbf{E}_{\text{in}} \propto  (\hat{x} + is\hat{y}) =  (\cos\phi \hat{\rho} - \sin\phi \hat{\phi}) + is (\sin\phi \hat{\rho} + \cos\phi \hat{\phi})
-\end{align}
-When the ray tilts by angle $\theta$ upon focusing, only the radial component projects onto $z$. The geometric projection gives:
-\begin{align}
-\text{Projection to } z \propto \cos\phi + is\sin\phi = e^{is\phi}
-\end{align}
-In Richards--Wolf high-NA focusing theory, the focal total field is obtained by angular spectrum integration over the lens aperture. The azimuthal integration for $E_z$ gives:
-\begin{align}
-E_z \propto \int_0^{2\pi} e^{is\phi_p} e^{ik\rho\cos (\phi_p - \phi)} d\phi_p = e^{is\phi} \int_0^{2\pi} e^{is\alpha} e^{ik\rho\cos\alpha} d\alpha
-\end{align}
-The azimuthal phase $e^{is\phi}$ is pulled out of the integral, and the remaining integral is proportional to the first-order Bessel function $J_1 (k\rho\sin\theta)$. Therefore, the longitudinal field near the focal plane can be rigorously derived as:
-\begin{align}
-E_{z} (\rho, \phi, z) = -iAe^{is\phi}I_{1} (\rho,z), \quad I_1 (\rho, z) = \int_0^\alpha \cos^{1/2}\theta \sin^2\theta P (\theta) J_1 (k\rho\sin\theta) e^{ikz\cos\theta} d\theta
-\end{align}
-where $A$ is the amplitude constant, $P (\theta)$ is the apodization function, and $\alpha$ is the maximum focusing half-angle. The spontaneous appearance of the helical phase factor $e^{is\phi}$ in $E_z$—which corresponds to topological charge $\ell = s = +1$—shows that SAM, originally determined purely by polarization, is partially converted into OAM with a helical wavefront under the geometric constraint of tight focusing. This explains the physical mechanism of SAM-to-OAM conversion in tightly focused systems.
-
-\subsubsection*{Geometric Phase (Pancharatnam--Berry Phase) and SOI in Planar Nanophotonics}
-
-The Richards--Wolf derivation above shows that SAM-to-OAM conversion essentially arises from the geometric coupling between spatial phase gradients and polarization states. In the design framework of planar nanophotonic devices, achieving this type of SOI conversion does not require a high-NA lens; instead, it is accomplished through another mechanism that is more compatible with chip integration—the geometric (Pancharatnam--Berry) phase.
-
-The physical origin of the geometric phase was first identified by Pancharatnam in 1956 in the context of optical interference \cite{pancharatnam1956generalized}, and later generalized by Berry in 1984 as a universal principle in quantum mechanics \cite{berry1984quantal}: when a quantum state adiabatically evolves along a closed path in parameter space and returns to its initial state, it accumulates an extra phase determined entirely by the geometry of the path, in addition to the usual dynamical phase. In the context of optical polarization, a polarization state can be represented as a point on the Poincaré sphere—where the north pole is right-circular polarization ($\sigma^+$), the south pole is left-circular polarization ($\sigma^-$), and points on the equator are linear polarizations at various orientations. When the polarization state evolves along a closed path on the Poincaré sphere, the accumulated Pancharatnam--Berry phase (PB phase) equals half the solid angle $\Omega_\text{solid}$ enclosed by that path:
-\begin{align}
-\Phi_{\text{PB}} = \frac{\Omega_\text{solid}}{2}
-\end{align}
-For a locally birefringent nanoantenna whose fast axis is rotated by angle $\theta$, the cross-polarized component after passing through it traces a path on the Poincaré sphere from $\sigma^+$ through a linearly polarized intermediate state rotated by $2\theta$ on the equator to $\sigma^-$; the entire closed path encloses a solid angle of $4\theta$, so the PB phase is:
-\begin{align}
-\Phi_{\text{PB}} = \frac{4\theta}{2} = 2\theta
-\end{align}
-This result shows that the sign and magnitude of the PB phase are entirely determined by the rotation angle $\theta$ of the antenna and are independent of wavelength—giving geometric-phase metasurfaces a natural broadband character.
-
-Based on this physical origin, consider a locally birefringent nanostructure (such as the antenna unit of a metasurface) whose fast axis makes a local orientation angle $\theta (\phi)$ with respect to a reference axis, where $\phi$ is the azimuthal angle. When a circularly polarized light ($\sigma_z = \pm 1$) is incident, the transmitted or reflected field includes both a co-polarized component that retains the original polarization, and a cross-polarized component of opposite handedness. This cross-polarized component acquires an additional geometric phase shift directly related to the spatial orientation of the structure:
-\begin{align}
-\Omega = \mp 2\theta (\phi)
-\end{align}
-If the spatial orientation of the nanostructures is designed to vary linearly with the azimuthal angle, $\theta (\phi) = q\phi$ (where $q$ is a half-integer or integer), then the geometric phase acquired by the cross-polarized component becomes $\exp (\mp i 2q\phi)$. According to the definition of helical phase from Section \ref{ssec:oam of light}, this azimuth-dependent phase distribution corresponds to an OAM mode with topological charge $\ell = \mp 2q$.
-
-Geometric-phase metasurfaces are one of the most representative platforms for realizing SAM-to-OAM conversion. More broadly, photon SOI can be engineered arbitrarily through a spatially non-uniform optical response. By breaking away from the local geometric phase constraint of rotated unit structures, one can freely manipulate the spatial phase gradient in a more general two-dimensional non-uniform medium, realizing light fields with customized OAM states. This provides a theoretical foundation for using novel, counter-intuitive optical structures to control wavefronts and generate high-purity OAM modes.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{img/dop_title.png}
-\caption{Schematic of the Poincar\'{e} sphere representation of polarization states. The north pole corresponds to right-circular polarization ($\sigma^+$), the south pole to left-circular polarization ($\sigma^-$), and the equator to linear polarizations at various orientations. When the polarization state traces a closed path on the sphere, the enclosed solid angle $\Omega_{\rm solid}$ determines the accumulated Pancharatnam--Berry phase $\Phi_{\rm PB} = \Omega_{\rm solid}/2$. [Placeholder: replace with actual Poincar\'{e} sphere diagram]}
-\label{fig:poincare_sphere_placeholder}
-\end{figure}
 
 \subsection{Inverse Design and Topology Optimization}
 
@@ -247,7 +186,7 @@ Despite these advances in external cavity systems, purity was still limited by f
 
 Despite the impressive performance of existing OAM metasurfaces, current devices still mainly rely on forward design based on unit structures—achieving phase control by arranging specially shaped nanoantennas. The pre-defined geometric templates strictly limit the design freedom. Although high-purity OAM beams have been demonstrated individually in the above works, device performance still relies heavily on specific geometric configurations and phase engineering strategies, making it difficult to achieve global optimization across multiple light-field control targets.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Timeline of metasurface OAM generation techniques}
 \label{tab:timeline_oam}
@@ -275,7 +214,7 @@ The synergy between broken spatial inversion symmetry and strong SOC in TMDs giv
 
 However, exciton lifetime and valley polarization lifetime in monolayer TMDs are typically very short (on the order of a few picoseconds), which greatly limits the logic operations on valley information and its long-distance transport on chip \cite{schaibley2016valleytronics, gong2018nanoscale}. To overcome this key decoherence and loss bottleneck, researchers have mainly pursued two complementary technical paths. One focuses on using the Purcell effect of micro-nano optical cavities to increase the local photonic density of states and speed up the spontaneous emission rate of monolayer TMD excitons, improving their emission efficiency \cite{mak2016photonics, gan2013controlling}; however, conventional microcavities often lack chiral selectivity and cannot actively maintain or manipulate the valley polarization character of excitons \cite{mak2016photonics}. The other, more targeted path exploits the intrinsic valley-selective circular polarization optical transition rules of 2D materials \cite{xiao2012coupled} and couples them in the near field to one-dimensional waveguide structures with optical spin-momentum locking, establishing chiral valley-photon interfaces at the nanoscale for directional extraction and on-chip transport of valley-polarized information.
 
-The most representative example is the work by Gong et al. in 2018 \cite{gong2018nanoscale}. In that study, a few-layer WS2 was near-field coupled to a single silver nanowire. The transverse intrinsic spin angular momentum carried by the surface plasmon polariton waveguide mode due to optical SOC achieves spinmomentum locking, efficiently converting the near-field circularly polarized dipole emission selectively excited in one valley into unidirectional guided mode propagation in that mode, with a directional coupling efficiency as high as $90 \pm 1\%$ . This work successfully established a chiral valley-photon interface at the nanoscale and demonstrated the feasibility of in-plane valley information transport at room temperature.
+The most representative example is the work by Gong et al. in 2018 \cite{gong2018nanoscale}. In that study, a few-layer WS2 was near-field coupled to a single silver nanowire. The transverse intrinsic SAM carried by the surface plasmon polariton waveguide mode due to optical SOC achieves spinmomentum locking, efficiently converting the near-field circularly polarized dipole emission selectively excited in one valley into unidirectional guided mode propagation in that mode, with a directional coupling efficiency as high as $90 \pm 1\%$ . This work successfully established a chiral valley-photon interface at the nanoscale and demonstrated the feasibility of in-plane valley information transport at room temperature.
 
 Although metallic waveguide structures can achieve very high coupling efficiency through strong electromagnetic field confinement, the intrinsic high ohmic loss of metals severely limits the actual transport distance of valley information. To address this loss bottleneck, subsequent research began exploring coupling TMDs to low-loss, high-refractive-index all-dielectric nanowaveguides or photonic crystal waveguides. In this area, the early experimental pioneers of integrating 2D materials with low-loss, high-index all-dielectric microcavities to control exciton emission are Gan et al. in 2013, and then Wu et al. in 2014 \cite{gan2013controlling, Wu2014control}. In these works, the researchers broke away from the traditional constraint of embedding the emitter inside a photonic crystal, instead transferring a monolayer 2D material onto the surface of a pre-fabricated GaP photonic crystal microcavity; this perfectly avoided any damage to the 2D material's excitonic properties from etching, and experimentally demonstrated effective control of the spontaneous emission rate and far-field radiation patterns \cite{gan2013controlling, Wu2014control}.
 
@@ -299,21 +238,7 @@ As nano-optics and 2D material photonic devices have rapidly evolved, research a
 
 On this technical path, recent research has achieved landmark results. For example, Rong et al. in 2023 combined monolayer $\text{WS}_2$ with a $\text{Si}_3\text{N}_4$ Kagome photonic crystal lattice \cite{rong2023spin}. This work broke spatial inversion symmetry to excite the photonic Rashba effect, demonstrating a highly coherent spin-valley-locked monolayer laser at room temperature.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=1.0\textwidth]{img/dop_title.png}
-\caption{Key structural and physical elements of the spin-valley Rashba monolayer laser (Rong et al., 2023 \cite{rong2023spin}). (a)~Schematic laser architecture: the spin-valley optical microcavity is formed by interfacing an inversion-symmetric (IS) cladding region (Kagome $q=0$ lattice) with an inversion-asymmetric (IaS) core region ($q=\sqrt{3}\times\sqrt{3}$ Kagome lattice), which selectively confines $\pm K$ photonic spin-valley modes for high-$Q$ resonances, enabling coherent spin-polarized lasing from $\pm K'$ valley excitons in an incorporated $\text{WS}_2$ monolayer. (b)~IS photonic spin-like lattice: top-view and tilted-view SEM images with a spin-degenerate parabolic band hosting a $\Gamma$-BIC. (c)~IaS photonic spin-like lattice: SEM images and band structure showing the emergent photonic Rashba effect splitting the spin-degenerate band into two opposite spin-polarized branches (red: $+K$; blue: $-K$). Scale bars, 200~nm. (d)~Valley-contrasting optical selection rules for $\pm K'$ valley excitons in the $\text{WS}_2$ monolayer. (e)~Structural details of one unit cell of the IaS lattice. [Placeholder: replace with actual Fig.~1(a)--(e) from Rong et al.~2023; obtain permission before submission]}
-\label{fig:rong2023_fig1_placeholder}
-\end{figure}
-
 Subsequently, Pan et al. in 2025 used a silicon chiral metasurface to excite high-activity, strongly chiral near-field enhanced non-local quasi-bound states in the continuum (quasi-BIC) \cite{pan2025room}. This work raised the circular polarization degree of valley-selective emission from monolayer $\text{MoSe}_2$ to new highs at room temperature.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=1.0\textwidth]{img/dop_title.png}
-\caption{Representative results from Pan et al. (2025) \cite{pan2025room}: silicon chiral metasurface design supporting quasi-BIC modes and the measured room-temperature valley-selective circular polarization degree of $\text{MoSe}_2$. [Placeholder: replace with actual figure from Pan et al.~2025; obtain permission before submission]}
-\label{fig:pan2025_placeholder}
-\end{figure}
 
 Despite the excellent performance of these high-Q cavity-based hybrid devices in boosting chiral extraction efficiency and exciton emission rates, significant technical bottlenecks remain. Existing devices mostly rely on periodic, highly symmetric conventional lattice geometries (such as Kagome lattices or notched square arrays), which typically confine their far-field wavefront control to simple directional narrow beams or multi-symmetric radiation spots. Without an external polarization filter, how to directly shape the spontaneous emission of monolayer TMD excitons into a complex, high-degree-of-freedom wavefront---such as directly generating OAM-carrying vortex beams or LG modes with high mode purity---while simultaneously maintaining high valley polarization selectivity, remains the core bottleneck facing current spin--valley optoelectronic chips.
 
@@ -322,11 +247,8 @@ Despite the excellent performance of these high-Q cavity-based hybrid devices in
 \caption{Timeline of valley chiral photonics research}
 \label{tab:timeline_valley}
 \small
-
 \renewcommand{\arraystretch}{0.01} 
-
 \begin{tabular}{c >{\begin{spacing}{0.85}\raggedright\arraybackslash}p{11cm}<{\end{spacing}}}
-
 \toprule
 \textbf{Year} & \textbf{Key Contribution} \\
 \midrule
@@ -357,7 +279,7 @@ Despite the successes of these approaches in combining valley information with p
 
 Therefore, how to break the constraints of existing platforms tied to specific resonance mechanisms and lattice symmetry, and build a valley-to-OAM conversion architecture with greater design freedom, has become an important research direction.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Timeline of existing valley--OAM conversion platform research}
 \label{tab:timeline_v2oam}
@@ -385,14 +307,7 @@ By contrast, applying inverse design to valley emitter control in 2D materials i
 
 Although silicon chips can already realize efficient inverse-designed OAM emitters \cite{white2023inverse}, no valley-selective inverse-designed emitter has yet simultaneously addressed momentum matching, chiral selection, and far-field spatial mode conversion. This research gap is the core problem that this thesis aims to explore and solve.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=1.0\textwidth]{img/dop_title.png}
-\caption{Inverse-designed silicon optical vortex beam emitter (White et al., 2023 \cite{white2023inverse}): topology-optimized device structure and measured far-field OAM vortex beam pattern. This work demonstrated the feasibility of inverse design for active OAM devices on a silicon chip, but does not incorporate valley selectivity. [Placeholder: replace with actual figure from White et al.~2023; obtain permission before submission]}
-\label{fig:white2023_placeholder}
-\end{figure}
-
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{Timeline of inverse-designed nanophotonic device research}
 \label{tab:timeline_inverse}

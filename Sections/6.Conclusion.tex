@@ -15,9 +15,9 @@ vortex beams for target modes LG$_{\ell,0}$, $\ell = 0$--$5$. Four principal fin
 
 \item \textbf{Topology-driven structural diversity:} The $\ell = 2$ design uniquely self-organizes into a two-arm SPP-like spiral, while all other designs converge to free-form non-intuitive geometries (Section~\ref{ssec:spiral_emergence}).
 
-\item \textbf{Quantified valley polarization selectivity:} The $\ell = 3$ structure achieves a LCP/RCP purity contrast ratio exceeding $100{:}1$ ($94.13\%$ vs.\ $0.84\%$), providing a directly experimentally benchmarkable valley-selectivity baseline (Section~\ref{sec:pol_selectivity}).
+\item \textbf{Quantified valley polarization selectivity:} The $\ell = 3$ structure achieves a LCP/RCP purity contrast ratio exceeding $100{:}1$ ($94.13\%$ vs.\ $0.03\%$), providing a directly experimentally benchmarkable valley-selectivity baseline (Section~\ref{sec:pol_selectivity}).
 
-\item \textbf{Near-to-far-field chirality conservation:} The near-field mixed-chirality state fully recovers to pure RCP upon entering the far-field propagation region ($z \ge z_R$), confirming spin--orbit decoupling by the nanostructure (Section~\ref{ssec:chirality_prop}).
+\item \textbf{Near-to-far-field chirality conservation:} The near-field mixed-chirality state fully recovers to pure LCP upon entering the far-field propagation region ($z \ge z_R$), confirming spin--orbit decoupling by the nanostructure (Section~\ref{ssec:chirality_prop}).
 
 \end{enumerate}
 
@@ -30,9 +30,7 @@ This work addresses a previously unoccupied design space at the intersection of 
 
 At the methodological level, the complete topology optimization workflow developed here---FDTD forward simulation, adjoint gradient computation, $\beta$-continuation binarization, and MMA-based update---is source-agnostic and mode-agnostic. It can be directly extended to other target modes (e.g., higher-order LG, Bessel, or vector beams), alternative 2D material emitters (e.g., MoSe$_2$, hBN defects), or different photonic material platforms.
 
-At the level of physical understanding, the revealed decoupling between mode Purity and absolute $|{\rm Overlap}|^2$ as topological charge increases
-(Section~\ref{ssec:purity_overlap}) establishes a general design guideline: for compact high-order OAM emitters, both metrics must be independently monitored, and the design domain must scale with $\ell$ to maintain coupling efficiency.
-
+At the level of physical understanding, the revealed discrepancy between modal purity and absolute coupling efficiency ($\vert{}{\rm Overlap}\vert{}^2$) as topological charge increases (Section~\ref{ssec:purity_overlap}) establishes a general design guideline: for compact high-order OAM emitters, a high modal purity does not guarantee high radiation efficiency. Therefore, both metrics must be simultaneously evaluated, and the design domain must scale with $\ell$ to maintain overall device performance.
 %===================================================================
 
 \section{Future Work}
@@ -42,6 +40,6 @@ Building on the foundations established here, three directions offer the most im
 
 \textbf{(i) Scaling the design domain for high-order modes:} Enlarging the design area to $6.5\,\mu$m is expected to improve mode purity for $\ell = 4, 5$ to approximately $85\%$, meaningfully reducing the performance gap relative to the low-order designs while remaining within a practically feasible fabrication footprint. 
 
-\textbf{(ii) Dual-valley OAM multiplexing:} Extending the FOM to a dual-source multi-objective formulation would enable a single nanostructure to route LCP excitation to $+\ell$ and RCP excitation to $-\ell$ simultaneously, realizing topological-charge duplex encoding fully controlled by the valley degree of freedom of WS$_2$.
+\textbf{(ii) Complete topological-charge coverage ($\ell \in [-5, 5]$):} Expanding the simulation scope to include negative orbital angular momentum modes ($\ell = -1 \text{ to } -5$) will complete the full mapping of valley-locked OAM emission, demonstrating symmetric topological-charge control enabled by the valley degree of freedom in WS$_2$.
 
-\textbf{(iii) Purcell enhancement for improved valley polarization:} Integrating the nanostructure with a photonic crystal or Fabry-P\'{e}rot microcavity to exploit the Purcell effect is expected to push the room-temperature valley polarization degree of WS$_2$ beyond $80\%$, which would translate directly into a significantly improved far-field OAM mode purity in practical device operation.
+\textbf{(iii) Low-index substrate integration for enhanced device efficiency:} Replacing standard substrates with lower-refractive-index platforms (e.g., MgF$_2$, $n \approx 1.37$) can reduce substrate radiation leakage and parasitical reflections, thereby enhancing light extraction efficiency into the targeted far-field OAM modes.
