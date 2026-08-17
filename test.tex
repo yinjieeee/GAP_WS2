@@ -1,0 +1,1153 @@
+%============================================================
+
+%  Thesis Defense Presentation  ---  REVISED v3 per student request
+
+%  Topology-Optimized GaP Nanostructures for Valley-to-OAM
+
+%  Author:  Yin-Jie Cheng  |  Advisor: Dr. Jhih-Sheng Wu
+
+%  Dept. of Photonics, NYCU  |  August 2026
+
+% ============================================================
+
+%  REVISION LOG v2 (advisor discussion, Aug 2026):
+%  1. PB-phase frame REMOVED from Section 1 (tangential to inverse-design
+%     narrative: PB phase presumes a prescribed rotation angle, which
+%     conflicts with "no geometric prior given"). Math preserved in
+%     Backup. Results (Structures frame) now carries a short, hedged
+%     observation that the emergent geometry resembles PB-phase spirals.
+%  2. Block-to-block spacing standardized to \vspace{1pt} throughout
+%     (scope: block/exampleblock/alertblock adjacency only; image/tikz
+%     caption spacing left untouched -- flagged to student).
+%  3. LG Mode Fundamentals: 3 stacked images -> single \figTBD placeholder.
+%  4. MEEP frame redesigned (PROVISIONAL -- open discussion): dropped
+%     Maxwell/Yee-grid/CFL 101-level content, replaced with software
+%     justification + practical simulation setup.
+%  5. Physical Model image: height=6cm added.
+%  6. Design Variables frame: final-structure image -> placeholder.
+%  7. FOM & Adjoint frame: removed forward/adjoint E-field enumerate,
+%     removed "Practical Impact" alertblock.
+%  8. Workflow frame: "Convergence" block deleted.
+%  9. Performance Metrics frame: added FOM back-reference line before
+%     Purity/Overlap definitions.
+%  10. Performance Summary <-> Far-Field frame order swapped.
+%  11. Valley Selectivity frame: tikzpicture node fonts -> \small.
+% ============================================================
+
+%  REVISION LOG v3 (this revision):
+%  1. FUNNEL STRUCTURE: Introduction section reordered broad -> specific:
+%     OAM as New DOF -> LG Mode Fundamentals -> WS2 Valley Physics ->
+%     Quantum Chiral Emitter -> Literature Timeline -> Motivation/Gap/
+%     Objectives. Section-divider keyword order updated to match.
+%  2. TEXT REDUCTION (Intro + Methods only, per instruction -- Results/
+%     Conclusions/Future Work left untouched): previously-EMPTY blocks left
+%     over from v2 editing (empty \itemize / \exampleblock shells) filled
+%     with SHORT bullets (2-3 lines max), leaning on existing figures/
+%     \figTBD placeholders to carry the rest. Numeric values reused from
+%     the existing Backup parameter table for internal consistency.
+%     Blocks marked "% VERIFY:" were drafted by the assistant from general
+%     domain knowledge (not sourced from your thesis text) and need your
+%     sign-off before the real defense.
+%  3. DEDUPLICATION: Topology Optimization I/II/III were three near-
+%     identical frames (same to_workflow.png, same two empty blocks) left
+%     from an unfinished v2 edit. Consolidated into 2 frames:
+%     (a) Parametrization + N2F workflow (keeps the diagram),
+%     (b) FOM + Adjoint Gradient + MMA optimizer (defines the FOM that
+%     Performance Metrics later "recalls" -- it was never actually
+%     defined anywhere pre-v3, only referenced).
+%  4. Future Work block (iii) -- title "Substracts" in your draft, assumed
+%     a typo for "Substrates" -- filled with a fabrication/substrate note.
+%     % VERIFY: confirm this is what you meant, or replace.
+%  5. Valley Selectivity "Physical Origin" block (Results section, kept
+%     detailed per instruction) filled with the D3h selection-rule logic.
+%  6. SLIDE COUNT: main content frames (excludes section dividers, TOC,
+%     cover, backup, thank-you) = 23, comfortably under the 30-slide cap.
+%     Intro 6 + Methods 5 + Results 10 + Conclusions/Future 2 = 23.
+% ============================================================
+
+\documentclass[aspectratio=169, 10pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+\definecolor{NYCUblue}{RGB}{0,56,116}
+\definecolor{NYCUgold}{RGB}{200,155,60}
+\definecolor{lightblue}{RGB}{220,235,255}
+\definecolor{darkgray}{RGB}{60,60,60}
+\definecolor{accentred}{RGB}{180,30,30}
+\definecolor{accentgreen}{RGB}{20,120,60}
+\definecolor{mutezone}{RGB}{255,245,220}
+\setbeamercolor{palette primary}{bg=NYCUblue, fg=white}
+\setbeamercolor{palette secondary}{bg=NYCUblue!80, fg=white}
+\setbeamercolor{palette tertiary}{bg=NYCUblue!60, fg=white}
+\setbeamercolor{palette quaternary}{bg=NYCUblue, fg=white}
+\setbeamercolor{frametitle}{bg=NYCUblue, fg=white}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{subtitle}{fg=NYCUgold}
+\setbeamercolor{block title}{bg=NYCUblue!90, fg=white}
+\setbeamercolor{block body}{bg=lightblue}
+\setbeamercolor{block title alerted}{bg=accentred!85, fg=white}
+\setbeamercolor{block body alerted}{bg=accentred!10}
+\setbeamercolor{block title example}{bg=accentgreen!80, fg=white}
+\setbeamercolor{block body example}{bg=accentgreen!8}
+\setbeamercolor{structure}{fg=NYCUblue}
+\setbeamercolor{item}{fg=NYCUblue}
+\usefonttheme{professionalfonts}
+\setbeamerfont{title}{size=\large, series=\bfseries}
+\setbeamerfont{frametitle}{size=\normalsize, series=\bfseries}
+\setbeamerfont{block title}{size=\small, series=\bfseries}
+\usepackage{amsmath, amssymb, bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usetikzlibrary{arrows.meta, shapes, positioning, fit, backgrounds, calc}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\newcommand{\highlight}[1]{\textcolor{NYCUgold}{\textbf{#1}}}
+\newcommand{\red}[1]{\textcolor{accentred}{\textbf{#1}}}
+\newcommand{\grn}[1]{\textcolor{accentgreen}{\textbf{#1}}}
+
+% ---- Placeholder-figure commands (dashed box, never the school logo) ----
+\newcommand{\figTBD}[1][4cm]{%
+\begin{tikzpicture}
+\node[draw=gray,dashed,thick,minimum height=3.0cm,minimum width=#1,
+      font=\footnotesize,text=gray,align=center] {FIGURE TBD};
+\end{tikzpicture}}
+
+\newcommand{\figTBDsmall}[1][1.8cm]{%
+\begin{tikzpicture}
+\node[draw=gray,dashed,thick,minimum height=1.1cm,minimum width=#1,
+      font=\tiny,text=gray,align=center] {TBD};
+\end{tikzpicture}}
+
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.30\paperwidth,ht=2.25ex,dp=1ex,center]{palette primary}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.50\paperwidth,ht=2.25ex,dp=1ex,left]{section in head/foot}% 
+      \hspace{2ex}\usebeamerfont{section in head/foot}\insertsectionhead%
+      \ifx\insertsubsectionhead \empty\else\ $\rightarrow$\ \insertsubsectionhead\fi 
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,right]{palette primary}%
+      \usebeamerfont{date in head/foot}%
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+
+
+\setbeamertemplate{navigation symbols}{}
+\title[Valley-to-OAM via Topology Optimization]{%
+  Inverse Design of Chiral Nano-Optical Couplers for On-Chip Quantum Spin-to-Orbital Angular Momentum Conversion%
+}
+
+\author[Yin-Jie Cheng]{\textbf{Yin-Jie Cheng}\\[4pt]{\small Advisor: Prof.\ Jhih-Sheng Wu}}
+\institute[NYCU]{Department of Photonics\\National Yang Ming Chiao Tung University}
+\date{August 2026}
+\begin{document}
+
+
+
+% [COVER] Title -- unchanged, per student: already finalized
+
+\begin{frame}[plain]
+  \vspace{0.6cm}
+  \titlepage
+  \vspace{-0.4cm}
+  \begin{columns}[c]
+    \column{0.3\textwidth}
+      \centering
+      \includegraphics[width=0.85\textwidth,height=2.0cm,keepaspectratio]{img/nycu_title.png}\\
+    \column{0.3\textwidth}
+      \centering
+      \includegraphics[width=0.85\textwidth,height=2.0cm,keepaspectratio]{img/nstc_title.png}\\
+    \column{0.2\textwidth}
+      \centering
+      \includegraphics[width=0.85\textwidth,height=1.5cm,keepaspectratio]{img/dop_title.png}\\
+  \end{columns}
+\end{frame}
+
+
+
+% [TOC] Outline -- unchanged, per student: already finalized
+\begin{frame}{Outline}
+  \begin{columns}[T]
+    \column{0.50\textwidth}
+      \begin{block}{\textcircled{1}\; Introduction \& Motivation}
+        {\footnotesize OAM $\cdot$ Laguerre–Gaussian Modes $\cdot$ TMDs $(\text{WS}_2)$  $\cdot$ Literature Review $\cdot$ Motivation \& Research Gap \& Objectives}
+      \end{block}
+      \vspace{2pt}
+      \begin{block}{\textcircled{2}\; Methods}
+        {\footnotesize Physical Model $\cdot$ Topology Optimization  $\cdot$ Performance Metrics}
+      \end{block}
+    \column{0.48\textwidth}
+      \begin{block}{\textcircled{3}\; Results \& Discussion}
+        {\footnotesize Optimized Structures\\Far-Field Purity $\cdot$ Phase Winding\\Chirality $\cdot$ Valley Selectivity $\cdot$ Device Conversion Efficiency $\cdot$ Comparison}
+      \end{block}
+      \vspace{1pt}
+      \begin{block}{\textcircled{4}\; Conclusions \& Future Work}
+      \end{block}
+  \end{columns}
+\end{frame}
+
+
+
+\section{Introduction \& Motivation}
+
+
+
+% [DIVIDER-1] -- keyword order updated to match new funnel order below
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[NYCUblue](current page.south west) rectangle (current page.north east);
+    \node[white,font=\Huge\bfseries] at (current page.center){1.\ Introduction \& Motivation};
+    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){OAM \& Quantum Light $\cdot$  Fundamentals $\cdot$ $\text{WS}_2$ Valley Source $\cdot$ Literature $\cdot$ Motivation};
+  \end{tikzpicture}
+\end{frame}
+
+
+% [I-1] OAM as Target DOF -- MOVED UP: broadest, most universal concept first
+\begin{frame}{OAM: Degree of Freedom}
+  \begin{columns}[T]
+    \column{0.25\textwidth}
+      \begin{block}{Degree of Freedom}
+      \begin{itemize}
+        \item $A\vec{e}(kx+\omega t+\phi)$\\
+        \item Time\\
+        \item Space\\
+        \item Amplitude\\
+        \item Frequency\\
+        \item Polarization\\
+        \item Phase
+      \end{itemize}
+      \end{block}
+      \includegraphics[width=1.0\textwidth,height=3.0cm,keepaspectratio]{img/Poincare.jpg}\\
+    \column{0.72\textwidth}
+      \centering
+	  \includegraphics[width=1.0\textwidth,height=6.5cm,keepaspectratio]{img/towards_light.png}\\
+	  {\tiny He et al., \textit{Nat.\ Rev.\ Phys.}\ \textbf{4}, 170 (2022) \cite{he2022towards}}
+  \end{columns}
+\end{frame}
+
+
+
+% [I-2] LG Mode Fundamentals -- MOVED UP: this is the target basis, foundational
+\begin{frame}{LG Mode Fundamentals}
+  \centering
+  \[
+  u_{p,\ell}(r,\phi,z)=\sqrt{\frac{2p!}{\pi(p+|\ell|)!}}\,\frac{1}{w(z)}
+  \left(\frac{\sqrt{2}r}{w(z)}\right)^{|\ell|}
+  L_p^{|\ell|}\!\!\left(\frac{2r^2}{w^2(z)}\right)
+  e^{-\frac{r^2}{w^2(z)}}\,
+  e^{\frac{ikr^2}{2R(z)}}\,
+  \textcolor{NYCUblue}{\bm{e^{i\ell\phi}}}\,
+  e^{-i(2p+|\ell|+1)\psi(z)}
+  \]
+  {\small \textcolor{NYCUblue}{highlight term}: helical phase, carries topological charge $\ell$}
+  \vspace{1pt}
+  \begin{columns}[T]
+    \column{0.40\textwidth}
+      \begin{block}{Properties}
+        \begin{itemize}
+          \item $\ell$: topological charge; $L_z=\ell\hbar$
+          \item Peak ring: $r_{\rm peak}=w_0\sqrt{|\ell|/2}$
+        \end{itemize}
+      \end{block}
+      \vspace{1pt}
+    \column{0.57\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth,height=5.2cm,keepaspectratio]{img/target_LG_grid2x3.png}\\
+  \end{columns}
+\end{frame}
+
+
+% VERIFY: D3h crystal-symmetry description flagged by student as needing
+% verification against thesis main text -- unchanged here, verify before
+% final print.
+
+
+% [I-3] WS2 Valley Physics -- MOVED: narrows from "OAM in general" to
+% "the specific active source this thesis uses". Empty itemize filled
+% with 3 short bullets (images on the right already carry most of the
+% visual information, per text-reduction instruction).
+
+\begin{frame}{Active Chiral Source: Monolayer $\text{WS}_2$}
+  
+  \begin{columns}[T]
+    \column{0.50\textwidth}
+      \begin{block}{Properties of Monolayer $\text{WS}_2$ (TMD)}
+        \begin{itemize}
+        \item Monolayer: indirect $\to$ \textbf{direct} bandgap
+        \item Strong spin--orbit coupling
+        \item broken inversion symmetry ($D_{3h}$)
+        \item $K$/$K'$ valley selectivity
+        \end{itemize}
+      \end{block}
+      \vspace{1pt}
+      \begin{alertblock}{Valley Selection Rules}
+        \centering
+        \begin{tabular}{cc}
+          \toprule
+          Valley & Optical helicity \\
+          \midrule
+          $K$  & LCP ($\sigma^-$)  \\
+          $K'$ & RCP ($\sigma^+$)  \\
+          \bottomrule
+        \end{tabular}
+      \end{alertblock}
+    \column{0.50\textwidth}
+      \centering
+      \includegraphics[width=0.85\textwidth,height=3.3cm,keepaspectratio]{img/TMDs_structure.jpg}\\[1pt]
+      \includegraphics[width=0.85\textwidth,height=3.3cm,keepaspectratio]{img/WS2_8points_markers.png}
+  \end{columns}
+\end{frame}
+
+
+
+% [I-5] Literature Timeline
+% NOTE: Sroor 2020 is a committee member's work -- wording kept
+% neutral/factual (no "outperform"-style language on this node).
+
+\begin{frame}{Literature Timeline: From Valley Physics to This Work}
+\centering
+
+% ==================== 1. 上排 4 張圖片 ====================
+\begin{columns}[T, totalwidth=\textwidth]
+  \begin{column}{0.23\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/xiao2012.png}
+  \end{column}
+  \begin{column}{0.23\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/wu2014.png}
+  \end{column}
+  \begin{column}{0.23\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/karimi2014.png}
+  \end{column}
+  \begin{column}{0.23\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/molesky2018.png}
+  \end{column}
+\end{columns}
+
+\vspace{2pt}
+
+% ==================== 2. 中間時間線與資訊 ====================
+\begin{tikzpicture}[font=\tiny, scale=0.95, transform shape]
+  % 時間軸橫線與箭頭
+  \draw[thick, NYCUblue, -{Stealth[length=3mm]}] (-6.2,0) -- (6.6,0);
+
+  % 刻度線
+  \foreach \x in {-5.6,-4.0,-2.4,-0.8,0.8,2.4,4.0}{
+    \draw[NYCUblue] (\x,0.08) -- (\x,-0.08);
+  }
+
+  % 2012 Xiao
+  \node[align=center, text width=1.5cm] at (-5.6,-0.75)
+    {\textbf{2012}\\Xiao\\[1pt]Spin--valley locking};
+
+  % 2014 Wu
+  \node[align=center, text width=1.5cm] at (-4.0,-0.75)
+    {\textbf{2014}\\Wu\\[1pt]GaP PhC + TMD};
+
+  % 2014 Karimi
+  \node[align=center, text width=1.5cm] at (-2.4,-0.75)
+    {\textbf{2014}\\Karimi\\[1pt]PB metasurface};
+
+  % 2018 Molesky
+  \node[align=center, text width=1.5cm] at (-0.8,-0.75)
+    {\textbf{2018}\\Molesky\\[1pt]Topology optim.};
+
+  % 2020 Sroor
+  \node[align=center, text width=1.5cm] at (0.8,-0.75)
+    {\textbf{2020}\\Sroor\\[1pt]TiO$_2$ intracavity};
+
+  % 2023 Rong
+  \node[align=center, text width=1.5cm] at (2.4,-0.75)
+    {\textbf{2023}\\Rong\\[1pt]$\text{WS}_2$ valley laser};
+
+  % 2023 Li
+  \node[align=center, text width=1.5cm] at (4.0,-0.75)
+    {\textbf{2023}\\Li\\[1pt]TMD BIC (unquant.)};
+
+\end{tikzpicture}
+\vspace{2pt}
+
+% ==================== 3. 下排 3 張圖  ====================
+\begin{columns}[T, totalwidth=\textwidth]
+  \begin{column}{0.23\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/sroor2020.png}
+  \end{column}
+  \begin{column}{0.23\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/rong2023.png}
+  \end{column}
+  \begin{column}{0.23\textwidth}
+    \centering
+    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/li2023.png}
+  \end{column}
+\end{columns}
+\vspace{4pt}
+{\small \textbf{Gap:} no prior work combines active valley source \textbf{+} inverse design \textbf{+} quantified valley-OAM contrast.}
+\end{frame}
+
+% VERIFY: "Rong" appears here as 2023 / WS2 spin-valley laser, but the
+% Backup literature table (Backup II) lists "2020 Rong -- Si metasurface,
+% photonic Rashba" -- please confirm whether these are the same or two
+% different Rong papers before the defense.
+
+
+% [I-6] Motivation & Research Gap & Thesis Objectives -- narrowest point
+% of the funnel: this specific thesis. Unchanged from v2.
+
+\begin{frame}{Motivation, Research Gap \& Thesis Objectives}
+  \begin{columns}[T]
+    \column{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[font=\small, scale=0.9]
+        \draw[thick, NYCUblue] (0,0) rectangle (5,4);
+        \draw[dashed, gray] (2.5,0) -- (2.5,4);
+        \draw[dashed, gray] (0,2)   -- (5,2);
+        \node[font=\footnotesize,gray] at (1.25,4.3) {Shapers};
+        \node[font=\footnotesize,gray] at (3.75,4.3) {Emitters};
+        \node[font=\footnotesize,gray,rotate=90] at (-0.4,1.0) {Forward};
+        \node[font=\footnotesize,gray,rotate=90] at (-0.4,3.0) {Inverse};
+        \node[fill=NYCUblue!20,rounded corners,align=center,font=\footnotesize,minimum width=2cm] at (1.25,1.0) {Sroor 2020\\Karimi 2014};
+        \node[fill=NYCUblue!20,rounded corners,align=center,font=\footnotesize,minimum width=2cm] at (3.75,1.0) {Li 2023\\(BIC)};
+        \node[fill=NYCUblue!20,rounded corners,align=center,font=\footnotesize,minimum width=2cm] at (1.25,3.0) {White 2023\\(Si, passive)};
+        \node[fill=NYCUgold!60,draw=NYCUgold,rounded corners,align=center,font=\footnotesize\bfseries,minimum width=2.2cm,minimum height=1.0cm] at (3.75,3.0) {\textbf{This work}\\GaP + $\text{WS}_2$};
+        \node[accentred,font=\tiny] at (3.75,2.15) {previously EMPTY};
+      \end{tikzpicture}
+    \column{0.60\textwidth}
+        \begin{alertblock}{Motivation}
+        \begin{itemize}
+          \item Spiral phase plates, SLMs
+          \item Metasurfaces
+          \item Aim: Chip-integrated, valley-controlled structured light emitter
+        \end{itemize}
+      \end{alertblock}
+      \begin{block}{Objectives}
+        \begin{itemize}
+          \item 3D FDTD + adjoint framework for $\text{WS}_2$ + GaP metasurface
+          \item Inversely design valley-controlled LG emitters ($\ell=0$--$5$)
+          \item Quantify: purity, phase winding, chirality, inter-valley contrast
+        \end{itemize}
+      \end{block}
+  \end{columns}
+\end{frame}
+
+
+
+\section{Methods}
+
+
+
+% [DIVIDER-2]
+
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[NYCUblue](current page.south west) rectangle (current page.north east);
+    \node[white,font=\Huge\bfseries] at (current page.center){2.\ Methods};
+    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){FDTD $\cdot$ Physical Model $\cdot$ Topology Optimization $\cdot$ Metrics};
+  \end{tikzpicture}
+
+\end{frame}
+
+  
+
+% [M-1] FDTD + MEEP. Empty blocks filled with short bullets; the
+% right-hand figure caption already documents the simulation cross-
+% section, so "Simulation Setup" only adds the numbers not visible there.
+
+\begin{frame}{Numerical Method: FDTD via MEEP}
+
+  \begin{columns}[T]
+    \column{0.42\textwidth}
+      \begin{exampleblock}{Simulation Setup}
+        \begin{itemize}
+        \item Resolution 50 pts/$\mu$m
+        \item PML 0.3\,$\mu$m
+        \item $\text{WS}_2$ $K$-valley LCP
+        \item Near-field monitor $\to$ Far-field (10$z_R$)
+        \item Design region $4.5\times4.5\times0.257\;\mu\text{m}^3$ \\
+        \end{itemize}
+      \end{exampleblock}
+    \column{0.55\textwidth}
+      \centering
+      \includegraphics[width=\textwidth,keepaspectratio]{img/xz_structure_waist.png}\\
+      {\tiny Cross-section: PML / Diamond / $\text{WS}_2$ dipole / GaP--Air design layer / NF monitor (red dashed) / Air / PML.}
+  \end{columns}
+\end{frame}
+
+
+% [M-3] Topology Optimization I: Parametrization + N2F workflow.
+% (Consolidated from the old, near-duplicate S13/S14/S15 -- see v3 log.)
+
+\begin{frame}{Topology Optimization}
+  \begin{columns}[T]
+    \column{1.0\textwidth}
+      \centering
+      \includegraphics[width=0.8\textwidth,height=5.0cm,keepaspectratio]{img/to_workflow.png}\\
+      {\tiny Init $\to$ Forward FDTD $\to$ N2F $\to$ FOM $\to$ Adjoint FDTD $\to$ Gradient $\to$ MMA update. $\beta$ increases until $\beta_{\rm max}=512$.}
+      \begin{minipage}{0.4\textwidth}
+      \begin{block}{Tanh Projection}
+      \centering
+        $\bar{\rho}=\dfrac{\tanh(\beta\eta)+\tanh(\beta(\tilde{\rho}-\eta))}{\tanh(\beta\eta)+\tanh(\beta(1-\eta))}$
+      \end{block}
+      \end{minipage}
+  \end{columns}
+\end{frame}
+
+
+% [M-5] Metrics -- unchanged from v2 (FOM back-reference now resolves to
+% an actual definition on M-4 above).
+
+\begin{frame}{Figure of Merit}
+
+{\footnotesize \[ \text{P}_{sim}=\int_A\!\left(E_{sim,x}E_{sim,x}^*+E_{sim,y}E_{sim,y}^*\right)dA \]}\\
+{\footnotesize \[ \text{P}_{target}=\int_A\!\left(E_{t,x}E_{t,x}^*+E_{t,y}E_{t,y}^*\right)dA  \quad \text{P}_target=1\] }\\
+{\footnotesize \[ \text{Overlap}=\int_A\!\left(E_{ff,x}E_{t,x}^*+E_{ff,y}E_{t,y}^*\right)dA \]}\\
+{\footnotesize \[ \text{FOM} = \log \dfrac{|\text{Overlap}|^{2}}{\text{P}_{sim} \text{P}_{target}} +\alpha \log|\text{Overlap}|^2 \quad\alpha=0.1 \]}
+
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \begin{block}{FoM I}
+        {\footnotesize \[ \text{FOM} = \dfrac{|\text{Overlap}|^{2}}{\text{P}_{sim} \text{P}_{target}} \]}
+      \end{block}
+    \column{0.48\textwidth}
+      \begin{block}{FoM II}
+        {\footnotesize \[ \text{FOM} = \log \dfrac{|\text{Overlap}|^{2}}{\text{P}_{sim} \text{P}_{target}} +\alpha \log|\text{Overlap}|^2 \quad\alpha=0.1 \]}
+      \end{block}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Performance Metrics}
+
+  \begin{columns}[T]
+    \column{0.58\textwidth}
+      \begin{block}{\textcircled{1} Mode Overlap Integral}
+        \text{Overlap}$\Rightarrow$ \text{absolute coupling power} {\scriptsize\textcolor{accentgreen}{($\uparrow$ better)}}
+      \end{block}
+      \vspace{1pt}
+      \begin{block}{\textcircled{2} LG Mode Purity}
+        \[ \text{Purity}=\frac{|\text{Overlap}|^2}{\text{P}_{sim} \cdot \text{P}_{target}}\]
+        \textbf{Normalized shape fidelity}; $\in[0,1]$ {\scriptsize\textcolor{accentgreen}{($\uparrow$ better)}}
+      \end{block}
+    \column{0.48\textwidth}
+      \begin{block}{\textcircled{3} Phase Winding}
+        Unwrapped $\Delta\phi$ should $=\ell\times2\pi$\\
+      \end{block}
+      \vspace{1pt}
+      \begin{block}{\textcircled{4} Optical Chirality}
+        $C=\pi f\,\mathrm{Im}(\mathbf{E}^*\cdot\mathbf{H})$\\
+        $C<0$: LCP;\quad $C>0$: RCP dominant\\
+        Evaluated at near-field and $z=10\,z_R$
+      \end{block}
+    \vspace{2pt}
+  \end{columns}
+\end{frame}
+
+
+
+\section{Results \& Discussion}
+
+
+
+% [DIVIDER-3]
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[NYCUblue](current page.south west) rectangle (current page.north east);
+    \node[white,font=\Huge\bfseries] at (current page.center){3.\ Results \& Discussion};
+    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){Convergence $\cdot$ Structures $\cdot$ Far-Field $\cdot$ Chirality $\cdot$ Valley Selectivity};
+  \end{tikzpicture}
+\end{frame}
+
+
+% Results & Discussion frames below are UNCHANGED from v2 per your
+% instruction -- this section keeps its full detail, no text reduction.
+
+\begin{frame}{Compare FoMs}
+  \begin{center}
+    {\footnotesize $\ell=5$ , for example}\\[2pt]
+    \begin{tabular}{cc}
+    \includegraphics[width=0.9\linewidth,height=3.0cm,keepaspectratio]{img/016_ff_iter_282_beta_512.00.png} &
+    \includegraphics[width=0.9\linewidth,height=3.0cm,keepaspectratio]{img/022_ff_iter_282_beta_512.00.png} \\
+    {\small (a) FoM I =$\dfrac{|\text{Overlap}|^{2}}{\text{P}_{sim} \text{P}_{target}}$} & {\small (b) FoM II = $\log \dfrac{|\text{Overlap}|^{2}}{\text{P}_{sim} \text{P}_{target}} +\alpha \log|\text{Overlap}|^2$}
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+% [R-1] Structures
+
+\begin{frame}{Optimized Structures ($\ell=0\sim5$)}
+  \begin{center}
+    {\footnotesize GaP/air binary ($\beta=512$): \textbf{black}=GaP, \textbf{white}=air}\\[1pt]
+    \begin{tabular}{ccc}
+    \includegraphics[width=0.31\linewidth,height=3.0cm,keepaspectratio]{img/017_structure_iter_257_beta_512.00.png} &
+    \includegraphics[width=0.31\linewidth,height=3.0cm,keepaspectratio]{img/018_structure_iter_282_beta_512.00.png} &
+    \includegraphics[width=0.31\linewidth,height=3.0cm,keepaspectratio]{img/013_structure_iter_282_beta_512.00.png} \\
+    {\small (a) $\ell=0$} & {\small (b) $\ell=1$} & {\small (c) $\ell=2$}\\[1pt]
+	\includegraphics[width=0.31\linewidth,height=3.0cm,keepaspectratio]{img/020_structure_iter_282_beta_512.00.png} &
+    \includegraphics[width=0.31\linewidth,height=3.0cm,keepaspectratio]{img/021_structure_iter_267_beta_512.00.png} &
+    \includegraphics[width=0.31\linewidth,height=3.0cm,keepaspectratio]{img/022_structure_iter_282_beta_512.00.png} \\
+    {\small (d) $\ell=3$} & {\small (e) $\ell=4$} & {\small (f) $\ell=5$}
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+
+
+
+% [R-3] Far-Field: high-purity group
+
+\begin{frame}{Far-Field LG Mode ($\ell=0,1,2$): High Purity at $z=10\,z_R$}
+  \centering
+  {\small All three designs: purity $\ge94\%$ --- excellent LG mode fidelity}\\[4pt]
+  \begin{tabular}{ccc}
+    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/017_ff_iter_257_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/018_ff_iter_282_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/013_ff_iter_282_beta_512.00.png} \\
+    {\small (a) $\ell=0$: \textbf{\textcolor{accentgreen}{96.81\%}}} & {\small (b) $\ell=1$: \textbf{\textcolor{accentgreen}{98.66\%}}} & {\small (c) $\ell=2$: \textbf{\textcolor{accentgreen}{97.96\%}}} \\
+  \end{tabular}
+\end{frame}
+
+
+
+% [R-4] Far-Field: design-limit group with storytelling
+
+\begin{frame}{Far-Field LG Mode ($\ell=3,4,5$): Purity \& Design-Domain Effects}
+  \centering
+  \begin{tabular}{ccc}
+    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/020_ff_iter_282_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/021_ff_iter_267_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/022_ff_iter_282_beta_512.00.png} \\
+    {\small (d) $\ell=3$: \textbf{\textcolor{accentgreen}{94.13\%}}} & {\small (e) $\ell=4$: \textbf{\textcolor{NYCUgold}{81.94\%}}} & {\small (f) $\ell=5$: \textbf{\textcolor{NYCUgold}{82.62\%}}} \\
+  \end{tabular}\\[5pt]
+\end{frame}
+
+
+
+% [R-5] Performance Summary
+
+\begin{frame}{Performance Summary: Purity \& Overlap}
+  \begin{columns}[T]
+    \column{0.50\textwidth}
+      \centering
+      \small\renewcommand{\arraystretch}{1.22}
+      \begin{tabular}{ccccc}
+        \toprule
+        $\ell$ & Mode & Purity(\%) & $|\text{Ov}|^2$ & FOM \\
+        \midrule
+        \rowcolor{accentgreen!20} 0 & LG$_{0,0}$ & 96.81 & 60.92 & 0.38 \\
+        \rowcolor{accentgreen!20} 1 & LG$_{1,0}$ & \textbf{98.66} & 53.88 & 0.39 \\
+        \rowcolor{accentgreen!20} 2 & LG$_{2,0}$ & 97.96 & 7.99  & 0.19 \\
+        \rowcolor{accentgreen!20} 3 & LG$_{3,0}$ & 94.13 & 18.69 & 0.23 \\
+        \rowcolor{NYCUgold!30}  4 & LG$_{4,0}$ & 81.94 & 4.00  & $-$0.06 \\
+        \rowcolor{NYCUgold!30}  5 & LG$_{5,0}$ & 82.62 & 3.96  & $-$0.05 \\
+        \bottomrule
+      \end{tabular}\\[5pt]
+      \column{0.50\textwidth}
+      \centering
+	\begin{tikzpicture}[scale=1.0]
+	  \begin{axis}[
+	    ybar, bar width=10pt, bar shift=0pt,
+	    xlabel={$\ell$},ylabel={Purity (\%)},
+	    xtick={0,1,2,3,4,5},
+	    ymin=70,ymax=102,ytick={70,80,90,100},
+	    width=6.3cm,height=4.0cm,
+	    tick label style={font=\tiny},label style={font=\small},
+	    ymajorgrids,grid style=dashed,
+	  ]
+	    \addplot[fill=accentgreen!70,draw=accentgreen] coordinates{(0,96.81)(1,98.66)(2,97.96)(3,94.13)};
+	    \addplot[fill=NYCUgold!80,draw=NYCUgold] coordinates{(4,81.94)(5,82.62)};
+	    \draw[accentred,dashed,thick](axis cs:-0.5,80)--(axis cs:5.5,80) node[right,font=\tiny,accentred]{80\%};
+	  \end{axis}
+	\end{tikzpicture}
+  \end{columns}
+\end{frame}
+
+  
+
+% [R-6] Phase Winding
+
+\begin{frame}{Phase Winding: Topological Charge Accuracy}
+  \begin{columns}[T]
+    \column{0.60\textwidth}
+      \centering
+      \includegraphics[width=\textwidth,height=3.3cm,keepaspectratio]{img/018_ff_winding_iter_282_beta_512.00_rfraction_0.3885.png}\\
+      \includegraphics[width=\textwidth,height=3.3cm,keepaspectratio]{img/022_ff_winding_iter_282_beta_512.00_rfraction_0.6176.png}
+	  \column{0.37\textwidth}
+	  \centering
+	  \begin{exampleblock}{All Six Designs}
+		\small\centering
+		\begin{tabular}{cc}
+		  \toprule
+		  $\ell$ & Error \\
+		  \midrule
+		  0 & $\approx0$ \\
+		  1 & $<0.1\%$ \\
+		  2 & $0.5\%$ \\
+		  3 & $<1\%$ \\
+		  4 & $<1\%$ \\
+		  5 & $<1\%$ \\
+		  \bottomrule
+		\end{tabular}
+	  \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+  
+
+% [R-7] Chirality
+
+\begin{frame}{Optical Chirality: Near-to-Far-Field Propagation}
+
+  \begin{columns}[T]
+    \column{0.7\textwidth}
+      \centering
+      \includegraphics[width=\textwidth,height=3.7cm,keepaspectratio]{img/chirality_prop_0p0to0p9zr_Fixed_XY_360.png}\\[1pt]
+      \includegraphics[width=\textwidth,height=3.8cm,keepaspectratio]{img/chirality_prop_1to10zr_Fixed_XY_360.png}
+    \column{0.30\textwidth}
+      \begin{block}{Chirality: $C=\pi f\,\mathrm{Im}(\mathbf{E}^*\cdot\mathbf{H})$}
+      \centering
+        Red ($C<0$): LCP\\
+        Blue ($C>0$): RCP
+      \end{block}
+  \end{columns}
+\end{frame}
+
+  
+
+% [R-8] Valley Selectivity -- "Physical Origin" block filled (Results
+% section, kept detailed per instruction). Grounded in the D3h selection
+% rules already used in Backup: Valley Selection Rule.
+
+\begin{frame}{Valley Selectivity: Cross-Polarization Test}
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \node[draw=accentgreen,fill=accentgreen!12,rounded corners=5pt,minimum width=5.5cm,minimum height=0.5cm,font=\small\bfseries]{\grn{\checkmark\ K-valley (LCP): Purity = 94.13\%}};
+      \end{tikzpicture}\\[1pt]
+      \includegraphics[width=1\textwidth,height=5cm,keepaspectratio]{img/020_ff_iter_282_beta_512.00.png}\\
+    \column{0.48\textwidth}
+      \begin{tikzpicture}
+        \node[draw=accentred,fill=accentred!10,rounded corners=5pt,minimum width=5.5cm,minimum height=0.5cm,font=\small\bfseries]{\red{\texttimes\ $K'$-valley (RCP): Purity = 0.03\%}};
+      \end{tikzpicture}\\[1pt]
+      \includegraphics[width=1\textwidth,height=5cm,keepaspectratio]{img/rcp.png}\\
+      \begin{center}
+        {\large Valley Contrast Ratio:}
+        \begin{tikzpicture}
+          \node[fill=NYCUblue,text=white,rounded corners=8pt,minimum width=2.5cm,minimum height=0.8cm,font=\bfseries]{\highlight{$\approx  3143: 1$}};
+        \end{tikzpicture}
+      \end{center}
+  \end{columns}
+\end{frame}
+
+% [R-4.5] Device Physical Conversion Efficiency -- NEW FRAME (student request)
+% VERIFY: numbers below are for ell=5 only (purity 82.62% matches the
+% ell=5 far-field result on R-4/R-5). Confirm whether this frame should
+% represent (a) ell=5 as the worst-case/representative example, or
+% (b) all six designs as a summary table -- currently drafted as (a).
+
+\begin{frame}{Device Physical Conversion Efficiency}
+  \begin{columns}[T]
+    \column{0.55\textwidth}
+      \centering
+      \includegraphics[width=\textwidth,keepaspectratio]{img/monitor_positions.png}\\[2pt]
+    \column{0.42\textwidth}
+      \begin{exampleblock}{Up/Down Emission Split \& Purity}
+        \centering
+        \small
+        \begin{tabular}{lr}
+          \toprule
+          $P_{\rm up}$    & $2.39\times10^{1}$ W \\
+          $P_{\rm down}$  & $1.09\times10^{3}$ W \\
+          $P_{\rm total}$ & $1.12\times10^{3}$ W \\
+          \midrule
+          \textbf{Upward fraction $X$} & \textbf{2.14\%} \\
+          \midrule
+          \textbf{Purity$(\ell=5)$ $Y$} & \textbf{82.62\%} \\
+          \bottomrule
+        \end{tabular}
+      \end{exampleblock}
+      \vspace{1pt}
+      \begin{alertblock}{Device Conversion Efficiency}
+        \centering
+        \[Z = X \times Y = 2.14\% \times 82.62\% \approx 1.77\%\]
+      \end{alertblock}
+  \end{columns}
+\end{frame}
+
+
+% [R-10] Comparison
+
+\begin{frame}{Comparison with Prior Work}
+
+  \centering\small\renewcommand{\arraystretch}{1.25}
+
+\begin{columns}[T]
+    \column{0.32\textwidth}
+      \begin{exampleblock}{\centering Advantage (i)}
+        \centering\footnotesize \textbf{Active source} + high LG purity ($>$94\% for $\ell\le3$) simultaneously
+      \end{exampleblock}
+    \column{0.32\textwidth}
+      \begin{exampleblock}{\centering Advantage (ii)}
+        \centering\footnotesize \textbf{Quantified} valley contrast: RCP 0.03\% vs.\ LCP 94.13\%
+      \end{exampleblock}
+    \column{0.32\textwidth}
+      \begin{exampleblock}{\centering Advantage (iii)}
+        \centering\footnotesize \textbf{Compact footprint:} $4.5\,\mu$m$\Rightarrow$ PIC-compatible
+      \end{exampleblock}
+  \end{columns}
+  \vspace{4pt}
+  \begin{tabular}{lccccc}
+    \toprule
+    \textbf{Work} & \textbf{Design} & Footprint & \textbf{Purity} & \textbf{Source} & \textbf{Valley sel.} \\
+    \midrule
+    Karimi 2014 & Forward (PB)      & defult & $\sim$64\%  & Passive PW & \red{None} \\
+    Guo 2016    & Forward (PB+prop) & defult & $>$90\%     & Passive PW & \red{None} \\
+    Sroor 2020  & Forward, $\text{TiO}_2$  & defult & $\sim90\%$ ($\ell\!\le\!100$) & Intracavity & \red{None} \\
+    Li 2023     & BIC photonic crystal & defult & Not quantified & Active ($\text{WSe}_2$) & Fixed $\ell$ \\
+    \midrule
+    \rowcolor{NYCUblue!15}
+    \textbf{This work} & \textbf{Inverse (topo.\ opt.)} & $20.25 \mu m^2$ & \textbf{82--98\%} & \textbf{Active $\text{WS}_2$} & \grn{\textbf{$>$100:1}} \\
+    \bottomrule
+  \end{tabular}
+
+  
+\end{frame}
+
+
+
+\section{Conclusions \& Future Work}
+
+
+
+% [DIVIDER-4]
+\begin{frame}[plain]
+
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[NYCUblue](current page.south west) rectangle (current page.north east);
+    \node[white,font=\Huge\bfseries] at (current page.center){4.\ Conclusions \& Future Work};
+  \end{tikzpicture}
+\end{frame}
+
+
+
+% [C-1] Conclusions -- kept as full sentences (exception to keyword rule),
+% UNCHANGED per instruction.
+
+\begin{frame}{Conclusions}
+  \begin{enumerate}
+    \setlength\itemsep{7pt}
+    \item \textbf{High-purity OAM from an active valley source}\\
+      Purity $\ge94\%$ for $\ell\le3$; peak \highlight{98.66\%} at $\ell=1$; phase winding error $<1\%$ for all six designs.
+    \item \textbf{Topology-driven structural diversity} \\ 
+    $\ell=2$ uniquely forms a two-arm SPP-like spiral, while other designs exhibit non-intuitive free-form geometries.\\
+    \item \textbf{Strong valley selectivity}\\
+      K-valley (LCP) 94.13\% vs.\ K'-valley (RCP) 0.03\% (ratio $>100:1$).
+    \item \textbf{Near-to-far-field chirality evolution}\\
+      Mixed LCP/RCP near field $\to$ pure LCP far field as evanescent waves decay. OAM reshaping and SAM decoupled.
+      \item \textbf{Device Energy efficiency}\\
+      diamond substrate ($n=2.40$) $\to$ \highlight{$\textbf{P}_{up}=2.14\%$} upward emission ($\ell=5$)
+  \end{enumerate}
+\end{frame}
+
+ 
+
+% [C-2] Future Work -- block (iii) filled. "Substracts" in your draft was
+% assumed to be a typo for "Substrates"; VERIFY and edit if you meant
+% something else (e.g. fabrication tolerance study specifically).
+
+\begin{frame}{Future Work}
+  \begin{columns}[T]
+    \column{0.8\textwidth}
+      \begin{block}{(i) Expand Design Domain}
+        Target $\ge6.5\,\mu$m + higher resolution\\
+        Expected: purity $>85\%$ for $\ell=4,5$
+      \end{block}
+      \vspace{1pt}
+	\begin{block}{(ii) Complete Topological-Charge Coverage ($\ell \in [-5, 5]$)} 
+	\begin{itemize} 
+		\item Expanded Simulation Scope: Include negative OAM modes ($\ell = -1 \text{ to } -5$).
+		\item Full Mapping: Establish complete valley-locked OAM emission profile.
+		\item Symmetric Control: Demonstrate topological-charge control via WS$_2$ valley degree of freedom. 
+	\end{itemize} 
+	\end{block}
+      \vspace{1pt}
+      \begin{block}{(iii) Alternative Substrates}
+        lower-index substrate, e.g.\ $\text{MgF}_2$ ($n\approx1.38$) $\Rightarrow$ higher device efficiency
+      \end{block}
+  \end{columns}
+\end{frame}
+
+  
+
+% [THANK-YOU]
+
+\begin{frame}[plain]
+  \vspace{0.5cm}
+  \begin{center}
+    {\large\textcolor{darkgray}{Q \& A}}\\[0.7cm]
+    {\color{NYCUblue}\rule{10cm}{1.5pt}}\\[0.5cm]
+    {\normalsize \textbf{Yin-Jie Cheng}\quad|\quad Advisor: Prof.\ Jhih-Sheng Wu\\[4pt] Department of Photonics, NYCU\quad|\quad August 2026}\\[0.5cm]
+  \end{center}
+  \begin{columns}[c]
+    \column{0.30\textwidth}
+      \centering
+      \includegraphics[width=\textwidth,height=2.4cm,keepaspectratio]{img/018_structure_iter_282_beta_512.00.png}\\
+      {\tiny Optimized structure ($\ell=1$)}
+    \column{0.38\textwidth}
+      \centering
+      \begin{tikzpicture}
+        \node[draw=NYCUblue,fill=lightblue,rounded corners=5pt,minimum width=5.5cm,minimum height=2.4cm,font=\small,align=center]{Purity: up to \textbf{98.66\%} ($\ell=1$),\\ $>94\%$ for $\ell\le3$\\[4pt] Valley contrast: \textbf{$>$100:1}\\ (94.13\% vs.\ 0.03\%)\\[4pt] Phase winding error: \textbf{$<1\%$} all 6};
+      \end{tikzpicture}
+    \column{0.30\textwidth}
+      \centering
+      \includegraphics[width=\textwidth,height=2.4cm,keepaspectratio]{img/018_ff_iter_282_beta_512.00.png}\\
+      {\tiny Far-field LG$_{1,0}$ (98.66\%)}
+  \end{columns}
+\end{frame}
+
+  
+
+% Backup Slides
+
+\appendix
+
+% ------------------------------------------------------------
+% Backup: Extended literature preserved from the original three
+% timeline tables.
+% ------------------------------------------------------------
+
+\begin{frame}{Backup: Extended Literature I --- Metasurface-Based OAM Generation}
+  \begin{columns}[T]
+    \column{0.90\textwidth}
+      \small\renewcommand{\arraystretch}{1.15}
+      \begin{tabularx}{\linewidth}{>{\bfseries}c X c}
+        \toprule
+        Year & Key Contribution & Purity \\
+        \midrule
+        \rowcolor{lightblue}
+        2014 & Karimi --- L-shaped Au arrays, geometric-phase OAM (visible) & $\sim$64\% \\
+        2016 & Guo --- combined geometric + propagation phase, continuous shape & $>$90\% \\
+        \rowcolor{lightblue}
+        2017 & Liu --- \textit{perfect vortex} (ring size $\perp \ell$) & --- \\
+        2018 & Bi --- metasurface OAM multiplexing in mm-wave & --- \\
+        \rowcolor{lightblue}
+        2020 & Sroor --- TiO$_2$ inside laser cavity; $\ell=100$ & $\sim$90\% \\
+        2021 & Zhou --- TiO$_2$ perfect vortex, tunable ring and ellipticity & --- \\
+        \bottomrule
+      \end{tabularx}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Backup: Extended Literature II --- Valley-Chiral Photonics}
+  \begin{columns}[T]
+    \column{0.90\textwidth}
+      \small\renewcommand{\arraystretch}{1.15}
+	  \begin{tabularx}{\linewidth}{>{\bfseries}c X}
+        \toprule
+        Year & Key Contribution \\
+        \midrule
+        \rowcolor{lightblue}
+        2012 & Mak, Zeng --- experimental valley polarization in MoS$_2$ / WSe$_2$ \\
+        2013 & Gan --- first 2D material on GaP photonic crystal microcavity \\
+        \rowcolor{lightblue}
+        2018 & Gong --- $\text{WS}_2$ + Ag nanowire; valley directional coupling 90\% \\
+        2019 & Sortino --- GaP nanoantenna + WSe$_2$; PL enhancement $10^4\times$ \\
+        \rowcolor{lightblue}
+        2020 & Rong --- Si metasurface, photonic Rashba; directional valley beam \\
+        2025 & Pan --- Si chiral metasurface + quasi-BIC; room-T valley-selective CP \\
+        \bottomrule
+      \end{tabularx}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Backup: Extended Literature III --- Inverse-Designed Nanophotonics}
+  \begin{columns}[T]
+    \column{0.90\textwidth}
+      \small\renewcommand{\arraystretch}{1.15}
+	  \begin{tabularx}{\linewidth}{>{\bfseries}c X}
+        \toprule
+        Year & Key Contribution \\
+        \midrule
+        \rowcolor{lightblue}
+        2011 & Jensen --- topology optimization framework for nanophotonics \\
+        2022 & Li --- topology-optimized metasurface, asymmetric beam deflection \\
+        \rowcolor{lightblue}
+        2023 & Gelly --- inverse design + TMD for cavity coupling \\
+        2023 & White --- inverse-designed Si OAM emitter (passive; no valley selectivity) \\
+        \rowcolor{lightblue}
+        2024 & Wang --- full-Stokes polarimetry via inverse-designed metasurface \\
+        2025 & Choi --- large-NA achromatic metalens by inverse design \\
+        \bottomrule
+      \end{tabularx}
+  \end{columns}
+\end{frame}
+
+
+
+% ------------------------------------------------------------
+% Backup: Pancharatnam-Berry phase formalism (removed from main
+% deck; preserved here in case committee asks about the
+% resemblance noted on the Structures slide).
+% ------------------------------------------------------------
+
+\begin{frame}{Backup: SAM $\to$ OAM, Pancharatnam--Berry Phase}
+  \begin{columns}[T]
+    \column{0.52\textwidth}
+      \begin{block}{Geometric (PB) Phase}
+        Nanoantenna rotated by $\theta$:
+        $\Phi_{\rm PB} = 2 \sigma \theta$, 
+        $\sigma = \pm 1$: incident circular polarization.
+        \begin{itemize}
+          \item Opposite SAM states $\to$ opposite geometric phases
+          \item Phase set by geometry, not material dispersion
+        \end{itemize}
+      \end{block}
+      \vspace{1pt}
+      \begin{exampleblock}{OAM Encoding}
+		Rotation angle:
+		$\theta(\phi)=q\phi$
+		PB phase:
+		$\Phi_{PB}=2\sigma q\phi$
+		Equivalent helical phase:
+		$e^{i\ell\phi},\qquad \ell=2\sigma q.$
+      \end{exampleblock}
+      \vspace{1pt}
+      \begin{alertblock}{Relation to This Work}
+        This work does \textbf{not} prescribe $\theta(\phi)$: topology optimization finds the phase profile freely. Emergent spiral geometry (Structures slide) qualitatively resembles a PB-phase pattern as a byproduct, not a design choice.
+      \end{alertblock}
+    \column{0.45\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.88, font=\footnotesize]
+        \draw[thick, NYCUblue] (0,0) circle (1.2);
+        \fill[NYCUblue]  (0, 1.2) circle (3pt) node[above]{\tiny RCP $\sigma^+$};
+        \fill[accentred] (0,-1.2) circle (3pt) node[below]{\tiny LCP $\sigma^-$};
+        \draw[NYCUgold, thick, ->](0,1.2) arc[start angle=90,end angle=-90,radius=1.2] node[midway,right=2pt]{\tiny $\Phi_{\rm PB}=2\theta$};
+        \node[NYCUblue,font=\scriptsize] at (0, 0.0) {Poincar\`{e}};
+        \node[NYCUblue,font=\scriptsize] at (0,-0.3) {sphere};
+      \end{tikzpicture}
+  \end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Backup: LG Mode Definition \& Performance Metrics}
+
+  \[ u_{p,\ell}(r,\phi,z) = \sqrt{\frac{2p!}{\pi(p+|\ell|)!}} \frac{1}{w}\!\left(\frac{\sqrt{2}r}{w}\right)^{|\ell|} L_p^{|\ell|}\!\!\left(\frac{2r^2}{w^2}\right) e^{-r^2/w^2}\,e^{ikr^2/2R}\,e^{i\ell\phi}\,e^{-i(2p+|\ell|+1)\psi} \]
+
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \begin{block}{Overlap Integral}
+        \[ \text{Overlap}=\int_A(E_{ff,x}E_{t,x}^*+E_{ff,y}E_{t,y}^*)\,dA \]
+      \end{block}
+    \column{0.48\textwidth}
+      \begin{block}{Mode Purity}
+        \[ \text{Purity}=\frac{|\text{Overlap}|^2}{P_{\rm sim}\cdot P_{\rm target}},\;P_{\rm target}=1 \]
+      \end{block}
+  \end{columns}
+  \vspace{1pt}
+  \begin{block}{Phase Winding \& Chirality}
+    Winding: sample $\phi(r_{\rm peak},\theta)$, unwrap, compare with $\ell\times2\pi$.\\
+    Chirality: $C=\pi f\,\mathrm{Im}(\mathbf{E}^*\cdot\mathbf{H})$.
+  \end{block}
+\end{frame}
+
+  
+
+\begin{frame}{Backup: Valley Selection Rule}
+  Under $D_{3h}$ symmetry:
+  \[ |\langle u_{c,K}|\hat{p}_+|u_{v,K}\rangle|^2\neq0,\quad |\langle u_{c,K}|\hat{p}_-|u_{v,K}\rangle|^2=0 \]
+  \[ |\langle u_{c,K'}|\hat{p}_-|u_{v,K'}\rangle|^2\neq0,\quad |\langle u_{c,K'}|\hat{p}_+|u_{v,K'}\rangle|^2=0 \]
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \begin{block}{Valley Polarization Degree}
+        \[ P_c=\frac{I(\sigma^+)-I(\sigma^-)}{I(\sigma^+)+I(\sigma^-)} \]
+        Experimentally: 20--50\% at RT; Purcell $\to\sim80\%$
+      \end{block}
+    \column{0.48\textwidth}
+      \begin{alertblock}{Impact on Experiment}
+        \[ \text{Purity}_{\rm exp}\approx P_c^2\times\text{Purity}_{\rm sim} \]
+        $P_c=80\%$: Purity$_{\rm exp}\approx63\%$
+      \end{alertblock}
+  \end{columns}
+\end{frame}
+
+  
+
+\begin{frame}{Backup: Complete Simulation Parameters}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} \\
+    \midrule
+    Wavelength $\lambda$ & $0.593\;\mu$m ($\text{WS}_2$ A-exciton) \\
+    $n_{\rm GaP}$ & $3.31$ \\
+    $n_{\rm Diamond}$ & $2.40$ \\
+    Design layer $t$ & $0.257\;\mu$m \\
+    Design area & $4.5\times4.5\;\mu\text{m}^2$ \\
+    Resolution & $50\;\text{pts}/\mu$m \\
+    Design variables $N$ & $226^2\approx5.1\times10^4$ \\
+    PML thickness & $0.3\;\mu$m \\
+    Min.\ feature size & $0.05\;\mu$m \\
+    $\beta$ schedule & $4\to512$ (geometric then $\times2$) \\
+    FOM weight $\alpha$ & $0.10$ \\
+    Far-field plane & $z=10\,z_R$ \\
+    Optimizer & MMA (via NLopt) \\
+    Targets & 6 ($\ell=0,1,2,3,4,5$) \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+  
+
+\begin{frame}{Backup: Near-Field Phase \& Intensity (All 6)}
+  \centering
+  {\footnotesize Near-field monitor plane. Each panel: phase(L)+intensity(R).}\\[4pt]
+
+  \begin{tabular}{ccc}
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/017_phase_iter_257_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/018_phase_iter_282_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/013_phase_iter_282_beta_512.00.png} \\
+    {\tiny (a) $\ell=0$} & {\tiny (b) $\ell=1$} & {\tiny (c) $\ell=2$} \\[4pt]
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/020_phase_iter_282_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/021_phase_iter_267_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/022_phase_iter_282_beta_512.00.png} \\
+    {\tiny (d) $\ell=3$} & {\tiny (e) $\ell=4$} & {\tiny (f) $\ell=5$} \\
+  \end{tabular}
+\end{frame}
+
+  
+
+\begin{frame}{Backup: Far-Field Chirality (All 6)}
+  \centering
+  {\footnotesize Far-field chirality at $z=10\,z_R$. Pure RCP in beam spot for all designs.}\\[4pt]
+  \begin{tabular}{ccc}
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/017_ff_chirality_257_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/018_ff_chirality_282_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/013_ff_chirality_282_beta_512.00.png} \\
+    {\tiny (a) $\ell=0$} & {\tiny (b) $\ell=1$} & {\tiny (c) $\ell=2$} \\[4pt]
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/020_ff_chirality_282_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/021_ff_chirality_267_beta_512.00.png} &
+    \includegraphics[width=0.31\textwidth,keepaspectratio]{img/022_ff_chirality_282_beta_512.00.png} \\
+    {\tiny (d) $\ell=3$} & {\tiny (e) $\ell=4$} & {\tiny (f) $\ell=5$} \\
+  \end{tabular}
+\end{frame}
+
+
+
+\end{document}
