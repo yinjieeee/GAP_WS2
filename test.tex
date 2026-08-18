@@ -1,69 +1,9 @@
 %============================================================
 
 %  Thesis Defense Presentation  ---  REVISED v3 per student request
-
 %  Topology-Optimized GaP Nanostructures for Valley-to-OAM
-
 %  Author:  Yin-Jie Cheng  |  Advisor: Dr. Jhih-Sheng Wu
-
 %  Dept. of Photonics, NYCU  |  August 2026
-
-% ============================================================
-
-%  REVISION LOG v2 (advisor discussion, Aug 2026):
-%  1. PB-phase frame REMOVED from Section 1 (tangential to inverse-design
-%     narrative: PB phase presumes a prescribed rotation angle, which
-%     conflicts with "no geometric prior given"). Math preserved in
-%     Backup. Results (Structures frame) now carries a short, hedged
-%     observation that the emergent geometry resembles PB-phase spirals.
-%  2. Block-to-block spacing standardized to \vspace{1pt} throughout
-%     (scope: block/exampleblock/alertblock adjacency only; image/tikz
-%     caption spacing left untouched -- flagged to student).
-%  3. LG Mode Fundamentals: 3 stacked images -> single \figTBD placeholder.
-%  4. MEEP frame redesigned (PROVISIONAL -- open discussion): dropped
-%     Maxwell/Yee-grid/CFL 101-level content, replaced with software
-%     justification + practical simulation setup.
-%  5. Physical Model image: height=6cm added.
-%  6. Design Variables frame: final-structure image -> placeholder.
-%  7. FOM & Adjoint frame: removed forward/adjoint E-field enumerate,
-%     removed "Practical Impact" alertblock.
-%  8. Workflow frame: "Convergence" block deleted.
-%  9. Performance Metrics frame: added FOM back-reference line before
-%     Purity/Overlap definitions.
-%  10. Performance Summary <-> Far-Field frame order swapped.
-%  11. Valley Selectivity frame: tikzpicture node fonts -> \small.
-% ============================================================
-
-%  REVISION LOG v3 (this revision):
-%  1. FUNNEL STRUCTURE: Introduction section reordered broad -> specific:
-%     OAM as New DOF -> LG Mode Fundamentals -> WS2 Valley Physics ->
-%     Quantum Chiral Emitter -> Literature Timeline -> Motivation/Gap/
-%     Objectives. Section-divider keyword order updated to match.
-%  2. TEXT REDUCTION (Intro + Methods only, per instruction -- Results/
-%     Conclusions/Future Work left untouched): previously-EMPTY blocks left
-%     over from v2 editing (empty \itemize / \exampleblock shells) filled
-%     with SHORT bullets (2-3 lines max), leaning on existing figures/
-%     \figTBD placeholders to carry the rest. Numeric values reused from
-%     the existing Backup parameter table for internal consistency.
-%     Blocks marked "% VERIFY:" were drafted by the assistant from general
-%     domain knowledge (not sourced from your thesis text) and need your
-%     sign-off before the real defense.
-%  3. DEDUPLICATION: Topology Optimization I/II/III were three near-
-%     identical frames (same to_workflow.png, same two empty blocks) left
-%     from an unfinished v2 edit. Consolidated into 2 frames:
-%     (a) Parametrization + N2F workflow (keeps the diagram),
-%     (b) FOM + Adjoint Gradient + MMA optimizer (defines the FOM that
-%     Performance Metrics later "recalls" -- it was never actually
-%     defined anywhere pre-v3, only referenced).
-%  4. Future Work block (iii) -- title "Substracts" in your draft, assumed
-%     a typo for "Substrates" -- filled with a fabrication/substrate note.
-%     % VERIFY: confirm this is what you meant, or replace.
-%  5. Valley Selectivity "Physical Origin" block (Results section, kept
-%     detailed per instruction) filled with the D3h selection-rule logic.
-%  6. SLIDE COUNT: main content frames (excludes section dividers, TOC,
-%     cover, backup, thank-you) = 23, comfortably under the 30-slide cap.
-%     Intro 6 + Methods 5 + Results 10 + Conclusions/Future 2 = 23.
-% ============================================================
 
 \documentclass[aspectratio=169, 10pt]{beamer}
 \usetheme{Madrid}
@@ -108,6 +48,8 @@
 \usepackage{array}
 \usepackage{colortbl}
 \usepackage{pgfplots}
+%\usepackage{cite}
+\setbeamertemplate{bibliography item}[text]
 \pgfplotsset{compat=1.18}
 \newcommand{\highlight}[1]{\textcolor{NYCUgold}{\textbf{#1}}}
 \newcommand{\red}[1]{\textcolor{accentred}{\textbf{#1}}}
@@ -187,7 +129,7 @@
   \item OAM
   \item Laguerre--Gaussian Modes
   \item TMDs ($\text{WS}_2$)
-  \item Literature Review
+  \item Literature Timeline
   \item Motivation \& Research Gap \& Objectives
 \end{itemize}
 \vspace{0.3cm}
@@ -226,7 +168,7 @@
   \begin{tikzpicture}[remember picture, overlay]
     \fill[NYCUblue](current page.south west) rectangle (current page.north east);
     \node[white,font=\Huge\bfseries] at (current page.center){1.\ Introduction \& Motivation};
-    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){OAM $\cdot$ Laguerre--Gaussian Modes $\cdot$ TMDs $\cdot$ Literature Review $\cdot$ Motivation};
+    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){OAM $\cdot$ Laguerre--Gaussian Modes $\cdot$ TMDs $\cdot$ Literature Timeline $\cdot$ Motivation};
   \end{tikzpicture}
 \end{frame}
 
@@ -246,7 +188,6 @@
         \item Phase
       \end{itemize}
       \end{block}
-      \includegraphics[width=1.0\textwidth,height=3.0cm,keepaspectratio]{img/Poincare.jpg}\\
     \column{0.72\textwidth}
       \centering
 	  \includegraphics[width=1.0\textwidth,height=6.5cm,keepaspectratio]{img/towards_light.png}\\
@@ -333,30 +274,35 @@
 % NOTE: Sroor 2020 is a committee member's work -- wording kept
 % neutral/factual (no "outperform"-style language on this node).
 
-\begin{frame}{Literature Timeline: From Valley Physics to This Work}
+
+\begin{frame}{Literature Timeline}
 \centering
 
 % ==================== 1. 上排 4 張圖片 ====================
 \begin{columns}[T, totalwidth=\textwidth]
   \begin{column}{0.23\textwidth}
     \centering
-    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/xiao2012.png}
+    \includegraphics[width=\linewidth, height=2.2cm, keepaspectratio]{img/xiao2012.png}\\[1pt]
+    {\tiny Xiao et al.~\cite{xiao2012coupled}}
   \end{column}
   \begin{column}{0.23\textwidth}
     \centering
-    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/wu2014.png}
+    \includegraphics[width=\linewidth, height=2.2cm, keepaspectratio]{img/wu2014.png}\\[1pt]
+    {\tiny Wu et al.~\cite{Wu2014control}}
   \end{column}
   \begin{column}{0.23\textwidth}
     \centering
-    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/karimi2014.png}
+    \includegraphics[width=\linewidth, height=2.2cm, keepaspectratio]{img/karimi2014.png}\\[1pt]
+    {\tiny Karimi et al.~\cite{karimi2014generating}}
   \end{column}
   \begin{column}{0.23\textwidth}
     \centering
-    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/molesky2018.png}
+    \includegraphics[width=\linewidth, height=2.2cm, keepaspectratio]{img/molesky2018.png}\\[1pt]
+    {\tiny Molesky et al.~\cite{molesky2018inverse}}
   \end{column}
 \end{columns}
 
-\vspace{2pt}
+\vspace{1pt}
 
 % ==================== 2. 中間時間線與資訊 ====================
 \begin{tikzpicture}[font=\tiny, scale=0.95, transform shape]
@@ -397,24 +343,27 @@
     {\textbf{2023}\\Li\\[1pt]TMD BIC (unquant.)};
 
 \end{tikzpicture}
-\vspace{2pt}
+\vspace{1pt}
 
 % ==================== 3. 下排 3 張圖  ====================
 \begin{columns}[T, totalwidth=\textwidth]
   \begin{column}{0.23\textwidth}
     \centering
-    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/sroor2020.png}
+    \includegraphics[width=\linewidth, height=2.2cm, keepaspectratio]{img/sroor2020.png}\\[1pt]
+    {\tiny Sroor et al.~\cite{sroor2020high}}
   \end{column}
   \begin{column}{0.23\textwidth}
     \centering
-    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/rong2023.png}
+    \includegraphics[width=\linewidth, height=2.2cm, keepaspectratio]{img/rong2023.png}\\[1pt]
+    {\tiny Rong et al.~\cite{rong2023spin}}
   \end{column}
   \begin{column}{0.23\textwidth}
     \centering
-    \includegraphics[width=\linewidth, height=2.4cm, keepaspectratio]{img/li2023.png}
+    \includegraphics[width=\linewidth, height=2.2cm, keepaspectratio]{img/li2023.png}\\[1pt]
+    {\tiny Li et al.~\cite{li2023valley}}
   \end{column}
 \end{columns}
-\vspace{4pt}
+\vspace{1pt}
 {\small \textbf{Gap:} no prior work combines active valley source \textbf{+} inverse design \textbf{+} quantified valley-OAM contrast.}
 \end{frame}
 
@@ -1166,6 +1115,10 @@ Structure & $P_{\text{up}}$ (W) & $P_{\text{total}}$ (W) & X (\%) & Y (\%) & Z (
   \end{center}
 \end{frame}
 
+\begin{frame}[allowframebreaks]{References} 
+\bibliographystyle{unsrt} 
+\bibliography{ref} 
+\end{frame}
 
 \end{document}
 
