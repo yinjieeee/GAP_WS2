@@ -226,7 +226,7 @@
   \begin{tikzpicture}[remember picture, overlay]
     \fill[NYCUblue](current page.south west) rectangle (current page.north east);
     \node[white,font=\Huge\bfseries] at (current page.center){1.\ Introduction \& Motivation};
-    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){OAM \& Quantum Light $\cdot$  Fundamentals $\cdot$ $\text{WS}_2$ Valley Source $\cdot$ Literature $\cdot$ Motivation};
+    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){OAM $\cdot$ Laguerre--Gaussian Modes $\cdot$ TMDs $\cdot$ Literature Review $\cdot$ Motivation};
   \end{tikzpicture}
 \end{frame}
 
@@ -475,7 +475,7 @@
   \begin{tikzpicture}[remember picture, overlay]
     \fill[NYCUblue](current page.south west) rectangle (current page.north east);
     \node[white,font=\Huge\bfseries] at (current page.center){2.\ Methods};
-    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){FDTD $\cdot$ Physical Model $\cdot$ Topology Optimization $\cdot$ Metrics};
+    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){Physical Model $\cdot$ Topology Optimization $\cdot$ Figure of Merit $\cdot$ Performance Metrics};
   \end{tikzpicture}
 
 \end{frame}
@@ -486,7 +486,7 @@
 % right-hand figure caption already documents the simulation cross-
 % section, so "Simulation Setup" only adds the numbers not visible there.
 
-\begin{frame}{Numerical Method: FDTD via MEEP}
+\begin{frame}{FDTD via MEEP \& Physical Model}
 
   \begin{columns}[T]
     \column{0.42\textwidth}
@@ -529,7 +529,7 @@
 % [M-5] Metrics -- unchanged from v2 (FOM back-reference now resolves to
 % an actual definition on M-4 above).
 
-\begin{frame}{Figure of Merit}
+\begin{frame}{Figure of Merit (FOM)}
 
 {\footnotesize \[ P_\text{sim}=\int_A\!\left(E_{sim,x}E_{sim,x}^*+E_{sim,y}E_{sim,y}^*\right)dA \]}\\
 {\footnotesize \[ P_\text{target}=\int_A\!\left(E_{t,x}E_{t,x}^*+E_{t,y}E_{t,y}^*\right)dA  \quad P_\text{target}=1\] }\\
@@ -586,7 +586,7 @@
   \begin{tikzpicture}[remember picture, overlay]
     \fill[NYCUblue](current page.south west) rectangle (current page.north east);
     \node[white,font=\Huge\bfseries] at (current page.center){3.\ Results \& Discussion};
-    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){Convergence $\cdot$ Structures $\cdot$ Far-Field $\cdot$ Chirality Propagation $\cdot$ Valley Selectivity};
+    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){FoMs $\cdot$ Structures $\cdot$ Far-Field $\cdot$ Phase winding $\cdot$ Chirality Propagation $\cdot$ Valley Selectivity $\cdot$ Device Energy Efficiency $\cdot$ Comparison};
   \end{tikzpicture}
 \end{frame}
 
@@ -764,32 +764,42 @@ $\ell$ & Mode & Purity (\%) & $|\text{Ov}|^2$ & FOM \\
 % (b) all six designs as a summary table -- currently drafted as (a).
 
 \begin{frame}{Device Energy Efficiency}
-  \begin{columns}[T]
-    \column{0.55\textwidth}
-      \centering
-      \includegraphics[width=\textwidth,keepaspectratio]{img/monitor_positions.png}\\[2pt]
-    \column{0.42\textwidth}
-      \begin{exampleblock}{Up/Down Emission Split \& Purity}
-        \centering
-        \small
-        \begin{tabular}{lr}
-          \toprule
-          $P_{\rm up}$    & $2.39\times10^{1}$ W \\
-          $P_{\rm down}$  & $1.09\times10^{3}$ W \\
-          $P_{\rm total}$ & $1.12\times10^{3}$ W \\
-          \midrule
-          \textbf{Upward fraction $X$} & \textbf{2.14\%} \\
-          \midrule
-          \textbf{Purity$(\ell=5)$ $Y$} & \textbf{82.62\%} \\
-          \bottomrule
-        \end{tabular}
-      \end{exampleblock}
-      \vspace{1pt}
-      \begin{alertblock}{Device Energy Efficiency}
-        \centering
-        \[Z = X \times Y = 2.14\% \times 82.62\% \approx 1.77\%\]
-      \end{alertblock}
-  \end{columns}
+\begin{columns}[T]
+\begin{column}{0.46\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=3.3cm,keepaspectratio]{img/monitor_positions_air.png}\\[4pt]
+\includegraphics[width=\linewidth,height=3.3cm,keepaspectratio]{img/monitor_positions_ell2.png}
+\end{column}
+\begin{column}{0.54\textwidth}
+\begin{block}{Efficiency Evaluation}
+\scriptsize
+\begin{itemize}
+    \item $X$ (Upward Fraction): $X = (P_{\text{up}} / P_{\text{total}}) \times 100\%$
+    \item $Y$ (Far-Field Purity): Measured modal purity (\%)
+    \item $Z$ (Device Efficiency): $Z = X \times Y$
+\end{itemize}
+\centering
+\end{block}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{cccccc}
+\toprule
+Structure & $P_{\text{up}}$ (W) & $P_{\text{total}}$ (W) & X (\%) & Y (\%) & Z (\%) \\
+\midrule
+ Pure Air & $5.0 \times 10^1$ & $1.0 \times 10^3$ & 5.04  & 100.00 & 5.04  \\
+\rowcolor{accentgreen!20} $\ell = 0$          & $1.6 \times 10^2$ & $9.2 \times 10^2$ & 17.67 & 96.81  & 17.11 \\
+\rowcolor{accentgreen!20} $\ell = 1$          & $9.2 \times 10^1$ & $9.5 \times 10^2$ & 9.67  & 98.66  & 9.54  \\
+\rowcolor{accentgreen!20} $\ell = 2$          & $3.5 \times 10^1$ & $1.2 \times 10^3$ & 2.93  & 96.76  & 2.84  \\
+\rowcolor{accentgreen!20} $\ell = 3$          & $6.3 \times 10^1$ & $1.5 \times 10^3$ & 4.22  & 94.13  & 3.97  \\
+\rowcolor{NYCUgold!25} $\ell = 4$          & $3.5 \times 10^1$ & $1.2 \times 10^3$ & 2.93  & 81.94  & 2.40  \\
+\rowcolor{NYCUgold!25} $\ell = 5$          & $2.4 \times 10^1$ & $1.1 \times 10^3$ & 2.14  & 82.62  & 1.77  \\
+\bottomrule
+\end{tabular}% 
+}
+\end{column}
+\end{columns}
+\centering
+\vspace{0.5cm}
+{\small Overall efficiency (Z) is bottlenecked by upward extraction (X), not modal purity (Y).}
 \end{frame}
 
 
@@ -810,7 +820,7 @@ $\ell$ & Mode & Purity (\%) & $|\text{Ov}|^2$ & FOM \\
       \end{exampleblock}
     \column{0.32\textwidth}
       \begin{exampleblock}{\centering Advantage (iii)}
-        \centering\footnotesize \textbf{Compact footprint:} $4.5\,\mu$m$\Rightarrow$ PIC-compatible
+        \centering\footnotesize \textbf{Compact footprint:} $20.25 \mu m^2$ PIC-compatible
       \end{exampleblock}
   \end{columns}
   \vspace{4pt}
@@ -819,13 +829,12 @@ $\ell$ & Mode & Purity (\%) & $|\text{Ov}|^2$ & FOM \\
     \textbf{Work} & \textbf{Design} & Footprint & \textbf{Purity} & \textbf{Source} & \textbf{Valley sel.} \\
     \midrule
     Karimi 2014 & Forward (PB)      & $9 \times 10^2 \mu m^2$ & $\sim$64\%  & Passive PW & \red{None} \\
-    Guo 2016    & Forward (PB+prop) & -- & $>$90\%     & Passive PW & \red{None} \\
     Sroor 2020  & Forward, $\text{TiO}_2$  & $4 \times 10^4 \mu m^2$ & $\sim90\%$ ($\ell\!\le\!100$) & Intracavity & \red{None} \\
     Rong 2023 & Rashba Kagome BIC & $3.28 \times 10^2 \mu m^2$ & Not quantified & Active ($\text{WS}_2$) & Valley coherent \\
     Li 2023     & BIC photonic crystal & $2.89 \times 10^2 \mu m^2$ & Not quantified & Active ($\text{WSe}_2$) & Fixed $\ell$ \\
     \midrule
     \rowcolor{NYCUblue!15}
-    \textbf{This work} & \textbf{Inverse (topo.\ opt.)} & $20.25 \mu m^2$ & \textbf{82--98\%} & \textbf{Active $\text{WS}_2$} & \makecell{\textbf{Valley coherent} \\ \textcolor{green!60!black}{\textbf{$>$100:1}}} \\
+    \textbf{This work} & \textbf{Inverse (topo.\ opt.)} & $20.25 \mu m^2$ & \textbf{82--98\%} & \textbf{Active $\text{WS}_2$} & \makecell{\textbf{Valley coherent} \\ \textcolor{green!60!black}{\textbf{$>$1000:1}}} \\
     \bottomrule
   \end{tabular}
 \end{frame}
@@ -858,11 +867,11 @@ $\ell$ & Mode & Purity (\%) & $|\text{Ov}|^2$ & FOM \\
     \item \textbf{Topology-driven structural diversity} \\ 
     $\ell=2$ uniquely forms a two-arm SPP-like spiral, while other designs exhibit non-intuitive free-form geometries.\\
     \item \textbf{Strong valley selectivity}\\
-      K-valley (LCP) 94.13\% vs.\ K'-valley (RCP) 0.03\% (ratio $>100:1$).
+      K-valley (LCP) 94.13\% vs.\ K'-valley (RCP) 0.03\% (ratio $>1000:1$).
     \item \textbf{Chirality Propagation}\\
       Mixed LCP/RCP near field $\to$ pure LCP far field as evanescent waves decay. OAM reshaping and SAM decoupled.
       \item \textbf{Device energy efficiency}\\
-      diamond substrate ($n=2.40$) $\to$ \highlight{$\textbf{P}_{up}=2.14\%$} upward emission ($\ell=5$)
+	  Device efficiency peaks at \highlight{17.11\%} ($\ell=0$, $3.4\times$ pure air) and 9.54\% ($\ell=1$); efficiency is bottlenecked by upward extraction, not purity.
   \end{enumerate}
 \end{frame}
 
@@ -881,11 +890,7 @@ $\ell$ & Mode & Purity (\%) & $|\text{Ov}|^2$ & FOM \\
       \end{block}
       \vspace{1pt}
 	\begin{block}{(ii) Complete Topological-Charge Coverage ($\ell \in [-5, 5]$)} 
-	\begin{itemize} 
-		\item Expanded Simulation Scope: Include negative OAM modes ($\ell = -1 \text{ to } -5$).
-		\item Full Mapping: Establish complete valley-locked OAM emission profile.
-		\item Symmetric Control: Demonstrate topological-charge control via WS$_2$ valley degree of freedom. 
-	\end{itemize} 
+		Expanded Simulation Scope: Include negative OAM modes ($\ell = -1 \text{ to } -5$).
 	\end{block}
       \vspace{1pt}
       \begin{block}{(iii) Alternative Substrates}
@@ -1161,4 +1166,6 @@ $\ell$ & Mode & Purity (\%) & $|\text{Ov}|^2$ & FOM \\
   \end{center}
 \end{frame}
 
+
 \end{document}
+
