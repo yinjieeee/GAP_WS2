@@ -237,11 +237,11 @@
 % with 3 short bullets (images on the right already carry most of the
 % visual information, per text-reduction instruction).
 
-\begin{frame}{Active Chiral Source: Monolayer $\text{WS}_2$}
+\begin{frame}{Transition Metal Dichalcogenides (TMDs)}
   
   \begin{columns}[T]
     \column{0.50\textwidth}
-      \begin{block}{Properties of Monolayer $\text{WS}_2$ (TMD)}
+      \begin{block}{Properties of Monolayer $\text{WS}_2$, for example}
         \begin{itemize}
         \item Monolayer: indirect $\to$ \textbf{direct} bandgap
         \item Strong spin--orbit coupling
@@ -389,18 +389,14 @@
         \node[font=\footnotesize,gray,rotate=90] at (-0.4,1.0) {Forward};
         \node[font=\footnotesize,gray,rotate=90] at (-0.4,3.0) {Inverse};
         \node[fill=NYCUblue!20,rounded corners,align=center,font=\footnotesize,minimum width=2cm] at (1.25,1.0) {Sroor 2020\\Karimi 2014};
-        \node[fill=NYCUblue!20,rounded corners,align=center,font=\footnotesize,minimum width=2cm] at (3.75,1.0) {Li 2023\\(BIC)};
-        \node[fill=NYCUblue!20,rounded corners,align=center,font=\footnotesize,minimum width=2cm] at (1.25,3.0) {White 2023\\(Si, passive)};
+         \node[fill=NYCUblue!20,rounded corners,align=center,font=\footnotesize,minimum width=2.3cm] at (3.75,1.0) {Wu 2014\\Li 2023 (BIC)\\Rong 2023};
+		\node[fill=NYCUblue!20,rounded corners,align=center,font=\footnotesize,minimum width=2cm] at (1.25,3.0) {Molesky 2018};
         \node[fill=NYCUgold!60,draw=NYCUgold,rounded corners,align=center,font=\footnotesize\bfseries,minimum width=2.2cm,minimum height=1.0cm] at (3.75,3.0) {\textbf{This work}\\GaP + $\text{WS}_2$};
         \node[accentred,font=\tiny] at (3.75,2.15) {previously EMPTY};
       \end{tikzpicture}
     \column{0.60\textwidth}
         \begin{alertblock}{Motivation}
-        \begin{itemize}
-          \item Spiral phase plates, SLMs
-          \item Metasurfaces
-          \item Aim: Chip-integrated, valley-controlled structured light emitter
-        \end{itemize}
+        Chip-integrated, valley-controlled structured light emitter
       \end{alertblock}
       \begin{block}{Objectives}
         \begin{itemize}
@@ -531,14 +527,17 @@
 
 
 % [DIVIDER-3]
-\begin{frame}[plain]
-  \begin{tikzpicture}[remember picture, overlay]
-    \fill[NYCUblue](current page.south west) rectangle (current page.north east);
-    \node[white,font=\Huge\bfseries] at (current page.center){3.\ Results \& Discussion};
-    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){FoMs $\cdot$ Structures $\cdot$ Far-Field $\cdot$ Phase winding $\cdot$ Chirality Propagation $\cdot$ Valley Selectivity $\cdot$ Device Energy Efficiency $\cdot$ Comparison};
-  \end{tikzpicture}
-\end{frame}
 
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+\fill[NYCUblue](current page.south west) rectangle (current page.north east);
+\node[white,font=\Huge\bfseries] at (current page.center){3.\ Results \& Discussion};
+\node[white,font=\large,align=center] at ([yshift=-1.2cm]current page.center){%
+  FoMs $\cdot$ Structures $\cdot$ Far-Field $\cdot$ Phase winding \\%
+  Chirality Propagation $\cdot$ Valley Selectivity $\cdot$ Device Energy Efficiency $\cdot$ Comparison%
+};
+\end{tikzpicture}
+\end{frame}
 
 % Results & Discussion frames below are UNCHANGED from v2 per your
 % instruction -- this section keeps its full detail, no text reduction.
