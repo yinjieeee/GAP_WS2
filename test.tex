@@ -99,6 +99,7 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{multicol}
+\usepackage{makecell}
 \usepackage{tikz}
 \usepackage{tabularx}
 \usetikzlibrary{arrows.meta, shapes, positioning, fit, backgrounds, calc}
@@ -179,23 +180,39 @@
 
 % [TOC] Outline -- unchanged, per student: already finalized
 \begin{frame}{Outline}
-  \begin{columns}[T]
-    \column{0.50\textwidth}
-      \begin{block}{\textcircled{1}\; Introduction \& Motivation}
-        {\footnotesize OAM $\cdot$ Laguerre–Gaussian Modes $\cdot$ TMDs $(\text{WS}_2)$  $\cdot$ Literature Review $\cdot$ Motivation \& Research Gap \& Objectives}
-      \end{block}
-      \vspace{2pt}
-      \begin{block}{\textcircled{2}\; Methods}
-        {\footnotesize Physical Model $\cdot$ Topology Optimization  $\cdot$ Performance Metrics}
-      \end{block}
-    \column{0.48\textwidth}
-      \begin{block}{\textcircled{3}\; Results \& Discussion}
-        {\footnotesize Optimized Structures\\Far-Field Purity $\cdot$ Phase Winding\\Chirality $\cdot$ Valley Selectivity $\cdot$ Device Conversion Efficiency $\cdot$ Comparison}
-      \end{block}
-      \vspace{1pt}
-      \begin{block}{\textcircled{4}\; Conclusions \& Future Work}
-      \end{block}
-  \end{columns}
+\begin{columns}[T]
+\column{0.50\textwidth}
+{\large \textbf{\textcircled{1} Introduction \& Motivation}}
+\begin{itemize}\footnotesize
+  \item OAM
+  \item Laguerre--Gaussian Modes
+  \item TMDs ($\text{WS}_2$)
+  \item Literature Review
+  \item Motivation \& Research Gap \& Objectives
+\end{itemize}
+\vspace{0.3cm}
+{\large \textbf{\textcircled{2} Methods}}
+\begin{itemize}\footnotesize
+  \item Physical Model
+  \item Topology Optimization
+  \item Figure of Merits (FoMs)
+  \item Performance Metrics
+\end{itemize}
+\column{0.48\textwidth}
+{\large \textbf{\textcircled{3} Results \& Discussion}}
+\begin{itemize}\footnotesize
+  \item Compare FoMs
+  \item Optimized Structures
+  \item Far-Field Purity
+  \item Phase Winding 
+  \item Chirality Propagation
+  \item Valley Selectivity
+  \item Device Energy Efficiency
+  \item Comparison with Prior Work
+\end{itemize}
+\vspace{0.3cm}
+{\large \textbf{\textcircled{4} Conclusions \& Future Work}}
+\end{columns}
 \end{frame}
 
 
@@ -219,13 +236,13 @@
   \begin{columns}[T]
     \column{0.25\textwidth}
       \begin{block}{Degree of Freedom}
+      {\small $A\vec{e}(kx+\omega t+\phi)$}\\
       \begin{itemize}
-        \item $A\vec{e}(kx+\omega t+\phi)$\\
-        \item Time\\
-        \item Space\\
-        \item Amplitude\\
-        \item Frequency\\
-        \item Polarization\\
+        \item Time
+        \item Space
+        \item Amplitude
+        \item Frequency
+        \item Polarization
         \item Phase
       \end{itemize}
       \end{block}
@@ -440,7 +457,7 @@
         \begin{itemize}
           \item 3D FDTD + adjoint framework for $\text{WS}_2$ + GaP metasurface
           \item Inversely design valley-controlled LG emitters ($\ell=0$--$5$)
-          \item Quantify: purity, phase winding, chirality, inter-valley contrast
+          \item Quantify: purity, phase winding, chirality propagation, inter-valley contrast
         \end{itemize}
       \end{block}
   \end{columns}
@@ -514,19 +531,19 @@
 
 \begin{frame}{Figure of Merit}
 
-{\footnotesize \[ \text{P}_{sim}=\int_A\!\left(E_{sim,x}E_{sim,x}^*+E_{sim,y}E_{sim,y}^*\right)dA \]}\\
-{\footnotesize \[ \text{P}_{target}=\int_A\!\left(E_{t,x}E_{t,x}^*+E_{t,y}E_{t,y}^*\right)dA  \quad \text{P}_target=1\] }\\
+{\footnotesize \[ P_\text{sim}=\int_A\!\left(E_{sim,x}E_{sim,x}^*+E_{sim,y}E_{sim,y}^*\right)dA \]}\\
+{\footnotesize \[ P_\text{target}=\int_A\!\left(E_{t,x}E_{t,x}^*+E_{t,y}E_{t,y}^*\right)dA  \quad P_\text{target}=1\] }\\
 {\footnotesize \[ \text{Overlap}=\int_A\!\left(E_{ff,x}E_{t,x}^*+E_{ff,y}E_{t,y}^*\right)dA \]}\\
-{\footnotesize \[ \text{FOM} = \log \dfrac{|\text{Overlap}|^{2}}{\text{P}_{sim} \text{P}_{target}} +\alpha \log|\text{Overlap}|^2 \quad\alpha=0.1 \]}
+{\footnotesize \[ \text{FOM} = \log \dfrac{|\text{Overlap}|^{2}}{P_\text{sim} P_\text{target}} +\alpha \log|\text{Overlap}|^2 \quad\alpha=0.1 \]}
 
   \begin{columns}[T]
     \column{0.48\textwidth}
       \begin{block}{FoM I}
-        {\footnotesize \[ \text{FOM} = \dfrac{|\text{Overlap}|^{2}}{\text{P}_{sim} \text{P}_{target}} \]}
+        {\footnotesize \[ \text{FOM} = \dfrac{|\text{Overlap}|^{2}}{P_\text{sim} P_\text{target}} \]}
       \end{block}
     \column{0.48\textwidth}
       \begin{block}{FoM II}
-        {\footnotesize \[ \text{FOM} = \log \dfrac{|\text{Overlap}|^{2}}{\text{P}_{sim} \text{P}_{target}} +\alpha \log|\text{Overlap}|^2 \quad\alpha=0.1 \]}
+        {\footnotesize \[ \text{FOM} = \log \dfrac{|\text{Overlap}|^{2}}{P_\text{sim} P_\text{target}} +\alpha \log|\text{Overlap}|^2 \quad\alpha=0.1 \]}
       \end{block}
   \end{columns}
 \end{frame}
@@ -535,13 +552,13 @@
 \begin{frame}{Performance Metrics}
 
   \begin{columns}[T]
-    \column{0.58\textwidth}
+    \column{0.48\textwidth}
       \begin{block}{\textcircled{1} Mode Overlap Integral}
         \text{Overlap}$\Rightarrow$ \text{absolute coupling power} {\scriptsize\textcolor{accentgreen}{($\uparrow$ better)}}
       \end{block}
       \vspace{1pt}
       \begin{block}{\textcircled{2} LG Mode Purity}
-        \[ \text{Purity}=\frac{|\text{Overlap}|^2}{\text{P}_{sim} \cdot \text{P}_{target}}\]
+        \[ \text{Purity}=\frac{|\text{Overlap}|^2}{P_\text{sim} \cdot P_\text{target}}\]
         \textbf{Normalized shape fidelity}; $\in[0,1]$ {\scriptsize\textcolor{accentgreen}{($\uparrow$ better)}}
       \end{block}
     \column{0.48\textwidth}
@@ -569,7 +586,7 @@
   \begin{tikzpicture}[remember picture, overlay]
     \fill[NYCUblue](current page.south west) rectangle (current page.north east);
     \node[white,font=\Huge\bfseries] at (current page.center){3.\ Results \& Discussion};
-    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){Convergence $\cdot$ Structures $\cdot$ Far-Field $\cdot$ Chirality $\cdot$ Valley Selectivity};
+    \node[white,font=\large] at ([yshift=-1.2cm]current page.center){Convergence $\cdot$ Structures $\cdot$ Far-Field $\cdot$ Chirality Propagation $\cdot$ Valley Selectivity};
   \end{tikzpicture}
 \end{frame}
 
@@ -579,11 +596,12 @@
 
 \begin{frame}{Compare FoMs}
   \begin{center}
-    {\footnotesize $\ell=5$ , for example}\\[2pt]
+    {\small $\ell=5$ , for example}\\[2pt]
     \begin{tabular}{cc}
-    \includegraphics[width=0.9\linewidth,height=3.0cm,keepaspectratio]{img/016_ff_iter_282_beta_512.00.png} &
-    \includegraphics[width=0.9\linewidth,height=3.0cm,keepaspectratio]{img/022_ff_iter_282_beta_512.00.png} \\
-    {\small (a) FoM I =$\dfrac{|\text{Overlap}|^{2}}{\text{P}_{sim} \text{P}_{target}}$} & {\small (b) FoM II = $\log \dfrac{|\text{Overlap}|^{2}}{\text{P}_{sim} \text{P}_{target}} +\alpha \log|\text{Overlap}|^2$}
+    {\small Purity = 72.89\%, $|\text{Overlap}|^2$ = 0.89} & {\small Purity = 82.62\%, $|\text{Overlap}|^2$ = 3.96}\\
+    \includegraphics[width=1.0\linewidth,height=5.0cm,keepaspectratio]{img/016_ff_iter_282_beta_512.00.png} &
+    \includegraphics[width=1.0\linewidth,height=5.0cm,keepaspectratio]{img/022_ff_iter_282_beta_512.00.png} \\
+    {\small (a) FoM I =$\dfrac{|\text{Overlap}|^{2}}{P_\text{sim} P_\text{target}}$} & {\small (b) FoM II = $\log \dfrac{|\text{Overlap}|^{2}}{P_\text{sim} P_\text{target}} +\alpha \log|\text{Overlap}|^2$}
     \end{tabular}
   \end{center}
 \end{frame}
@@ -609,75 +627,59 @@
 
 
 
-% [R-3] Far-Field: high-purity group
+% [R-2] Far-Field: high-purity group
 
-\begin{frame}{Far-Field LG Mode ($\ell=0,1,2$): High Purity at $z=10\,z_R$}
-  \centering
-  {\small All three designs: purity $\ge94\%$ --- excellent LG mode fidelity}\\[4pt]
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/017_ff_iter_257_beta_512.00.png} &
-    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/018_ff_iter_282_beta_512.00.png} &
-    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/013_ff_iter_282_beta_512.00.png} \\
-    {\small (a) $\ell=0$: \textbf{\textcolor{accentgreen}{96.81\%}}} & {\small (b) $\ell=1$: \textbf{\textcolor{accentgreen}{98.66\%}}} & {\small (c) $\ell=2$: \textbf{\textcolor{accentgreen}{97.96\%}}} \\
-  \end{tabular}
+\begin{frame}{Far-Field LG Mode ($\ell=0,1,2,3$) at $z=10\,z_R$} 
+\centering 
+\begin{tabular}{cccc}
+\includegraphics[width=0.23\textwidth,height=3.3cm,keepaspectratio]{img/017_ff_iter_257_beta_512.00.png} & \includegraphics[width=0.23\textwidth,height=3.3cm,keepaspectratio]{img/018_ff_iter_282_beta_512.00.png} & \includegraphics[width=0.23\textwidth,height=3.3cm,keepaspectratio]{img/013_ff_iter_282_beta_512.00.png} & \includegraphics[width=0.23\textwidth,height=3.3cm,keepaspectratio]{img/020_ff_iter_282_beta_512.00.png} \\ {\small (a) $\ell=0$} & {\small (b) $\ell=1$} & {\small (c) $\ell=2$} & {\small (d) $\ell=3$} \\ 
+\end{tabular}\\[6pt] 
+\small\renewcommand{\arraystretch}{1.15} 
+\begin{tabular}{ccccc} 
+\toprule 
+$\ell$ & Mode & Purity (\%) & $|\text{Ov}|^2$ & FOM \\
+\midrule 
+\rowcolor{accentgreen!20} 0 & $\text{LG}_{0,0}$ & 96.81 & 60.92 & 0.38 \\
+\rowcolor{accentgreen!20} 1 & $\text{LG}_{1,0}$ & \textbf{98.66} & 53.88 & 0.39 \\
+\rowcolor{accentgreen!20} 2 & $\text{LG}_{2,0}$ & 97.96 & 7.99 & 0.19 \\ 
+\rowcolor{accentgreen!20} 3 & $\text{LG}_{3,0}$ & 94.13 & 18.69 & 0.23 \\
+\bottomrule
+\end{tabular}
+{\small All four designs: purity $\ge94\%$ --- high LG mode fidelity}
 \end{frame}
 
+% [R-2] Far-Field: low-purity group
 
+\begin{frame}{Far-Field LG Mode ($\ell=4,5$) at $z=10\,z_R$}
+\begin{columns}[c]
+\column{0.55\textwidth}
+\centering
+\begin{tabular}{cc}
+\includegraphics[width=0.46\columnwidth,height=3.0cm,keepaspectratio]{img/021_ff_iter_267_beta_512.00.png} &
+\includegraphics[width=0.46\columnwidth,height=3.0cm,keepaspectratio]{img/022_ff_iter_282_beta_512.00.png} \\
+{\small (e) $\ell=4$} & {\small (f) $\ell=5$} \\
+\end{tabular}\\[8pt]
 
-% [R-4] Far-Field: design-limit group with storytelling
+\column{0.40\textwidth}
+\centering
+\small\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{ccccc}
+\toprule
+$\ell$ & Mode & Purity (\%) & $|\text{Ov}|^2$ & FOM \\
+\midrule
+\rowcolor{accentgreen!15} 0 & $\text{LG}_{0,0}$ & 96.81 & 60.92 & 0.38 \\
+\rowcolor{accentgreen!15} 1 & $\text{LG}_{1,0}$ & \textbf{98.66} & 53.88 & 0.39 \\
+\rowcolor{accentgreen!15} 2 & $\text{LG}_{2,0}$ & 97.96 & 7.99  & 0.19 \\
+\rowcolor{accentgreen!15} 3 & $\text{LG}_{3,0}$ & 94.13 & 18.69 & 0.23 \\
+\rowcolor{NYCUgold!25}  4 & $\text{LG}_{4,0}$ & 81.94 & 4.00  & -0.06 \\
+\rowcolor{NYCUgold!25}  5 & $\text{LG}_{5,0}$ & 82.62 & 3.96  & -0.05 \\
+\bottomrule
+\end{tabular}\\[6pt]
 
-\begin{frame}{Far-Field LG Mode ($\ell=3,4,5$): Purity \& Design-Domain Effects}
-  \centering
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/020_ff_iter_282_beta_512.00.png} &
-    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/021_ff_iter_267_beta_512.00.png} &
-    \includegraphics[width=0.31\textwidth,height=3.8cm,keepaspectratio]{img/022_ff_iter_282_beta_512.00.png} \\
-    {\small (d) $\ell=3$: \textbf{\textcolor{accentgreen}{94.13\%}}} & {\small (e) $\ell=4$: \textbf{\textcolor{NYCUgold}{81.94\%}}} & {\small (f) $\ell=5$: \textbf{\textcolor{NYCUgold}{82.62\%}}} \\
-  \end{tabular}\\[5pt]
+{\small Constrained by design area degrees of freedom, purity drops to $\sim 82\%$.}
+\end{columns}
 \end{frame}
 
-
-
-% [R-5] Performance Summary
-
-\begin{frame}{Performance Summary: Purity \& Overlap}
-  \begin{columns}[T]
-    \column{0.50\textwidth}
-      \centering
-      \small\renewcommand{\arraystretch}{1.22}
-      \begin{tabular}{ccccc}
-        \toprule
-        $\ell$ & Mode & Purity(\%) & $|\text{Ov}|^2$ & FOM \\
-        \midrule
-        \rowcolor{accentgreen!20} 0 & LG$_{0,0}$ & 96.81 & 60.92 & 0.38 \\
-        \rowcolor{accentgreen!20} 1 & LG$_{1,0}$ & \textbf{98.66} & 53.88 & 0.39 \\
-        \rowcolor{accentgreen!20} 2 & LG$_{2,0}$ & 97.96 & 7.99  & 0.19 \\
-        \rowcolor{accentgreen!20} 3 & LG$_{3,0}$ & 94.13 & 18.69 & 0.23 \\
-        \rowcolor{NYCUgold!30}  4 & LG$_{4,0}$ & 81.94 & 4.00  & $-$0.06 \\
-        \rowcolor{NYCUgold!30}  5 & LG$_{5,0}$ & 82.62 & 3.96  & $-$0.05 \\
-        \bottomrule
-      \end{tabular}\\[5pt]
-      \column{0.50\textwidth}
-      \centering
-	\begin{tikzpicture}[scale=1.0]
-	  \begin{axis}[
-	    ybar, bar width=10pt, bar shift=0pt,
-	    xlabel={$\ell$},ylabel={Purity (\%)},
-	    xtick={0,1,2,3,4,5},
-	    ymin=70,ymax=102,ytick={70,80,90,100},
-	    width=6.3cm,height=4.0cm,
-	    tick label style={font=\tiny},label style={font=\small},
-	    ymajorgrids,grid style=dashed,
-	  ]
-	    \addplot[fill=accentgreen!70,draw=accentgreen] coordinates{(0,96.81)(1,98.66)(2,97.96)(3,94.13)};
-	    \addplot[fill=NYCUgold!80,draw=NYCUgold] coordinates{(4,81.94)(5,82.62)};
-	    \draw[accentred,dashed,thick](axis cs:-0.5,80)--(axis cs:5.5,80) node[right,font=\tiny,accentred]{80\%};
-	  \end{axis}
-	\end{tikzpicture}
-  \end{columns}
-\end{frame}
-
-  
 
 % [R-6] Phase Winding
 
@@ -685,13 +687,14 @@
   \begin{columns}[T]
     \column{0.60\textwidth}
       \centering
-      \includegraphics[width=\textwidth,height=3.3cm,keepaspectratio]{img/018_ff_winding_iter_282_beta_512.00_rfraction_0.3885.png}\\
-      \includegraphics[width=\textwidth,height=3.3cm,keepaspectratio]{img/022_ff_winding_iter_282_beta_512.00_rfraction_0.6176.png}
+      \includegraphics[width=\textwidth,height=3.5cm,keepaspectratio]{img/018_ff_winding_iter_282_beta_512.00_rfraction_0.3885.png}\\
+      \includegraphics[width=\textwidth,height=3.5cm,keepaspectratio]{img/022_ff_winding_iter_282_beta_512.00_rfraction_0.6176.png}
 	  \column{0.37\textwidth}
 	  \centering
+	  \vspace{1cm}
 	  \begin{exampleblock}{All Six Designs}
 		\small\centering
-		\begin{tabular}{cc}
+		\begin{tabular}{lr}
 		  \toprule
 		  $\ell$ & Error \\
 		  \midrule
@@ -711,19 +714,20 @@
 
 % [R-7] Chirality
 
-\begin{frame}{Optical Chirality: Near-to-Far-Field Propagation}
-
+\begin{frame}{Chirality Propagation}
   \begin{columns}[T]
     \column{0.7\textwidth}
       \centering
-      \includegraphics[width=\textwidth,height=3.7cm,keepaspectratio]{img/chirality_prop_0p0to0p9zr_Fixed_XY_360.png}\\[1pt]
-      \includegraphics[width=\textwidth,height=3.8cm,keepaspectratio]{img/chirality_prop_1to10zr_Fixed_XY_360.png}
+      \includegraphics[width=\textwidth,height=2.1cm,keepaspectratio]{img/chirality_prop_0p0to0p9zr_Fixed_XY_360_1.png}\\[1pt]
+      \includegraphics[width=\textwidth,height=2.1cm,keepaspectratio]{img/chirality_prop_0p0to0p9zr_Fixed_XY_360_2.png}\\[1pt]
+      \includegraphics[width=\textwidth,height=2.1cm,keepaspectratio]{img/chirality_prop_1to10zr_Fixed_XY_360_1.png}\\[1pt]
+      \includegraphics[width=\textwidth,height=2.1cm,keepaspectratio]{img/chirality_prop_1to10zr_Fixed_XY_360_2.png}
     \column{0.30\textwidth}
-      \begin{block}{Chirality: $C=\pi f\,\mathrm{Im}(\mathbf{E}^*\cdot\mathbf{H})$}
-      \centering
-        Red ($C<0$): LCP\\
-        Blue ($C>0$): RCP
-      \end{block}
+    \vspace{2cm}
+    {\large \textbf{Chirality}: }\\[4pt]
+    {$C=\pi f\,\mathrm{Im}(\mathbf{E}^*\cdot\mathbf{H})$}\\[12pt]
+    \textbf{\textcolor{red}{Red ($C<0$): LCP}}\\[6pt]
+    \textbf{\textcolor{blue}{Blue ($C>0$): RCP}}
   \end{columns}
 \end{frame}
 
@@ -740,19 +744,17 @@
       \begin{tikzpicture}
         \node[draw=accentgreen,fill=accentgreen!12,rounded corners=5pt,minimum width=5.5cm,minimum height=0.5cm,font=\small\bfseries]{\grn{\checkmark\ K-valley (LCP): Purity = 94.13\%}};
       \end{tikzpicture}\\[1pt]
-      \includegraphics[width=1\textwidth,height=5cm,keepaspectratio]{img/020_ff_iter_282_beta_512.00.png}\\
+      \includegraphics[width=1\textwidth,height=5.5cm,keepaspectratio]{img/020_ff_iter_282_beta_512.00.png}\\
     \column{0.48\textwidth}
       \begin{tikzpicture}
         \node[draw=accentred,fill=accentred!10,rounded corners=5pt,minimum width=5.5cm,minimum height=0.5cm,font=\small\bfseries]{\red{\texttimes\ $K'$-valley (RCP): Purity = 0.03\%}};
       \end{tikzpicture}\\[1pt]
-      \includegraphics[width=1\textwidth,height=5cm,keepaspectratio]{img/rcp.png}\\
-      \begin{center}
-        {\large Valley Contrast Ratio:}
-        \begin{tikzpicture}
-          \node[fill=NYCUblue,text=white,rounded corners=8pt,minimum width=2.5cm,minimum height=0.8cm,font=\bfseries]{\highlight{$\approx  3143: 1$}};
-        \end{tikzpicture}
-      \end{center}
-  \end{columns}
+      \includegraphics[width=1\textwidth,height=5.5cm,keepaspectratio]{img/rcp.png}\\
+\end{columns}
+\vspace{0.3cm}
+\begin{center}
+{\small Valley Contrast Ratio: \textcolor{NYCUblue}{$\approx \textbf{3143: 1}$}}
+\end{center}
 \end{frame}
 
 % [R-4.5] Device Physical Conversion Efficiency -- NEW FRAME (student request)
@@ -761,7 +763,7 @@
 % represent (a) ell=5 as the worst-case/representative example, or
 % (b) all six designs as a summary table -- currently drafted as (a).
 
-\begin{frame}{Device Physical Conversion Efficiency}
+\begin{frame}{Device Energy Efficiency}
   \begin{columns}[T]
     \column{0.55\textwidth}
       \centering
@@ -783,7 +785,7 @@
         \end{tabular}
       \end{exampleblock}
       \vspace{1pt}
-      \begin{alertblock}{Device Conversion Efficiency}
+      \begin{alertblock}{Device Energy Efficiency}
         \centering
         \[Z = X \times Y = 2.14\% \times 82.62\% \approx 1.77\%\]
       \end{alertblock}
@@ -816,17 +818,16 @@
     \toprule
     \textbf{Work} & \textbf{Design} & Footprint & \textbf{Purity} & \textbf{Source} & \textbf{Valley sel.} \\
     \midrule
-    Karimi 2014 & Forward (PB)      & defult & $\sim$64\%  & Passive PW & \red{None} \\
-    Guo 2016    & Forward (PB+prop) & defult & $>$90\%     & Passive PW & \red{None} \\
-    Sroor 2020  & Forward, $\text{TiO}_2$  & defult & $\sim90\%$ ($\ell\!\le\!100$) & Intracavity & \red{None} \\
-    Li 2023     & BIC photonic crystal & defult & Not quantified & Active ($\text{WSe}_2$) & Fixed $\ell$ \\
+    Karimi 2014 & Forward (PB)      & $9 \times 10^2 \mu m^2$ & $\sim$64\%  & Passive PW & \red{None} \\
+    Guo 2016    & Forward (PB+prop) & -- & $>$90\%     & Passive PW & \red{None} \\
+    Sroor 2020  & Forward, $\text{TiO}_2$  & $4 \times 10^4 \mu m^2$ & $\sim90\%$ ($\ell\!\le\!100$) & Intracavity & \red{None} \\
+    Rong 2023 & Rashba Kagome BIC & $3.28 \times 10^2 \mu m^2$ & Not quantified & Active ($\text{WS}_2$) & Valley coherent \\
+    Li 2023     & BIC photonic crystal & $2.89 \times 10^2 \mu m^2$ & Not quantified & Active ($\text{WSe}_2$) & Fixed $\ell$ \\
     \midrule
     \rowcolor{NYCUblue!15}
-    \textbf{This work} & \textbf{Inverse (topo.\ opt.)} & $20.25 \mu m^2$ & \textbf{82--98\%} & \textbf{Active $\text{WS}_2$} & \grn{\textbf{$>$100:1}} \\
+    \textbf{This work} & \textbf{Inverse (topo.\ opt.)} & $20.25 \mu m^2$ & \textbf{82--98\%} & \textbf{Active $\text{WS}_2$} & \makecell{\textbf{Valley coherent} \\ \textcolor{green!60!black}{\textbf{$>$100:1}}} \\
     \bottomrule
   \end{tabular}
-
-  
 \end{frame}
 
 
@@ -858,9 +859,9 @@
     $\ell=2$ uniquely forms a two-arm SPP-like spiral, while other designs exhibit non-intuitive free-form geometries.\\
     \item \textbf{Strong valley selectivity}\\
       K-valley (LCP) 94.13\% vs.\ K'-valley (RCP) 0.03\% (ratio $>100:1$).
-    \item \textbf{Near-to-far-field chirality evolution}\\
+    \item \textbf{Chirality Propagation}\\
       Mixed LCP/RCP near field $\to$ pure LCP far field as evanescent waves decay. OAM reshaping and SAM decoupled.
-      \item \textbf{Device Energy efficiency}\\
+      \item \textbf{Device energy efficiency}\\
       diamond substrate ($n=2.40$) $\to$ \highlight{$\textbf{P}_{up}=2.14\%$} upward emission ($\ell=5$)
   \end{enumerate}
 \end{frame}
@@ -888,7 +889,7 @@
 	\end{block}
       \vspace{1pt}
       \begin{block}{(iii) Alternative Substrates}
-        lower-index substrate, e.g.\ $\text{MgF}_2$ ($n\approx1.38$) $\Rightarrow$ higher device efficiency
+        lower-index substrate, e.g.\ $\text{MgF}_2$ ($n\approx1.38$) $\Rightarrow$ higher device energy efficiency
       \end{block}
   \end{columns}
 \end{frame}
@@ -1148,6 +1149,16 @@
   \end{tabular}
 \end{frame}
 
-
+\begin{frame}{Backup: Compare FoMs}
+  \begin{center}
+    {\small $\ell=5$ , for example}\\[2pt]
+    \begin{tabular}{cc}
+    {\small Purity = 72.89\%, $|\text{Overlap}|^2$ = 0.89} & {\small Purity = 82.62\%, $|\text{Overlap}|^2$ = 3.96}\\
+    \includegraphics[width=1.0\linewidth,height=5.0cm,keepaspectratio]{img/016_purity_history_staircase.png} &
+    \includegraphics[width=1.0\linewidth,height=5.0cm,keepaspectratio]{img/022_purity_history_staircase.png} \\
+    {\small (a) FoM I =$\dfrac{|\text{Overlap}|^{2}}{P_\text{sim} P_\text{target}}$} & {\small (b) FoM II = $\log \dfrac{|\text{Overlap}|^{2}}{P_\text{sim} P_\text{target}} +\alpha \log|\text{Overlap}|^2$}
+    \end{tabular}
+  \end{center}
+\end{frame}
 
 \end{document}
