@@ -460,7 +460,7 @@
     \column{1.0\textwidth}
       \centering
       \includegraphics[width=0.8\textwidth,height=5.0cm,keepaspectratio]{img/to_workflow.png}\\
-      {\tiny Init $\to$ Forward FDTD $\to$ N2F $\to$ FOM $\to$ Adjoint FDTD $\to$ Gradient $\to$ MMA update. $\beta$ increases until $\beta_{\rm max}=512$.}
+      {\tiny \cite{meepcon2022topology} Init $\to$ Forward FDTD $\to$ N2F $\to$ FOM $\to$ Adjoint FDTD $\to$ Gradient $\to$ MMA update. $\beta$ increases until $\beta_{\rm max}=512$.}
       \begin{minipage}{0.4\textwidth}
       \begin{block}{Tanh Projection}
       \centering
@@ -479,7 +479,7 @@
 {\footnotesize \[ P_\text{sim}=\int_A\!\left(E_{sim,x}E_{sim,x}^*+E_{sim,y}E_{sim,y}^*\right)dA \]}\\
 {\footnotesize \[ P_\text{target}=\int_A\!\left(E_{t,x}E_{t,x}^*+E_{t,y}E_{t,y}^*\right)dA  \quad P_\text{target}=1\] }\\
 {\footnotesize \[ \text{Overlap}=\int_A\!\left(E_{ff,x}E_{t,x}^*+E_{ff,y}E_{t,y}^*\right)dA \]}\\
-{\footnotesize \[ \text{FOM} = \log \dfrac{|\text{Overlap}|^{2}}{P_\text{sim} P_\text{target}} +\alpha \log|\text{Overlap}|^2 \quad\alpha=0.1 \]}
+
 
   \begin{columns}[T]
     \column{0.48\textwidth}
@@ -499,7 +499,7 @@
   \begin{columns}[T]
     \column{0.48\textwidth}
       \begin{block}{\textcircled{1} Mode Overlap Integral}
-        \text{Overlap}$\Rightarrow$ \text{absolute coupling power} {\scriptsize\textcolor{accentgreen}{($\uparrow$ better)}}
+        $|\text{Overlap}|^2$$\Rightarrow$ \text{absolute coupling power} {\scriptsize\textcolor{accentgreen}{($\uparrow$ better)}}
       \end{block}
       \vspace{1pt}
       \begin{block}{\textcircled{2} LG Mode Purity}
@@ -866,7 +866,7 @@ Structure & $P_{\text{up}}$ (W) & $P_{\text{total}}$ (W) & X (\%) & Y (\%) & Z (
     \column{0.38\textwidth}
       \centering
       \begin{tikzpicture}
-        \node[draw=NYCUblue,fill=lightblue,rounded corners=5pt,minimum width=5.5cm,minimum height=2.4cm,font=\small,align=center]{Purity: up to \textbf{98.66\%} ($\ell=1$),\\ $>94\%$ for $\ell\le3$\\[4pt] Valley contrast: \textbf{$>$100:1}\\ (94.13\% vs.\ 0.03\%)\\[4pt] Phase winding error: \textbf{$<1\%$} all 6};
+        \node[draw=NYCUblue,fill=lightblue,rounded corners=5pt,minimum width=5.5cm,minimum height=2.4cm,font=\small,align=center]{Purity: up to \textbf{98.66\%} ($\ell=1$),\\ $>94\%$ for $\ell\le3$\\[4pt] Valley contrast: \textbf{$>$1000:1}\\ (94.13\% vs.\ 0.03\%)\\[4pt] Phase winding error: \textbf{$<1\%$} all 6};
       \end{tikzpicture}
     \column{0.30\textwidth}
       \centering
