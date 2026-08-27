@@ -11,22 +11,24 @@ vortex beams for target modes LG$_{\ell,0}$, $\ell = 0$--$5$. Four principal fin
 
 \begin{enumerate}
 
-\item \textbf{High-purity OAM mode generation across six topological charges:} Mode purity exceeds $94\%$ for $\ell \le 3$ (peak: $98.66\%$ at $\ell = 1$) and reaches $\sim\!82\%$ for $\ell = 4, 5$ within the $4.5\,\mu$m design domain; phase winding errors are below $1\%$ for all six designs (Table~\ref{tab:results_summary}).
+\item High-purity OAM mode generation across six topological charges: Mode purity exceeds $94\%$ for $\ell \le 3$ (peak: $98.66\%$ at $\ell = 1$) and reaches $\sim\!82\%$ for $\ell = 4, 5$ within the $4.5\,\mu$m design domain; phase winding errors are below $1\%$ for all six designs (Table~\ref{tab:results_summary}).
 
-\item \textbf{Topology-driven structural diversity:} The $\ell = 2$ design uniquely self-organizes into a two-arm SPP-like spiral, while all other designs converge to free-form non-intuitive geometries (Section~\ref{ssec:spiral_emergence}).
+\item Topology-driven structural diversity: The $\ell = 2$ design uniquely self-organizes into a two-arm SPP-like spiral, while all other designs converge to free-form non-intuitive geometries (Section~\ref{ssec:spiral_emergence}).
 
-\item \textbf{Quantified valley polarization selectivity:} The $\ell = 3$ structure achieves a LCP/RCP purity contrast ratio exceeding $100{:}1$ ($94.13\%$ vs.\ $0.03\%$), providing a directly experimentally benchmarkable valley-selectivity baseline (Section~\ref{sec:pol_selectivity}).
+\item Quantified valley polarization selectivity: All five non-Gaussian designs ($\ell = 1$--$5$) demonstrate near-zero far-field purity under RCP excitation (Table~\ref{tab:rcp_selectivity}), with valley contrast ratios ranging from $\approx 3138{:}1$ ($\ell = 3$) to ${>}19592{:}1$ ($\ell = 2$), confirming that circular polarization selectivity is a robust, design-wide property and providing directly experimentally benchmarkable inter-valley discrimination baselines.
 
-\item \textbf{Near-to-far-field chirality conservation:} The near-field mixed-chirality state fully recovers to pure LCP upon entering the far-field propagation region ($z \ge z_R$), confirming spin--orbit decoupling by the nanostructure (Section~\ref{ssec:chirality_prop}).
+\item Near-to-far-field chirality conservation: The near-field mixed-chirality state fully recovers to pure LCP upon entering the far-field propagation region ($z \ge z_R$), confirming spin--orbit decoupling by the nanostructure (Section~\ref{ssec:chirality_prop}).
+
+\item Device energy efficiency: The overall device efficiency (upward fraction $X$ times modal purity $Y$) peaks at $Z = 17.11\%$ for $\ell = 0$ ($3.4\times$ the pure-air baseline of $5.04\%$) and $Z = 9.54\%$ for $\ell = 1$. For all six designs, the primary efficiency bottleneck is the upward extraction fraction $X$ rather than modal purity $Y$, identifying substrate engineering as the highest-leverage direction for future improvements (Section~\ref{sec:device_efficiency}).
 
 \end{enumerate}
 
 %===================================================================
 
-\section{Significance and Contributions}
+\section{Contributions}
 \label{sec:significance}
 
-This work addresses a previously unoccupied design space at the intersection of two active research frontiers: inverse-designed nanophotonics and valleytronics-based chiral light emission. Prior art has achieved either high LG-mode purity via passive metasurfaces or valley-locked circular polarization via TMD-integrated structures, but not both simultaneously in an ultra-compact, active platform (see Section~\ref{sec:comparison} for a quantitative comparison). The principal contribution is a verified design path that unifies active valley-polarized excitation, high-purity OAM mode shaping, and quantifiable inter-valley contrast within a single $4.5 \times 4.5\;\mu\text{m}^2$ all-dielectric footprint.
+This work addresses a previously unoccupied design space at the intersection of two active research frontiers: inverse-designed nanophotonics and valleytronics-based chiral light emission. Prior art has achieved either high LG-mode purity via passive metasurfaces or valley-locked circular polarization via TMDs-integrated structures, but not both simultaneously in an ultra-compact, active platform (see Section~\ref{sec:comparison} for a quantitative comparison). The principal contribution is a verified design path that unifies active valley-polarized excitation, high-purity OAM mode shaping, and quantifiable inter-valley contrast within a single $4.5 \times 4.5\;\mu\text{m}^2$ all-dielectric footprint.
 
 At the methodological level, the complete topology optimization workflow developed here---FDTD forward simulation, adjoint gradient computation, $\beta$-continuation binarization, and MMA-based update---is source-agnostic and mode-agnostic. It can be directly extended to other target modes (e.g., higher-order LG, Bessel, or vector beams), alternative 2D material emitters (e.g., MoSe$_2$, hBN defects), or different photonic material platforms.
 
@@ -36,10 +38,10 @@ At the level of physical understanding, the revealed discrepancy between modal p
 \section{Future Work}
 \label{sec:future_work}
 
-Building on the foundations established here, three directions offer the most immediate and high-impact extensions:
+Building on the foundations established here, four directions offer the most immediate and high-impact extensions:
 
-\textbf{(i) Scaling the design domain for high-order modes:} Enlarging the design area to $6.5\,\mu$m is expected to improve mode purity for $\ell = 4, 5$ to approximately $85\%$, meaningfully reducing the performance gap relative to the low-order designs while remaining within a practically feasible fabrication footprint. 
+(i) Scaling the design domain for high-order modes: Enlarging the design area to $6.5\,\mu$m is expected to improve mode purity for $\ell = 4, 5$ to approximately $85\%$, meaningfully reducing the performance gap relative to the low-order designs while remaining within a practically feasible fabrication footprint. 
 
-\textbf{(ii) Complete topological-charge coverage ($\ell \in [-5, 5]$):} Expanding the simulation scope to include negative orbital angular momentum modes ($\ell = -1 \text{ to } -5$) will complete the full mapping of valley-locked OAM emission, demonstrating symmetric topological-charge control enabled by the valley degree of freedom in WS$_2$.
+(ii) Complete topological-charge coverage ($\ell \in [-5, 5]$): Expanding the simulation scope to include negative orbital angular momentum modes ($\ell = -1 \text{ to } -5$) will complete the full mapping of valley-locked OAM emission, demonstrating symmetric topological-charge control enabled by the valley degree of freedom in WS$_2$.
 
-\textbf{(iii) Low-index substrate integration for enhanced device efficiency:} Replacing standard substrates with lower-refractive-index platforms (e.g., MgF$_2$, $n \approx 1.37$) can reduce substrate radiation leakage and parasitical reflections, thereby enhancing light extraction efficiency into the targeted far-field OAM modes.
+(iii) Enhanced device efficiency through substrate engineering and reflector integration: As quantified in Section~\ref{sec:device_efficiency}, the primary efficiency bottleneck is the upward extraction fraction $X$ (see Section~\ref{ssec:current_limits} for the physical mechanism). Two strategies offer the most immediate gains: (a) replacing the diamond substrate with a lower-refractive-index platform (e.g., MgF$_2$, $n \approx 1.37$, or an air-bridged GaP membrane); (b) introducing a metal back-reflector below the substrate with a carefully engineered low-index dielectric spacer to redirect downward-propagating light back upward. Either approach is expected to substantially increase $X$ and therefore the overall device efficiency $Z$.

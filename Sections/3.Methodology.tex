@@ -4,7 +4,7 @@
 
 This chapter is organized around three main themes: electromagnetic simulation, physical modeling, and topology optimization, structured as follows:
 
-3.1 introduces the numerical simulation tools (the FDTD method and the MEEP package);
+3.1 introduces the numerical simulation tools;
 
 3.2 provides a complete description of the physical model—its geometric configuration, material parameters, and source settings—presenting both the qualitative framework and the specific numerical values;
 
@@ -18,22 +18,24 @@ This chapter is organized around three main themes: electromagnetic simulation, 
 
 \subsection{Finite-Difference Time-Domain Method}
 
-Electromagnetic simulation is carried out using the finite-difference time-domain (FDTD) method to solve Maxwell's equations:
+To model the electromagnetic behavior, Maxwell's equations are numerically solved using the finite-difference time-domain (FDTD) method, first introduced by Yee in 1966\cite{yee1966numerical}:
 \begin{align}
 \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}, \qquad
 \nabla \times \mathbf{H} = \frac{\partial \mathbf{D}}{\partial t} + \mathbf{J}, \qquad
 \mathbf{B} = \mu \mathbf{H}, \qquad
 \mathbf{D} = \varepsilon \mathbf{E}
 \end{align}
-The FDTD method was proposed by Yee in 1966. It places electric and magnetic field components on staggered spatial grid nodes (Yee cells) and advances them in time using a leapfrog scheme \cite{yee1966numerical}. Numerical stability is governed by the Courant--Friedrichs--Lewy (CFL) condition:
+It places electric and magnetic field components on staggered spatial grid nodes (Yee cells) and advances them in time using a leapfrog scheme . Numerical stability is governed by the Courant--Friedrichs--Lewy (CFL) condition:
 \begin{align}
 \Delta t \le \frac{1}{c\sqrt{(1/\Delta x)^2 + (1/\Delta y)^2 + (1/\Delta z)^2}}
 \end{align}
-where $\Delta t$ is the time step, $c$ is the speed of light, and $\Delta x$, $\Delta y$, $\Delta z$ are the spatial grid sizes in each direction. The boundaries of the computational domain use perfectly matched layer (PML) absorbing boundary conditions to simulate open radiation boundaries and suppress artificial reflections \cite{berenger1994aperfecctly}.
+where $\Delta t, c$, and $\Delta x, \Delta y, \Delta z$ are the time step, speed of light, and spatial grid sizes, respectively. Perfectly matched layer (PML) absorbing boundary conditions are applied at the computational domain boundaries to mimic open radiation and suppress spurious reflections \cite{berenger1994aperfecctly}.
 
 \subsection{Simulation Environment}
 
-MEEP (MIT Electromagnetic Equation Propagation) is an open-source FDTD software package that supports arbitrary non-uniform media distributions, broadband pulse excitation, and parallel computing \cite{Oskooi2009meep}. Its adjoint optimization extension integrates the forward simulation, adjoint simulation, material interpolation, and projection mapping into a differentiable computational graph, allowing gradients of the figure of merit with respect to design variables to be efficiently computed through an automatic differentiation framework \cite{Hammond2022high}.
+MEEP—an open-source FDTD software package developed at MIT—supports arbitrary non-uniform media distributions, broadband pulse excitation, and parallel computing \cite{Oskooi2009meep}.
+
+Its adjoint optimization extension integrates the forward simulation, adjoint simulation, material interpolation, and projection mapping into a differentiable computational graph. Consequently, the figure-of-merit (FOM) gradients with respect to design variables are efficiently computed via automatic differentiation \cite{Hammond2022high}.
 
 %===================================================================
 
@@ -41,11 +43,13 @@ MEEP (MIT Electromagnetic Equation Propagation) is an open-source FDTD software 
 
 \subsection{Simulation Geometry}
 
-The simulation domain uses a three-layer vertically stacked structure (see Figures~\ref{fig:sim_geometry_a} and \ref{fig:sim_geometry_b}): at the bottom is a diamond high-index substrate ($n = 2.40$); in the middle is the monolayer $\text{WS}_2$ excitonic emission layer ($n = 2.40$, thickness set to $1/\text{resolution}$, approximating an atomically thin monolayer); on top is the topology optimization design layer composed of two materials, GaP ($n = 3.31$) and air ($n = 1$), with a design thickness of $t_{\rm design} = 0.257\;\mu\text{m}$ (corresponding to a $2\pi$ phase difference at the excitation wavelength $\lambda = 0.593\;\mu\text{m}$). A near-field monitor plane is placed just above the design layer, and PML boundaries close all sides and the top and bottom of the domain. A circularly polarized point source is embedded in the $\text{WS}_2$ layer; its radiated field travels upward through the design layer, is collected by the near-field monitor, and then propagated to the far-field observation plane via near-to-far-field transformation (N2F).
+The simulation domain uses a three-layer vertically stacked structure (see Figure~\ref{fig:sim_geometry_a}): at the bottom is a diamond high-index substrate ($n = 2.40$); in the middle is the monolayer $\text{WS}_2$ excitonic emission layer ($n = 2.40$, thickness set to $1/\text{resolution}$, approximating an atomically thin monolayer); on top is the topology optimization design layer composed of two materials, GaP ($n = 3.31$) and air ($n = 1$), with a design thickness of $t_{\rm design} = 0.257\;\mu\text{m}$ (corresponding to a $2\pi$ phase difference at the excitation wavelength $\lambda = 0.593\;\mu\text{m}$). Surrounded on all sides, top, and bottom by PML boundaries, the computational domain contains a near-field monitor plane positioned directly above the design layer. A circularly polarized point source is embedded in the $\text{WS}_2$ layer; its radiated field travels upward through the design layer, is collected by the near-field monitor, and then propagated to the far-field observation plane via near-to-far-field transformation (N2F).
 
 The lateral dimensions of the computational domain are $S_x = S_y = W_{\rm design} + 2\,d_{\rm pml}$, where the design region side length is $W_{\rm design} = 4.5\;\mu\text{m}$ and the PML layer thickness is $d_{\rm pml} = 0.3\;\mu\text{m}$. The spatial resolution is $50\;\text{grid points}/\mu\text{m}$, giving a discretized design region of $N_x \times N_y = 226 \times 226 \approx 5.1\times10^4$ design degrees of freedom, each node corresponding to an independent density design variable $\rho_j \in [0,1]$. The resulting device footprint is $W_{\rm design}^2 = 20.25\;\mu\text{m}^2$, which is comparable to the scale of reported quantum light source devices \cite{chakravarthi2020inverse}.
 
 GaP at the excitation wavelength $\lambda = 0.593\;\mu\text{m}$ lies below its indirect bandgap ($E_g \approx 2.26\;\text{eV}$), so it can be approximated as a low-loss, high-index dielectric at this wavelength, and it is compatible with electron beam lithography and reactive ion etching fabrication processes.
+
+The target far-field beam waist is set to $w_0 \approx 800\;\text{nm}$ ($\approx 1.35\lambda$). This choice balances two requirements: (i) a compact enough mode footprint so that the intensity ring peak radius $r_\text{peak} = w_0\sqrt{|\ell|/2}$ of the target LG mode remains within the $4.5\;\mu$m design aperture for all six topological charges ($\ell = 0$--$5$), and (ii) a beam waist large enough to produce a well-resolved doughnut profile at the $50\;\text{pts}/\mu$m simulation grid.
 
 \subsection{$\text{WS}_2$ Dipole Source and Valley Selection Rule}
 
@@ -105,9 +109,9 @@ The filtered density $\tilde{\rho}$ is then pushed toward binary values by a hyp
 \begin{align}
 \bar{\rho} (\mathbf{x}) = \frac{\tanh (\beta\eta) + \tanh\!\left (\beta\bigl (\tilde{\rho} (\mathbf{x})-\eta\bigr)\right)}{\tanh (\beta\eta) + \tanh\!\left (\beta (1-\eta)\right)}
 \end{align}
-where $\eta$ is the projection threshold and $\beta$ controls how sharply the projection binarizes: $\beta\to 0$ gives a grayscale distribution; $\beta\to\infty$ approaches full binary.
+where $\eta$ and $\beta$ denote the projection threshold and sharpness parameter, respectively; $\beta \to 0$ corresponds to a grayscale distribution, whereas $\beta \to \infty$ approaches a fully binary state.
 
-\textbf{$\beta$ schedule:} Starting optimization directly with a high $\beta$ value can trap the gradient descent in local minima, so a strategy of gradually increasing $\beta$ is used. $\beta$ starts at $\beta_0 = 4$, increases geometrically by a factor of $\sqrt{2}$ up to 128, and then doubles to $\beta_{\rm max} = 512$. The maximum number of iterations at each stage is set as follows: low-$\beta$ stages ($\beta \le 32$) get 12 iterations, since the smooth gradient landscape converges faster; mid-to-high-$\beta$ stages ($32 < \beta \le 512$) get 30 iterations to ensure the binarized structure converges fully. At each $\beta$ stage, the iteration result with the best FOM (best-so-far snapshot) is used as the starting structure for the next stage.
+$\beta$ schedule: Starting optimization directly with a high $\beta$ value can trap the gradient descent in local minima, so a strategy of gradually increasing $\beta$ is used. $\beta$ starts at $\beta_0 = 4$, increases geometrically by a factor of $\sqrt{2}$ up to 128, and then doubles to $\beta_{\rm max} = 512$. The maximum number of iterations at each stage is set as follows: low-$\beta$ stages ($\beta \le 32$) get 12 iterations, since the smooth gradient landscape converges faster; mid-to-high-$\beta$ stages ($32 < \beta \le 512$) get 30 iterations to ensure the binarized structure converges fully. At each $\beta$ stage, the iteration result with the best FOM (best-so-far snapshot) is used as the starting structure for the next stage.
 
 \subsection{Near-to-Far Field Transformation}
 
@@ -125,17 +129,23 @@ Inside the optimization loop, a differentiable N2F formulation is introduced so 
 
 \label{ssec:FOM}
 
-The optimization objective is to make the far-field light approach the target LG mode in the far-field monitor plane ($z = 10\,z_R$, where $z_R = \pi w_0^2/\lambda$ is the Rayleigh length). Section 3.4 will explain the definitions of the overlap integral and mode purity; here, the motivation for the FOM design is discussed.
+The optimization objective is to make the far-field light approach the target LG mode in the far-field monitor plane ($z = 10\,z_R$, where $z_R = \pi w_0^2/\lambda$ is the Rayleigh length). The key quantities are defined as follows. Given the far-field complex amplitude $\mathbf{E}_{ff} = (E_{ff,x}, E_{ff,y})$ and a power-normalized ($P_{\text{target}}=1$) LCP target mode field $\mathbf{E}_{target}$:
+\begin{align}
+P_{\text{target}} = \int_A \left( E_{t,x} E_{t,x}^* + E_{t,y} E_{t,y}^* \right) dA = 1
+\end{align}
+\begin{align}
+P_{\text{sim}} = \int_A \left( E_{\text{sim},x} E_{\text{sim},x}^* + E_{\text{sim},y} E_{\text{sim},y}^* \right) dA = \int_A \left( |E_{ff,x}|^2 + |E_{ff,y}|^2 \right) dA
+\end{align}
+\begin{align}
+\text{Overlap} = \int_A \left( E_{ff,x} E_{t,x}^* + E_{ff,y} E_{t,y}^* \right) dA \label{eq:overlap_def}
+\end{align}
+where $|\text{Overlap}|^2$ measures the absolute coupling power into the target mode, and $\text{Purity} = \dfrac{|\text{Overlap}|^2}{P_{\text{sim}} \cdot P_{\text{target}}}$ measures the mode shape fidelity normalized by total radiated power.
 
-Purity is a dimensionless ratio and is insensitive to the absolute intensity of the electromagnetic field: when the simulated total power $P_{sim}\to 0$, Purity can still remain high, which would cause the optimizer to converge to a pathological solution with very low coupling efficiency. To simultaneously account for mode shape fidelity and energy coupling efficiency, a logarithmically regularized FOM based on the absolute overlap intensity is introduced:
+Purity is a dimensionless ratio and is insensitive to the absolute intensity of the electromagnetic field: when the simulated total power $P_{\text{sim}}\to 0$, Purity can still remain high, which would cause the optimizer to converge to a pathological solution---one where the beam shape matches the target, but with near-zero output power. To simultaneously account for mode shape fidelity and energy coupling efficiency, a logarithmically regularized FOM based on the absolute overlap intensity is introduced. This logarithmic form is inspired by the cross-entropy cost function widely used in neural network training: the $\log$ term prevents the optimizer from ignoring the absolute power level, and its gradient signal remains well-conditioned even when Purity approaches 1 or $|\text{Overlap}|^2$ approaches zero, thus avoiding premature convergence to low-power pathological minima:
 \begin{align}
 \text{FOM} = \log\!\left (\text{Purity}+\epsilon\right) \;+\; \alpha\,\log\!\left (|\text{Overlap}|^2+\epsilon\right)
 \end{align}
-where $\epsilon = 10^{-30}$ is a numerical stability term. Substituting the Purity definition and using $P_{target}=1$, this simplifies to:
-\begin{align}
-\text{FOM} =  (1+\alpha)\,\log\!\left (|\text{Overlap}|^2\right) \;-\; \log\!\left (P_{sim}\right)
-\end{align}
-\textbf{Weight coefficient $\alpha$:} $\alpha$ controls how much the optimizer balances mode shape matching against absolute coupling efficiency. Too small an $\alpha$ and the optimizer tends early on to converge to a low-coupling-power local minimum; too large and it sacrifices mode purity for absolute power. A preliminary search selected $\alpha = 0.1$ as a good balance. Since the optimization minimizes the objective, the code returns $-\text{FOM}$.
+where $\epsilon = 10^{-30}$ is a numerical stability term, and $\alpha$ is a weight coefficient, controlling how much the optimizer balances mode shape matching against absolute coupling efficiency. Too small an $\alpha$ and the optimizer tends early on to converge to a low-coupling-power local minimum; too large and it sacrifices mode purity for absolute power. A preliminary search selected $\alpha = 0.1$ as a good balance. Since the optimization minimizes the objective, the code returns $-\text{FOM}$.
 
 \subsection{Adjoint Method}
 
@@ -164,26 +174,19 @@ Figure~\ref{fig:opt_flowchart} shows the complete optimization loop, covering al
 
 \label{sec:metrics}
 
-This section defines the metrics used to evaluate the performance of the optimized structures. All evaluations are based on post-processing forward simulation results of the final binarized structure $\bar{\rho}^*$, and the evaluation plane is set at $z = 10\,z_R$ ($z_R = \pi w_0^2/\lambda$ is the Rayleigh length) by default.
+With the target beam waist $w_0 \approx 800\;\text{nm}$ and excitation wavelength $\lambda = 0.593\;\mu$m, the Rayleigh length is $z_R = \pi w_0^2/\lambda \approx 3.4\;\mu$m, giving a far-field evaluation height of $10\,z_R \approx 34\;\mu$m. At this propagation distance, evanescent-wave components---confined within a few wavelengths of the nanostructure surface---have fully decayed, leaving a field dominated entirely by propagating plane-wave components; the resulting mode profile is therefore stable and unambiguous, well-suited for rigorous purity and phase-winding evaluation. Note that $34\;\mu$m still lies within the Fresnel near-field zone from a classical antenna perspective; it is therefore referred to as the \textit{effective far field} for the purpose of LG mode evaluation in this work.This section defines the metrics used to evaluate the performance of the optimized structures. All evaluations are based on post-processing forward simulation results of the final binarized structure $\bar{\rho}^*$, and the evaluation plane is set at $z = 10\,z_R$ ($z_R = \pi w_0^2/\lambda$ is the Rayleigh length) by default. 
 
 \subsection{LG Mode Projection and Mode Overlap Integral}
 
-The optimization objective is to make the far-field match a Laguerre--Gaussian (LG) beam with specific mode indices $(\ell, p)$. The full mathematical form of the LG mode complex amplitude $U_{\ell,p} (\rho,\phi,z)$ has been described in Section 2.1.3; here it is directly used to construct the left-circularly polarized (LCP) target field:
-\begin{align}
-\mathbf{E}_{target} = \frac{U_{\ell,p}}{\sqrt{2}}\hat{x} + \frac{i\,U_{\ell,p}}{\sqrt{2}}\hat{y}
-\end{align}
-Power normalization ($\int |\mathbf{E}_{target}|^2\, dA = 1$) removes the effect of absolute intensity differences, keeping the analysis focused on the phase distribution and relative intensity profile. Given the far-field complex amplitude $\mathbf{E}_{ff} =  (E_{ff,x}, E_{ff,y})$, the mode overlap integral is defined as:
-\begin{align}
-\text{Overlap} = \int_{A} \!\left (E_{ff,x}\,E_{target,x}^{*} + E_{ff,y}\,E_{target,y}^{*}\right)\! dA
-\end{align}
-
+The optimization objective is to make the far-field match a Laguerre--Gaussian (LG) beam with specific mode indices $(\ell, p)$. The full mathematical form of the LG mode complex amplitude $U_{\ell,p} (\rho,\phi,z)$ has been described in Section 2.1.3; here it is directly used to construct the left-circularly polarized (LCP) target field (equation~(3.11)); the power-normalized target field satisfies $P_{\rm target} = 1$ (equation~(3.9)). The mode overlap integral is defined in equation~(\ref{eq:overlap_def}) of Section~\ref{ssec:FOM} and is used directly here.
 \subsection{Modal Purity}
 
-Based on the overlap integral in equation (3.16), the mode purity is defined as:
+The mode purity $P_{\rm target}$ is defined via the overlap integral as given in equation~(3.14) of Section~\ref{ssec:FOM}:
+
 \begin{align}
-\text{Purity} = \frac{|\text{Overlap}|^2}{P_{sim}\cdot P_{target}}, \qquad P_{sim} = \int_A \!\left (|E_{ff,x}|^2+|E_{ff,y}|^2\right)\!dA,\quad P_{target}=1
+\text{Purity} = \frac{|\text{Overlap}|^2}{P_{\text{sim}}\cdot P_{\text{target}}}
 \end{align}
-Purity is a dimensionless ratio between 0 (complete mismatch) and 1 (perfect match), insensitive to the absolute field intensity, and is suitable for evaluating how well the final structure matches the target LG mode in shape. $|\text{Overlap}|^2$ quantifies the absolute coupling power. The two are complementary (see Section~\ref{ssec:purity_overlap} for details).
+where $P_{\rm target} = 1$ by power normalization and $P_{\text{sim}}$ is defined in equation~(3.10). Purity is a dimensionless ratio between 0 (complete mismatch) and 1 (perfect match), insensitive to absolute field intensity. The two metrics---Purity and $|\text{Overlap}|^2$---are complementary and must both be reported to fully characterize device performance (see Section~\ref{ssec:purity_overlap} for a detailed analysis of their decoupling behavior at high topological charges).
 
 \subsection{Phase Winding Verification}
 
@@ -206,7 +209,6 @@ The optical chirality density (defined in equations (3.4)--(3.6)) is evaluated a
 
 In addition, to analyze how chirality evolves along the propagation axis, the chirality density distribution is computed at 20 cross-sections, $z = k\cdot z_R$ ($k = 0.0, 0.1, \dots, 1.0, 2.0, \dots, 10.0$), building a complete picture of the evolution from near field to far field (see Section~\ref{ssec:chirality_prop}).
 
-
 \begin{figure}[htb]
 \centering
     \includegraphics[width=1.0\textwidth]{img/xz_structure_waist.png}
@@ -216,15 +218,7 @@ In addition, to analyze how chirality evolves along the propagation axis, the ch
 
 \begin{figure}[htb]
 \centering
-    \includegraphics[width=0.75\textwidth]{img/xz_structure.png}
-\caption{Cross-sectional diagram of the simulation computational domain showing the spatial coordinate system and the target far-field observation height for the near-to-far-field transformation projection.}
-\label{fig:sim_geometry_b}
-\end{figure}
-
-
-\begin{figure}[htb]
-\centering
-\includegraphics[width=1.0\textwidth]{img/to_workflow.png}
+\includegraphics[width=1.0\textwidth,height=18cm,keepaspectratio]{img/workflow.png}
 \caption{Topology optimization iteration flowchart. Each iteration performs, in order: forward FDTD simulation, N2F far-field transformation, FOM calculation, adjoint simulation, chain-rule gradient computation, and MMA update. After reaching the iteration limit, if $\beta < \beta_{\rm max}$, $\beta$ is increased and optimization continues (progressive binarization); once $\beta = \beta_{\rm max} = 512$ and convergence is reached, the final binarized structure $\bar{\rho}^*$ is output.}
 \label{fig:opt_flowchart}
 \end{figure}

@@ -8,7 +8,7 @@
 
 Traditional optical communications rely on spatial, temporal, wavelength, amplitude, and polarization degrees of freedom to encode information. However, as global data traffic continues to grow at an explosive rate, multiplexing systems built on these conventional degrees of freedom are running into practical engineering limits in terms of spectral efficiency, power consumption, and system complexity. This has pushed researchers to look for new ways to modulate light fields in multiple dimensions, which is now a key direction for next-generation optical communications.
 
-Among the emerging light-field degrees of freedom, orbital angular momentum (OAM) has attracted broad attention because of its unique helical phase structure. A beam carrying OAM has a phase that varies with the azimuthal angle—described by a topological charge $\ell$ that can in principle take any integer value. Because OAM modes with different topological charges are mutually orthogonal, they provide an additional set of spatial mode channels for multiplexing, boosting spectral efficiency without consuming extra spectral bandwidth.
+Among the emerging light-field degrees of freedom, orbital angular momentum (OAM) has attracted broad attention because of its unique helical phase structure. An OAM-carrying beam exhibits an azimuthally dependent phase profile characterized by an integer topological charge $\ell$. Owing to the mutual orthogonality among modes with distinct $\ell$, OAM offers an extra spatial degree of freedom for multiplexing, significantly enhancing spectral efficiency without requiring additional bandwidth.
 
 This OAM technology for free-space optical communications and wireless transmission has been widely demonstrated in the literature; the comprehensive review by Willner et al. solidified OAM's role as a key enabler for next-generation high-capacity optical communications \cite{willner2015optical}. Beyond classical communications, OAM beams also show great promise in cutting-edge photonic applications such as high-dimensional quantum information processing.
 
@@ -22,39 +22,37 @@ This OAM technology for free-space optical communications and wireless transmiss
 
 \subsection{Need for Chip-scale OAM Emitters}
 
-Although many methods exist for generating OAM beams—including spiral phase plates, spatial light modulators, and computer-generated holograms—these approaches typically rely on bulky free-space optical components that are difficult to miniaturize. This not only limits the response speed of active devices but also makes them hard to integrate into compact photonic integrated circuits and on-chip light sources.
+While various approaches have been developed to generate OAM beams, they typically rely on bulky free-space optical components that are difficult to miniaturize. This not only limits the response speed of active devices but also makes them hard to integrate into compact photonic integrated circuits and on-chip light sources.
 
-Metasurfaces have emerged as a breakthrough solution for chip-scale light-field control. By using sub-wavelength nanostructure arrays to precisely tailor the amplitude, phase, and polarization of incident light at each point, metasurfaces can reproduce the functions of traditional macroscopic optical elements within a two-dimensional interface only a few hundred nanometers thick. Among them, the Pancharatnam-Berry metasurface has become one of the most widely used chip-scale OAM generation methods due to their simple phase-encoding mechanism and good manufacturing tolerances.
+To address these limitations, metasurfaces offer a viable approach to manipulating light fields at the chip scale. Sub-wavelength manipulation of optical amplitude, phase, and polarization allows metasurfaces to  reproduce the functions of traditional macroscopic optical elements within a two-dimensional interface only a few hundred nanometers thick. Among them, the Pancharatnam-Berry metasurface has become one of the most widely used chip-scale OAM generation methods due to their simple phase-encoding mechanism and good manufacturing tolerances.
 
 However, metasurfaces are fundamentally passive wavefront converters—they require an external light source and cannot actively generate chiral light fields on their own. This raises a key challenge: how to integrate an active material with natural light-emitting capability together with nanostructures at the chip scale, so as to realize an active, on-chip chiral light source.
 
 \subsection{Active Chiral Light Sources}
 
-To build an active chip-scale light source, we need to bring in a material that can naturally emit chiral light. Monolayer two-dimensional transition metal dichalcogenides (TMDs)—such as MoS$_2$ and WS$_2$—are direct-bandgap semiconductors. Their unique crystal structure gives rise to special valley-optical properties, creating a direct link between the internal electronic states and the polarization of the emitted light. This allows monolayer TMDs to emit circularly polarized light with a specific handedness under optical excitation or electrical injection, making them a natural platform for next-generation photonic devices. This has made monolayer TMDs a hot research topic for developing solid-state chiral light sources.
+Realizing an active, chip-scale light source requires integrating an intrinsic emitter of chiral light. Monolayer transition metal dichalcogenides (TMDs) serve as ideal direct-bandgap semiconductor platforms. Their unique crystal structure gives rise to special valley-optical properties, creating a direct link between the internal electronic states and the polarization of the emitted light. This allows monolayer TMDs to emit circularly polarized light with a specific handedness under optical excitation or electrical injection, making them a natural platform for next-generation photonic devices. This has made monolayer TMDs a hot research topic for developing solid-state chiral light sources.
 
 \subsection{Toward Active Valley-controlled OAM Sources}
 
-Combining the valley-polarized active emission of monolayer TMDs with compactly integrated metasurfaces provides a complete physical link for chip-scale conversion from spin angular momentum (SAM) to OAM. In the ideal picture, valley-polarized emission from a monolayer TMD carries a specific SAM; this is then converted into a specific OAM mode through geometric-phase control in a compactly integrated metasurface.
+Combining the valley-polarized active emission of monolayer TMDs with compactly integrated metasurfaces provides a complete physical link for chip-scale spin-to-orbital angular momentum (SAM-to-OAM) conversion. Ideally, the valley-polarized emission from a monolayer TMDs carries a specific SAM; this is then converted into a specific OAM mode through geometric-phase control in a compactly integrated metasurface.
 
-This hybrid architecture—combining an active 2D material with a passive nanostructure—inherits the unique valleytronic degree of freedom from the 2D material while also exploiting the metasurface's ability to manipulate wavefronts at the sub-wavelength scale. It represents an ideal path toward highly integrated, actively tunable, chip-scale OAM emitters.
+This hybrid architecture—combining an active 2D material with a passive nanostructure—inherits the unique valleytronic degree of freedom from the 2D material while exploiting sub-wavelength wavefront manipulation by the metasurface, providing an ideal path toward highly integrated, actively valley-controlled, chip-scale OAM emitters.
 
 \section{Motivation}
 
-Although the preceding subsections have outlined the application potential of OAM beams and the spin--valley locking and chiral emission mechanisms of monolayer TMDs, realizing these on a chip still faces multiple challenges: insufficient device integration in existing platforms, limited valley-polarization purity, the restricted geometric freedom of conventional forward-designed metasurfaces, and the lack of an active nanophotonic architecture that simultaneously offers valley selectivity and high-degree-of-freedom wavefront control. The technical origins of these challenges and the relevant literature will be reviewed in detail in Chapter 2; this section only provides a brief overview of the motivation to introduce the core objectives of this work.
+Although the preceding subsections have outlined the application potential of OAM beams and the spin--valley locking and chiral emission mechanisms of monolayer TMDs, realizing these on a chip still faces multiple challenges: insufficient device integration in existing platforms, limited valley-polarization purity, the restricted geometric freedom of conventional forward-designed metasurfaces, and the lack of an active nanophotonic architecture that simultaneously offers valley selectivity and high-degree-of-freedom wavefront control. The technical origins of these challenges and the relevant literature will be reviewed in detail in Chapter 2; This section briefly outlines the research motivation to introduce the core objectives of this work.
 
-\section{Research Objectives and Contributions}
+\section{Research Objectives}
 
-The core goal of this work is to establish an inverse-design platform for an all-dielectric metasurface, and to explore how valley-polarized emission from monolayer TMDs can be converted into high-purity OAM beams.
+This work aims to establish an inverse-design platform for an all-dielectric metasurface, and to explore how valley-polarized emission from monolayer TMDs can be converted into high-purity OAM beams.
 
-To achieve this, we first build a three-dimensional numerical simulation framework that integrates a monolayer TMD emitter, an all-dielectric metasurface, and near-to-far-field analysis. Based on this platform, we further develop a topology optimization method using the adjoint-variable method to expand the spatial geometric degrees of freedom, and use it to inversely design a valley-controlled OAM emitter.
+To achieve this, we first build a three-dimensional numerical simulation framework that integrates a monolayer TMDs emitter, an all-dielectric metasurface, and near-to-far-field analysis. Based on this platform, we further develop an adjoint-based topology optimization scheme to expand spatial geometric degrees of freedom, and use it to inversely design a valley-controlled OAM emitter.
 
-During optimization, the far-field Laguerre--Gaussian mode purity and the intensity overlap integral between the simulation and the ideal target are included as core performance metrics to evaluate and improve the quality of the generated OAM modes. Finally, the optimized structure is analyzed to understand the spin-to-orbit conversion and mode-formation mechanisms, establishing a complete research workflow from numerical design and performance evaluation to physical interpretation.
+During optimization, the far-field Laguerre--Gaussian mode purity and the intensity overlap integral between the simulation and the ideal target are included as core performance metrics to evaluate and improve the fidelity of the generated OAM modes.  Subsequently, the resulting structure is analyzed to understand the spin-to-orbit conversion and mode-formation mechanisms, establishing a complete research workflow from numerical design and performance evaluation to physical interpretation.
 
 \section{Thesis Organization}
 
-This thesis is organized as follows:
-
-Chapter 1 introduces the research background, motivation, objectives, contributions, and the overall structure of the thesis.
+Chapter 1 outlines the research background, motivation, objectives, and primary contributions of the thesis.
 
 Chapter 2 systematically reviews the theory of orbital angular momentum, valley-selective emission in monolayer TMDs, metasurface-based OAM generation, and related inverse design methods.
 
@@ -62,6 +60,6 @@ Chapter 3 describes in detail the numerical simulation framework, physical model
 
 Chapter 4 presents the optimized device structures and evaluates their optical performance through near-field and far-field analysis.
 
-Chapter 5 discusses the physical mechanisms behind OAM mode generation, compares the results with prior work, and examines the limitations of the method and future research directions.
+Chapter 5 discusses the physical mechanisms behind OAM mode generation, compares the results with prior work, and examines both current limitations and prospects for future research.
 
-Chapter 6 summarizes the main findings of the thesis and outlines potential directions for future work.
+Chapter 6 summarizes the research findings and proposes directions for future research, serving as the conclusion of the thesis.
